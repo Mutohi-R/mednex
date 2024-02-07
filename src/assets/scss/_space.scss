@@ -1,0 +1,27 @@
+@use 'node_modules/utopia-core-scss/src/utopia' as utopia;
+
+:root {
+    @include utopia.generateSpaceScale((
+        "minWidth": 320,
+        "maxWidth": 1100,
+        "minSize": 18,
+        "maxSize": 22,
+        "positiveSteps": (1.25, 1.5, 2, 3, 4, 5),
+        "negativeSteps": (0.75, 0.5, 0.25),
+        "customSizes": ("s-l", "m-xl"),
+        "prefix": "space-",
+        "relativeTo": "container",
+    ));
+}
+
+$spaces: (
+    'xxs': var(--space-xxs),
+    'xs': var(--space-xs),
+    's': var(--space-s),
+    'm': var(--space-m),
+    'l': var(--space-l),
+    'xl': var(--space-xl),
+    'xxl': var(--space-xxl),
+    's-l': var(--space-s-l),
+    'm-xl': var(--space-m-xl),
+)
