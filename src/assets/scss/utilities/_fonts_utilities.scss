@@ -1,0 +1,22 @@
+@use '@/assets/scss/abstracts/_fonts' as *;
+
+// FONT FAMILY UTILITY CLASSES
+@each $font, $value in $font-families {
+    .ff-#{$font} {
+        font-family: var(--ff-#{$font});
+    }
+}
+
+// FONT SIZE UTILITY CLASSES
+@each $font, $value in $font-sizes {
+    .fs-#{$font} {
+        font-size: $value;
+    }
+}
+
+// FONT WEIGHT UTILITY CLASSES
+@each $weight, $value in $font-weights {
+    .fw-#{$weight} {
+        font-weight: $value;
+    }
+}

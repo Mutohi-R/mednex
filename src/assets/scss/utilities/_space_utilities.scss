@@ -1,0 +1,8 @@
+@use '@/assets/scss/abstracts/_space' as *;
+
+// SPACE(gap) UTILITY CLASSES
+@each $space, $value in $spaces {
+    .gap-space-#{$space} {
+        gap: $value;
+    }
+}

@@ -44,11 +44,3 @@ $colors: (
         500: hsl(25, 97%, 41%),
     )
 );
-
-:root{
-    @each $color, $shades in $colors {
-        @each $shade, $value in $shades {
-            --clr-#{$color}-#{$shade}: #{$value};
-        }
-    }
-}

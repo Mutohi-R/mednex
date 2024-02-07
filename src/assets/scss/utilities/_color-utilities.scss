@@ -1,0 +1,13 @@
+@use '@/assets/scss/abstracts/_colors' as *;
+
+// COLORS UTILITY CLASSES
+@each $color, $shades in $colors {
+    @each $shade, $value in $shades {
+        .text-clr-#{$color}-#{$shade} {
+            color: var(--clr-#{$color}-#{$shade});
+        }
+        .bg-clr-#{$color}-#{$shade} {
+            background-color: var(--clr-#{$color}-#{$shade});
+        }
+    }
+}

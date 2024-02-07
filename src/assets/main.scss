@@ -1,45 +1,4 @@
-@use '@/assets/scss/_reset';
-@use '@/assets/scss/_colors' as *;
-@use '@/assets/scss/_fonts' as *;
-@use '@/assets/scss/_space' as *;
-
-
-// COLORS UTILITY CLASSES
-@each $color, $shades in $colors {
-    @each $shade, $value in $shades {
-        .text-clr-#{$color}-#{$shade} {
-            color: var(--clr-#{$color}-#{$shade});
-        }
-        .bg-clr-#{$color}-#{$shade} {
-            background-color: var(--clr-#{$color}-#{$shade});
-        }
-    }
-}
-
-// FONT FAMILY UTILITY CLASSES
-@each $font, $value in $font-families {
-    .ff-#{$font} {
-        font-family: var(--ff-#{$font});
-    }
-}
-
-// FONT SIZE UTILITY CLASSES
-@each $font, $value in $font-sizes {
-    .fs-#{$font} {
-        font-size: $value;
-    }
-}
-
-// FONT WEIGHT UTILITY CLASSES
-@each $weight, $value in $font-weights {
-    .fw-#{$weight} {
-        font-weight: $value;
-    }
-}
-
-// SPACE(gap) UTILITY CLASSES
-@each $space, $value in $spaces {
-    .gap-space-#{$space} {
-        gap: $value;
-    }
-}
+@use '@/assets/scss/base/_reset';
+@use '@/assets/scss/base/_root';
+@use '@/assets/scss/base/_composition';
+@use '@/assets/scss/utilities/_index';
