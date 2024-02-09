@@ -1,48 +1,29 @@
-<script setup lang="ts">
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
-import { faHouse } from '@fortawesome/free-solid-svg-icons';
-</script>
-
 <template>
-  <div class="content-grid">
-    <h1 class="text-center breakout fw-semibold ff-base fs-700 text-clr-accent-500 bg-clr-secondary-500">statinhg yhe padfs</h1>
-  </div>
-  <FontAwesomeIcon class="envelope" :icon="faEnvelope" />
-  
-<div class="flex gap-space-s">
-  
-    <p>hello</p>
-    <p>hello</p>
-    <p>hello</p>
-    <p>hello</p>
-
-  </div>
-  <h1 class="h1">This is an H1 tag.</h1>
-  <h2 class="h2">This is an H2 tag.</h2>
-  <h3 class="h3">This is an H3 tag.</h3>
-  <div class="flex flex-wrap items-center gap-space-s-l">
-    <button class="button" data-type="primary">
-      <FontAwesomeIcon class="house" :icon="faHouse" />Primary</button>
-    <button class="button" data-type="secondary">
-      <FontAwesomeIcon class="house" :icon="faHouse" />Secondary</button>
-    <button class="button" data-type="tertiary">
-      <FontAwesomeIcon class="house" :icon="faHouse" />Tertiary</button>
-    <button class="button" disabled data-type="primary">P dis</button>
-    <button class="button" disabled data-type="secondary">sec dis</button>
-  </div>
-
-  <input class="input" type="text" placeholder="this is an input">
+  <nav-bar></nav-bar>
+  <main>
+    <section class="hero | bg-clr-primary-400 text-clr-neutral-100">
+      <div>
+        <h1 class="h1 fw-semibold">Discover healthcare near you</h1>
+        <p class="h3">Search, export, and share hospitals in your region</p>
+      </div>
+    </section>
+  </main>
 </template>
 
-<style scoped>
-h1{
-  /* font-family: var(--ff-accent); */
-  /* font-size: var(--fs-800); */
-  /* color: var(--clr-primary-400); */
-}
+<script setup lang="ts">
+  import NavBar from './components/NavBar.vue';
+  import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+  import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
+  import { faHouse } from '@fortawesome/free-solid-svg-icons';
+  import { faBell } from '@fortawesome/free-regular-svg-icons';
+</script>
 
-.envelope {
-  color: var(--clr-primary-900);
+<style scoped>
+.hero {
+  padding-block: 8rem 4.6rem;
+  /* background-image: linear-gradient(
+    var(--clr-primary-400) 50%,
+    var(--clr-secondary-100) 50%
+  ); */
 }
 </style>
