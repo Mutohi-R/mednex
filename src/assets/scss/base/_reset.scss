@@ -41,6 +41,12 @@ label {
   line-height: 1.1;
 }
 
+/* Make input and text area more responsive */
+input,
+textarea {
+  min-width: 0;
+}
+
 /* A elements that don't have a class get default styles */
 a:not([class]) {
   text-decoration-skip-ink: auto;
