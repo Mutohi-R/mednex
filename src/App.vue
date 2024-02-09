@@ -9,7 +9,7 @@ import { faHouse } from '@fortawesome/free-solid-svg-icons';
     <h1 class="text-center breakout fw-semibold ff-base fs-700 text-clr-accent-500 bg-clr-secondary-500">statinhg yhe padfs</h1>
   </div>
   <FontAwesomeIcon class="envelope" :icon="faEnvelope" />
-  <FontAwesomeIcon class="house" :icon="faHouse" />
+  
 <div class="flex gap-space-s">
   
     <p>hello</p>
@@ -18,10 +18,16 @@ import { faHouse } from '@fortawesome/free-solid-svg-icons';
     <p>hello</p>
 
   </div>
-  <div class="flex items-center gap-space-m">
-    <button class="button" data-type="primary">Primary</button>
-    <button class="button" data-type="secondary">Secondary</button>
-    <button class="button" data-type="tertiary">Tertiary</button>
+  <h1 class="h1">This is an H1 tag.</h1>
+  <h2 class="h2">This is an H2 tag.</h2>
+  <h3 class="h3">This is an H3 tag.</h3>
+  <div class="flex flex-wrap items-center gap-space-s-l">
+    <button class="button" data-type="primary">
+      <FontAwesomeIcon class="house" :icon="faHouse" />Primary</button>
+    <button class="button" data-type="secondary">
+      <FontAwesomeIcon class="house" :icon="faHouse" />Secondary</button>
+    <button class="button" data-type="tertiary">
+      <FontAwesomeIcon class="house" :icon="faHouse" />Tertiary</button>
     <button class="button" disabled data-type="primary">P dis</button>
     <button class="button" disabled data-type="secondary">sec dis</button>
   </div>
