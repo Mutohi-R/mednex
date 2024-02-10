@@ -9,7 +9,7 @@
                     </li>
                     <li class="profile__icon"></li>
                 </ul>
-                <ul role="list" class="nav__action | flex gap-space-xs">
+                <ul role="list" class="nav__action | flex items-center gap-space-xs">
                     <li>
                         <button class="button" data-type="primary">Sign Up</button>
                     </li>

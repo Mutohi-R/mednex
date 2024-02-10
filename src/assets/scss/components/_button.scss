@@ -8,7 +8,7 @@
     font-weight: var(--fw-bold);
     text-decoration: none;
     border: none;
-    border-radius: 0.5rem;
+    border-radius: 100vw;
     cursor: pointer;
   
     &:where([data-type="primary"]) {
