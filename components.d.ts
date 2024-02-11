@@ -7,6 +7,8 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    HospitalCard: typeof import('./src/components/HospitalCard.vue')['default']
+    HospitalList: typeof import('./src/components/HospitalList.vue')['default']
     IClarityNotificationLine: typeof import('~icons/clarity/notification-line')['default']
     IMdiCaretDown: typeof import('~icons/mdi/caret-down')['default']
     IMdiCaretUp: typeof import('~icons/mdi/caret-up')['default']
@@ -14,7 +16,9 @@ declare module 'vue' {
     IMingcuteDown: typeof import('~icons/mingcute/down')['default']
     IMingcuteDownFill: typeof import('~icons/mingcute/down-fill')['default']
     LocationSelect: typeof import('./src/components/LocationSelect.vue')['default']
+    Login: typeof import('./src/components/Login.vue')['default']
     Logo: typeof import('./src/components/Logo.vue')['default']
     NavBar: typeof import('./src/components/NavBar.vue')['default']
+    SignUp: typeof import('./src/components/SignUp.vue')['default']
   }
 }

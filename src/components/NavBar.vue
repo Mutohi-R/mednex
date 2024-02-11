@@ -41,13 +41,13 @@
 .nav__list {
     .list__icon {
         font-size: 2rem;
-        color: var(--clr-primary-800);
+        color: var(--clr-primary-700);
     }
 
     .profile__icon {
         width: 3rem;
         aspect-ratio: 1;
-        border: 2px solid var(--clr-primary-800);
+        border: 2px solid var(--clr-primary-700);
         border-radius: 50%;
     }
 }

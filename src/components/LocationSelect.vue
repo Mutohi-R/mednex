@@ -5,7 +5,7 @@
             <i-mingcute-down-fill width="32" height="32"/>
         </div>
         <div 
-          class="options__wrapper"
+          class="options__wrapper | flow"
           v-if="isDropDownVisible"
         >
             <div 
@@ -14,7 +14,7 @@
               :key="index"
               @click="toggleOptionSelect(option)"
             >
-                {{ option }}
+                <p>{{ option }}</p>
             </div>
         </div>
     </div>
@@ -66,8 +66,23 @@ onBeforeUnmount(() => {
 
     .options__wrapper {
         position: absolute;
+        top: 3rem;
         width: 100%;
+        padding: 1rem;
         background: var(--clr-neutral-200);
+        border-radius: .5rem;
+
+        p {
+            padding: .5rem;
+            background-color: var(--clr-neutral-100);
+            border-radius: .5rem;
+
+            &:hover {
+                color: var(--clr-neutral-100);
+                background-color: var(--clr-neutral-300);
+                cursor: pointer;
+            }
+        }
     }
 }
 </style>

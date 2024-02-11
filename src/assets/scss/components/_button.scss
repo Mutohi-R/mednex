@@ -12,7 +12,7 @@
     cursor: pointer;
   
     &:where([data-type="primary"]) {
-      background-color: var(--clr-primary-800);
+      background-color: var(--clr-primary-700);
       color: var(--clr-neutral-100);
       box-shadow: 3px 4px 8px 0px hsla(296, 13%, 26%, 0.15);
   
@@ -31,9 +31,9 @@
     
     &:where([data-type="secondary"]) {
       background-color: transparent;
-      color: var(--clr-primary-800);
+      color: var(--clr-primary-700);
       box-shadow: 3px 4px 8px 0px hsla(296, 13%, 26%, 0.15);
-      border: 1px solid var(--clr-primary-800);
+      border: 1px solid var(--clr-primary-700);
   
       &:hover {
         background-color: var(--clr-neutral-100);
@@ -54,7 +54,7 @@
   
     &:where([data-type="tertiary"]) {
       background-color: transparent;
-      color: var(--clr-primary-800);
+      color: var(--clr-primary-700);
       border: none;
       padding: 0;
   
