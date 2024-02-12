@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { auth } from "../../firebase/firebase";
+import { auth } from "@/firebase/firebase";
 import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
@@ -28,7 +28,8 @@ export const useAuthStore = defineStore('auth', {
 
         async signup(email: string, password: string): Promise<void> {
             try {
-                await createUserWithEmailAndPassword(auth, email, password);
+                const userCred = await createUserWithEmailAndPassword(auth, email, password);
+                console.log(userCred);
             } catch (err) {
                 if (err instanceof Error) {
                     console.error(err);
@@ -38,7 +39,8 @@ export const useAuthStore = defineStore('auth', {
 
         async login(email: string, password: string): Promise<void> {
             try {
-                await signInWithEmailAndPassword(auth, email, password);
+                const userCred = await signInWithEmailAndPassword(auth, email, password);
+                console.log(userCred)
             } catch (err) {
                 if (err instanceof Error) {
                     console.error(err);
@@ -59,7 +61,8 @@ export const useAuthStore = defineStore('auth', {
 
         async logout(): Promise<void> {
             try {
-                await signOut(auth);
+                const userCred = await signOut(auth);
+                console.log(userCred)
             } catch (err) {
                 if (err instanceof Error) {
                     console.error(err);

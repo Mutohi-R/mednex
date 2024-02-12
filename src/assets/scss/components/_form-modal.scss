@@ -1,0 +1,164 @@
+.register {
+    width: min(900px, 90%);
+    margin-block: auto;
+    margin-inline: auto;
+    border-radius: 6px;
+
+    &::-webkit-scrollbar {
+        width: 5px;
+        height: 5px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: var(--clr-neutral-300);
+        border-radius: 5px;
+    }
+}
+
+dialog::backdrop {
+    background: hsl(230, 14%, 28%, .6);
+    backdrop-filter: blur(0.25rem);
+    -webkit-backdrop-filter: blur(0.25rem);
+}
+
+.register__modal {
+    display: grid;
+    grid-template-columns: 1fr 40%;
+    color: var(--clr-neutral-400);
+
+    .content {
+        display: grid;
+        gap: 1rem;
+        position: relative;
+        width: 80%;
+        margin-inline: auto;
+        padding-block: 1rem;
+
+        .heading {
+            display: grid;
+            gap: .5rem;
+
+            h2 {
+                font-size: var(--fs-600);
+                font-weight: var(--fw-bold);
+                color: var(--clr-primary-500);
+            } 
+
+            p {
+                font-size: var(--fs-300);
+            }
+        }
+
+        .return__icon {
+            position: absolute;
+            top: 1rem;
+            left: -2rem;
+            color: var(--clr-primary-600);
+            
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+
+    .sidebar {
+        display: flex;
+        align-items: end;
+        gap: .5rem;
+        padding: 1rem;
+        background: var(--clr-secondary-100) url("@/assets/images/mednex-mono.svg");
+        background-repeat: no-repeat;
+        background-size: auto 100%; 
+        background-position: top -50px left -10px;       
+
+        p {
+            display: flex;
+            font-family: var(--ff-accent);
+            font-size: var(--fs-300);
+            color: var(--clr-neutral-400);
+            text-align: start;
+        }
+    }
+}
+
+.form {
+    display: grid;
+    gap: .6rem;
+
+    .form__group {
+        display: grid;
+        gap: .25rem;
+
+        label {
+            font-size: var(--fs-200);
+            color: var(--clr-neutral-600)
+        }
+
+        input {
+            width: 100%;
+            padding: 0.75rem 1rem;            
+            font-weight: var(--fw-semibold);
+            color: var(--clr-neutral-500);
+            border: 1px solid var(--clr-neutral-300);
+            border-radius: 4px;
+
+            &:is(:focus, :hover) {
+                outline: 1px solid var(--clr-neutral-500);
+              }
+            
+              &:disabled {
+                background-color: var(--clr-neutral-100);
+              }
+            
+              &[data-type="invalid"] {
+                border: 1px solid var(--clr-error-400);
+                background-color: var(--clr-error-100);
+              }
+            
+              &[data-type="valid"] {
+                border: 1px solid var(--clr-success-400);
+              }
+        }
+    }
+
+    button {
+        &.main__btn {
+            padding: 1rem;
+        }
+
+        font-size: var(--fs-300);
+        border-radius: 0.25rem;
+    }
+
+    .conditions {
+        font-size: var(--fs-200);
+
+        button {
+            font-size: var(--fs-200);
+        }
+    }
+
+    .or {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: .25rem;
+
+        &::before, 
+        &::after {
+        content: "";
+        display: block;
+        width: 35%;
+        height: 1px;
+        background-color: var(--clr-primary-400);
+        }
+    }
+
+    .form__footer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: .5rem;
+        font-size: var(--fs-300);
+    }
+}

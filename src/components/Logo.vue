@@ -13,7 +13,7 @@
     p {
         font-size: 2rem;
         font-family: 'Oleo Script Swash Caps', system-ui;
-        color: var(--clr-primary-700);
+        color: var(--clr-primary-600);
     }
 }
     // font-family: 'Oleo Script Swash Caps', system-ui;

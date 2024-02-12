@@ -1,5 +1,4 @@
 <template>
-    <nav-bar></nav-bar>
     <main>
         <section class="hero | content-grid | bg-clr-primary-500 text-clr-neutral-100">
         <div class="flow breakout">
@@ -23,8 +22,7 @@
 
 <script setup lang="ts">
   import { ref } from 'vue';
-  import NavBar from '../components/NavBar.vue'
-  import LocationSelect from '../components/LocationSelect.vue';
+  import LocationSelect from '@/components/LocationSelect.vue';
   import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
   const options = ref<string[]>(['Lagos', 'Abuja', 'Kano', 'Ogun'])

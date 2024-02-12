@@ -10,6 +10,7 @@ declare module 'vue' {
     HospitalCard: typeof import('./src/components/HospitalCard.vue')['default']
     HospitalList: typeof import('./src/components/HospitalList.vue')['default']
     IClarityNotificationLine: typeof import('~icons/clarity/notification-line')['default']
+    IIconParkOutlineBack: typeof import('~icons/icon-park-outline/back')['default']
     IMdiCaretDown: typeof import('~icons/mdi/caret-down')['default']
     IMdiCaretUp: typeof import('~icons/mdi/caret-up')['default']
     IMin: typeof import('~icons/mi/n')['default']
@@ -19,6 +20,8 @@ declare module 'vue' {
     Login: typeof import('./src/components/Login.vue')['default']
     Logo: typeof import('./src/components/Logo.vue')['default']
     NavBar: typeof import('./src/components/NavBar.vue')['default']
+    RouterLink: typeof import('vue-router')['RouterLink']
+    RouterView: typeof import('vue-router')['RouterView']
     SignUp: typeof import('./src/components/SignUp.vue')['default']
   }
 }
