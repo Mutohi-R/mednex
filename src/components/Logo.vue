@@ -16,5 +16,4 @@
         color: var(--clr-primary-600);
     }
 }
-    // font-family: 'Oleo Script Swash Caps', system-ui;
 </style>

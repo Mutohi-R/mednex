@@ -7,10 +7,15 @@ import {
     onAuthStateChanged,
 } from "firebase/auth";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { useToast } from "vue-toastification";
 
 export const useAuthStore = defineStore('auth', {
     state: () => ({
-        
+        isAuthenticated: false,
+        errors: {
+            emailInUse: false,
+            invalidCred: false,
+        }
     }),
     getters: {
         
@@ -18,7 +23,16 @@ export const useAuthStore = defineStore('auth', {
     actions: {
         init(): void {
             try {
-
+                onAuthStateChanged(auth, (user) => {
+                    if (user) {
+                        this.isAuthenticated = true;
+                        console.log('auth',this.isAuthenticated);
+                    } else {
+                        console.log('No user', user);
+                        this.isAuthenticated = false;
+                        console.log('auth',this.isAuthenticated);
+                    }
+                })
             } catch (err) {
                 if (err instanceof Error) {
                     console.error(err);
@@ -29,7 +43,8 @@ export const useAuthStore = defineStore('auth', {
         async signup(email: string, password: string): Promise<void> {
             try {
                 const userCred = await createUserWithEmailAndPassword(auth, email, password);
-                console.log(userCred);
+                const toast = useToast()
+                toast.success('Sign up successful')
             } catch (err) {
                 if (err instanceof Error) {
                     console.error(err);
@@ -40,7 +55,8 @@ export const useAuthStore = defineStore('auth', {
         async login(email: string, password: string): Promise<void> {
             try {
                 const userCred = await signInWithEmailAndPassword(auth, email, password);
-                console.log(userCred)
+                const toast = useToast()
+                toast.success('Logged in')
             } catch (err) {
                 if (err instanceof Error) {
                     console.error(err);
@@ -62,7 +78,9 @@ export const useAuthStore = defineStore('auth', {
         async logout(): Promise<void> {
             try {
                 const userCred = await signOut(auth);
-                console.log(userCred)
+                // this.isAuthenticated = false;
+                const toast = useToast()
+                toast.success('Logged out')
             } catch (err) {
                 if (err instanceof Error) {
                     console.error(err);

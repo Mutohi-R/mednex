@@ -1,15 +1,21 @@
 <template>
   <header class="primary__header | content-grid">
     <div class="breakout | flex items-center gap-space-s justify-between">
-      <Logo />
+      <div class="flex items-center gap-space-2xs">
+        <i-ci-hamburger-lg v-if="isAuthenticated" class="hamburger"/>
+        <Logo />
+      </div>
       <nav class="primary__nav | flex gap-space-xs">
-        <ul role="list" class="nav__list | flex items-center gap-space-xs">
+        <ul v-if="isAuthenticated" role="list" class="nav__list | flex items-center gap-space-xs">
+          <li class="list__icon">
+            <FontAwesomeIcon class="bell" :icon="faEnvelope" />
+          </li>
           <li class="list__icon">
             <FontAwesomeIcon class="bell" :icon="faBell" />
           </li>
           <li class="profile__icon"></li>
         </ul>
-        <ul role="list" class="nav__action | flex items-center gap-space-xs">
+        <ul v-if="!isAuthenticated" role="list" class="nav__action | flex items-center gap-space-xs">
           <li>
             <button class="button" data-type="primary" @click="$emit('openSignup')">Sign Up</button>
           </li>
@@ -27,14 +33,17 @@
 
 <script setup lang="ts">
 import { ref, defineEmits } from "vue";
+import { storeToRefs } from "pinia";
 import { useAuthStore } from "@/stores/AuthStore";
 
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import { faBell } from "@fortawesome/free-regular-svg-icons";
+import { faBell, faEnvelope } from "@fortawesome/free-regular-svg-icons";
 import Logo from "./Logo.vue";
 
 const authStore = useAuthStore()
+const { isAuthenticated } = storeToRefs(authStore)
 const emit = defineEmits(['openSignup', 'openLogin'])
+
 
 const logout = (): void => {
   authStore.logout();
@@ -47,6 +56,16 @@ const logout = (): void => {
   z-index: 99;
   padding: 0.75rem 0;
   box-shadow: 0px 6px 12px 0px hsla(230, 7%, 78%, 0.3);
+}
+
+.hamburger {
+  width: 2.5rem;
+  height: 2.5rem;
+  color: var(--clr-primary-600);
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .nav__list {

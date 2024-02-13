@@ -75,7 +75,7 @@ import type { Ref } from "vue";
 import type { RegisterUser } from "@/interfaces/register";
 import { useAuthStore } from "@/stores/AuthStore";
 
-const emits = defineEmits(["closeSignup", "openLogin"]);
+const emit = defineEmits(["closeSignup", "openLogin"]);
 const authStore = useAuthStore();
 const invalidEmail: Ref<boolean | null> = ref(null);
 const invalidPassword: Ref<boolean | null> = ref(null);
@@ -144,6 +144,7 @@ const validateInput = (e: Event): void => {
 
 const register = async () => {
   authStore.signup(registerData.email, registerData.password);
+  emit("closeSignup");
 };
 const onSubmit = () => {};
 </script>

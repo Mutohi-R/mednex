@@ -84,7 +84,7 @@ const loginData = reactive<RegisterUser>({
   password: "",
 });
 
-const emits = defineEmits(["closeLogin", "openSignup"]);
+const emit = defineEmits(["closeLogin", "openSignup"]);
 
 const validateInput = (e: Event): void => {
   const target = e.target as HTMLInputElement;
@@ -144,6 +144,7 @@ const validateInput = (e: Event): void => {
 
 const login = async () => {
   authStore.login(loginData.email, loginData.password);
+  emit("closeLogin");
 };
 
 const onSubmit = () => {};

@@ -13,6 +13,7 @@
   
     &:where([data-type="primary"]) {
       background-color: var(--clr-primary-600);
+      // background-color: #1697b8;
       color: var(--clr-neutral-100);
       box-shadow: 3px 4px 8px 0px hsla(296, 13%, 26%, 0.15);
   

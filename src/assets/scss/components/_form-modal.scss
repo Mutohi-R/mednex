@@ -41,7 +41,7 @@ dialog::backdrop {
             h2 {
                 font-size: var(--fs-600);
                 font-weight: var(--fw-bold);
-                color: var(--clr-primary-500);
+                color: var(--clr-primary-600);
             } 
 
             p {
@@ -150,7 +150,7 @@ dialog::backdrop {
         display: block;
         width: 35%;
         height: 1px;
-        background-color: var(--clr-primary-400);
+        background-color: var(--clr-primary-500);
         }
     }
 

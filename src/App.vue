@@ -16,19 +16,30 @@
   >
     <login @close-login="buttonCloseLogin" @open-signup="openSignup"></login>
   </dialog>
+  <section class="sidebar">
+    
+  </section>
   <router-view></router-view>
 </template>
 
 <script setup lang="ts">
-  import { ref } from 'vue';
+  import { ref, onMounted } from 'vue';
   import type { Ref } from 'vue';
+  import { useAuthStore } from './stores/AuthStore';
 
   import NavBar from '@/components/NavBar.vue';
   import Login from '@/components/Login.vue'
   import SignUp from '@/components/SignUp.vue';
 
+  const authStore = useAuthStore()
+  
+
   const login: Ref<HTMLDialogElement | null> = ref(null)
   const signup: Ref<HTMLDialogElement | null> = ref(null)
+
+  onMounted(() => {
+    authStore.init()
+  }) 
 
   const openSignup = (): void => {
     login.value?.close()
@@ -57,6 +68,7 @@
 
   const buttonCloseLogin = (): void => {
     login.value?.close()
+    console.log('button close login')
   }
 </script>
 
