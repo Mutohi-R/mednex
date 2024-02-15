@@ -2,14 +2,20 @@
   <section class="sidebar">
     <nav class="sidebar__nav">
       <ul role="list" class="nav__list nav__top">
-        <li class="item">
-          <FontAwesomeIcon class="icon" :icon="faHouse" />
-          <p>Home</p>
-        </li>
-        <li class="item">
-          <i-material-symbols-dashboard class="icon" />
-          <p>Dashboard</p>
-        </li>
+        <router-link to="/">
+          <li class="item">
+            <FontAwesomeIcon class="icon" :icon="faHouse" />
+            <p>Home</p>
+          </li>
+        </router-link>
+        
+
+        <router-link to="/dashboard">
+          <li class="item">
+            <i-material-symbols-dashboard class="icon" />
+            <p>Dashboard</p>
+          </li>
+        </router-link>
         <li class="item">
           <FontAwesomeIcon class="icon" :icon="faHeart" />
           <p>Saved</p>
@@ -50,7 +56,7 @@ import {
   faArrowRightFromBracket,
 } from "@fortawesome/free-solid-svg-icons";
 
-const authStore = useAuthStore()
+const authStore = useAuthStore();
 </script>
 
 <style scoped lang="scss">

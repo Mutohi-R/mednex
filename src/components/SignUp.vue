@@ -72,7 +72,7 @@
 <script setup lang="ts">
 import { reactive, ref } from "vue";
 import type { Ref } from "vue";
-import type { RegisterUser } from "@/interfaces/register";
+import type { RegisterUser } from "@/interfacesTypes/register";
 import { useAuthStore } from "@/stores/AuthStore";
 
 const emit = defineEmits(["closeSignup", "openLogin"]);
