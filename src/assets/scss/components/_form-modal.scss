@@ -63,7 +63,7 @@ dialog::backdrop {
 
     .sidebar {
         display: flex;
-        align-items: end;
+        align-items: flex-end;
         gap: .5rem;
         padding: 1rem;
         background: var(--clr-secondary-100) url("@/assets/images/mednex-mono.svg");

@@ -1,5 +1,6 @@
 <template>
   <main>
+    <Toast></Toast>
     <section
       class="hero | content-grid | bg-clr-primary-500 text-clr-neutral-100"
     >
@@ -32,7 +33,7 @@ const options = ref<string[]>(["Lagos", "Abuja", "Kano", "Ogun"]);
 const parentSelectedOption = ref<string | null>(null);
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .hero {
   padding-block: 4.6rem;
   /* background-image: linear-gradient(

@@ -2,7 +2,11 @@
   <header class="primary__header | content-grid">
     <div class="breakout | flex items-center gap-space-s justify-between">
       <div class="flex items-center gap-space-2xs">
-        <i-ci-hamburger-lg v-if="isAuthenticated" class="hamburger"/>
+        <i-ci-hamburger-lg 
+          v-if="isAuthenticated" 
+          class="hamburger"
+          @click="$emit('hamburgerClick')"
+        />
         <Logo />
       </div>
       <nav class="primary__nav | flex gap-space-xs">
@@ -22,9 +26,6 @@
           <li>
             <button class="button" data-type="secondary" @click="$emit('openLogin')">Login</button>
           </li>
-          <li>
-            <button class="button" data-type="secondary" @click="logout">Logout</button>
-          </li>
         </ul>
       </nav>
     </div>
@@ -32,9 +33,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, defineEmits } from "vue";
+import { ref } from "vue";
 import { storeToRefs } from "pinia";
 import { useAuthStore } from "@/stores/AuthStore";
+
 
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faBell, faEnvelope } from "@fortawesome/free-regular-svg-icons";
@@ -42,12 +44,10 @@ import Logo from "./Logo.vue";
 
 const authStore = useAuthStore()
 const { isAuthenticated } = storeToRefs(authStore)
-const emit = defineEmits(['openSignup', 'openLogin'])
+const emit = defineEmits(['openSignup', 'openLogin', 'hamburgerClick'])
 
 
-const logout = (): void => {
-  authStore.logout();
-}
+
 </script>
 
 <style lang="scss" scoped>

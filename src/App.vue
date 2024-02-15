@@ -1,5 +1,9 @@
 <template>
-  <nav-bar @open-signup="openSignup" @open-login="openLogin"></nav-bar>
+  <nav-bar 
+    @open-signup="openSignup" 
+    @open-login="openLogin"
+    @hamburger-click="toggleSidebar"
+  ></nav-bar>
   <dialog 
     ref="signup" 
     id="signup" 
@@ -16,26 +20,30 @@
   >
     <login @close-login="buttonCloseLogin" @open-signup="openSignup"></login>
   </dialog>
-  <section class="sidebar">
-    
-  </section>
+  <Transition name="slide">
+    <sidebar v-if="sidebarOpen && isAuthenticated"></sidebar>
+  </Transition>
   <router-view></router-view>
 </template>
 
 <script setup lang="ts">
   import { ref, onMounted } from 'vue';
   import type { Ref } from 'vue';
+  import { storeToRefs } from 'pinia';
   import { useAuthStore } from './stores/AuthStore';
 
   import NavBar from '@/components/NavBar.vue';
+  import Sidebar from './components/Sidebar.vue';
   import Login from '@/components/Login.vue'
   import SignUp from '@/components/SignUp.vue';
 
   const authStore = useAuthStore()
+  const { isAuthenticated} = storeToRefs(authStore)
   
 
   const login: Ref<HTMLDialogElement | null> = ref(null)
   const signup: Ref<HTMLDialogElement | null> = ref(null)
+  const sidebarOpen: Ref<boolean> = ref(false)
 
   onMounted(() => {
     authStore.init()
@@ -70,8 +78,20 @@
     login.value?.close()
     console.log('button close login')
   }
+
+  const toggleSidebar = (): void => {
+    sidebarOpen.value = !sidebarOpen.value
+  }
 </script>
 
 <style scoped>
+.slide-enter-from,
+.slide-leave-to {
+  transform: translateX(-100%);
+}
 
+.slide-enter-active,
+.slide-leave-active {
+  transition: all 0.3s ease-out;
+}
 </style>

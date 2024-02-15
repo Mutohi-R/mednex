@@ -13,6 +13,7 @@ declare module 'vue' {
     ICiHamburgerMd: typeof import('~icons/ci/hamburger-md')['default']
     IClarityNotificationLine: typeof import('~icons/clarity/notification-line')['default']
     IIconParkOutlineBack: typeof import('~icons/icon-park-outline/back')['default']
+    IMaterialSymbolsDashboard: typeof import('~icons/material-symbols/dashboard')['default']
     IMdiCaretDown: typeof import('~icons/mdi/caret-down')['default']
     IMdiCaretUp: typeof import('~icons/mdi/caret-up')['default']
     IMin: typeof import('~icons/mi/n')['default']
@@ -24,6 +25,7 @@ declare module 'vue' {
     NavBar: typeof import('./src/components/NavBar.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    Sidebar: typeof import('./src/components/Sidebar.vue')['default']
     SignUp: typeof import('./src/components/SignUp.vue')['default']
   }
 }

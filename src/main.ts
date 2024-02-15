@@ -1,28 +1,43 @@
-import './assets/main.scss'
-import './assets/tailwind.css'
+import "./assets/main.scss";
+import "./assets/tailwind.css";
 import "vue-toastification/dist/index.css";
+// import "primevue/resources/primevue.min.css"
+// import "primeicons/primeicons.css"
+// import 'primevue/resources/themes/saga-blue/theme.css';
 
-import { createApp } from 'vue'
-import { createPinia } from 'pinia'
-import Toast, { POSITION, type PluginOptions } from "vue-toastification";
-import router from './router/router'
-import App from './App.vue'
+
+import { createApp } from "vue";
+import { createPinia } from "pinia";
+import Toast, { POSITION, type PluginOptions} from "vue-toastification"
+// import PrimeVue from "primevue/config";
+// import ToastService from "primevue/toastservice";
+// import Toast from "primevue/toast";
+
+import router from "./router/router";
+import App from "./App.vue";
 
 const options: PluginOptions = {
-    position: POSITION.TOP_RIGHT,
-    transition: "Vue-Toastification__fade",
-    timeout: 2000,
-    closeOnClick: true,
-    pauseOnFocusLoss: false,
-    pauseOnHover: true,
-    draggable: true,
-    draggablePercent: 0.6,
-    showCloseButtonOnHover: false,
-    hideProgressBar: true,
-    closeButton: "button",
-    icon: true,
-    rtl: false
+  position: POSITION.TOP_RIGHT,
+  transition: "Vue-Toastification__fade",
+  timeout: 2000,
+  closeOnClick: true,
+  pauseOnFocusLoss: false,
+  pauseOnHover: true,
+  draggable: true,
+  draggablePercent: 0.6,
+  showCloseButtonOnHover: false,
+  hideProgressBar: true,
+  closeButton: "button",
+  icon: true,
+  rtl: false
 }
 
-const pinia = createPinia()
-createApp(App).use(pinia).use(router).use(Toast, options).mount('#app')
+const pinia = createPinia();
+createApp(App)
+  .use(pinia)
+  .use(router)
+  // .use(PrimeVue)
+  // .use(ToastService)
+  // .component("Toast", Toast)
+  .use(Toast, options)
+  .mount("#app");
