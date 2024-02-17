@@ -16,7 +16,7 @@
           <input type="text" placeholder="Have an hospital in mind?" />
         </div>
         <div class="location | flex items-center">
-          <location-select :options="options" v-model="parentSelectedOption" />
+          <location-select v-model="parentSelectedOption" />
         </div>
       </div>
     </section>
@@ -29,7 +29,6 @@ import { ref } from "vue";
 import LocationSelect from "@/components/LocationSelect.vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
-const options = ref<string[]>(["Lagos", "Abuja", "Kano", "Ogun"]);
 const parentSelectedOption = ref<string | null>(null);
 </script>
 

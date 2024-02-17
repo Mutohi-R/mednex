@@ -11,6 +11,18 @@
       <div class="form">
         <div class="form__group">
           <label for="email">Email Address</label>
+          <p
+            v-if="invalidEmail"
+            class="flex items-center gap-2 fs-200 text-clr-error-400"
+          >
+            Invalid email address
+          </p>
+          <p
+            v-if="errors.emailInUse"
+            class="flex items-center gap-2 fs-200 text-clr-error-400"
+          >
+            This email is associated with another account
+          </p>
           <input
             @input="validateInput"
             v-model="registerData.email"
@@ -24,6 +36,10 @@
         </div>
         <div class="form__group">
           <label for="password">Password</label>
+          <p v-if="invalidPassword" class="fs-200 text-clr-info-400">
+            Password must be at least 8 characters long and must contain at
+            least one number.
+          </p>
           <input
             @input="validateInput"
             v-model="registerData.password"
@@ -34,7 +50,7 @@
             class="form__input"
           />
         </div>
-        <button class="button main__btn" data-type="primary" @click="register">
+        <button class="button main__btn" data-type="primary" @click="register" :disabled="!formValid">
           Continue
         </button>
         <p class="conditions">
@@ -72,10 +88,15 @@
 <script setup lang="ts">
 import { reactive, ref } from "vue";
 import type { Ref } from "vue";
+import { storeToRefs } from "pinia";
 import type { RegisterUser } from "@/interfacesTypes/register";
 import { useAuthStore } from "@/stores/AuthStore";
 
+const { errors } = storeToRefs(useAuthStore());
+
 const emit = defineEmits(["closeSignup", "openLogin"]);
+
+
 const authStore = useAuthStore();
 const invalidEmail: Ref<boolean | null> = ref(null);
 const invalidPassword: Ref<boolean | null> = ref(null);

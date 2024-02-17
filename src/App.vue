@@ -31,6 +31,7 @@
   import type { Ref } from 'vue';
   import { storeToRefs } from 'pinia';
   import { useAuthStore } from './stores/AuthStore';
+  import useHospitalStore from './stores/HospitalStore';
 
   import NavBar from '@/components/NavBar.vue';
   import Sidebar from './components/Sidebar.vue';
@@ -39,6 +40,8 @@
 
   const authStore = useAuthStore()
   const { isAuthenticated} = storeToRefs(authStore)
+
+  const hospitalStore = useHospitalStore()
   
 
   const login: Ref<HTMLDialogElement | null> = ref(null)
@@ -47,6 +50,7 @@
 
   onMounted(() => {
     authStore.init()
+    hospitalStore.init()
   }) 
 
   const openSignup = (): void => {

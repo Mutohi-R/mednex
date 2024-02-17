@@ -19,7 +19,7 @@ import App from "./App.vue";
 const options: PluginOptions = {
   position: POSITION.TOP_RIGHT,
   transition: "Vue-Toastification__fade",
-  timeout: 2000,
+  timeout: 1000,
   closeOnClick: true,
   pauseOnFocusLoss: false,
   pauseOnHover: true,

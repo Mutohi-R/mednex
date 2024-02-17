@@ -24,11 +24,11 @@
                 <div class="group-3">
                     <div class="form__group">
                         <label for="phone">Hospital Number</label>
-                        <input v-model="hospitalInfo.number" type="tel" name="phone" id="phone" pattern="(?:\+?234)?(?:\d{3}|\d{4})[ -]?\d{3}[ -]?\d{4}">
+                        <input v-model="hospitalInfo.telephone" type="tel" name="phone" id="phone" pattern="(?:\+?234)?(?:\d{3}|\d{4})[ -]?\d{3}[ -]?\d{4}">
                     </div>
                     <div class="form__group">
                         <label for="website">Website</label>
-                        <input v-model="hospitalInfo.website" type="url" name="website" id="website" placeholder="www.example.com">
+                        <input v-model="hospitalInfo.website" name="website" id="website" placeholder="www.example.com">
                     </div>
                 </div>
             </div>
@@ -41,11 +41,11 @@
                 </div>
                 <div class="form__group">
                     <label for="emergency">Emergency Care Availability</label>
-                    <input v-model="hospitalInfo.emergencyCare" type="text" name="emergency" id="emergency">
+                    <input v-model="hospitalInfo.emergencyCareDetails" type="text" name="emergency" id="emergency">
                 </div>
                 <div class="form__group">
                     <label for="accommodation">Accommodation Availability</label>
-                    <input v-model="hospitalInfo.accommodation" type="text" name="accommodation" id="accommodation">
+                    <input v-model="hospitalInfo.accommodationDetails" type="text" name="accommodation" id="accommodation">
                 </div>
             </div>
 
@@ -120,20 +120,21 @@
                     <input v-model="hospitalInfo.visitGuide" type="text" name="guidelines" id="guidelines">
                 </div>
             </div>
-            <button class="button" data-type="secondary">Submit Form</button>
+            <button class="button" data-type="secondary" @click="hospitalStore.addHospital(hospitalInfo)">Submit Form</button>
         </form>
     </article>
 </template>
 
 <script setup lang="ts">
 import { reactive } from 'vue';
+import useHospitalStore from '@/stores/HospitalStore';
 import type { HospitalForm } from '@/interfacesTypes/hospitalForm'
 
 const hospitalInfo: HospitalForm = reactive({
     name: '',
     email: '',
     address: '',
-    number: '',
+    telephone: '',
     website: '',
     departments: [],
     emergencyCare: false,
@@ -142,17 +143,22 @@ const hospitalInfo: HospitalForm = reactive({
     accommodationDetails: '',
     operatingFrom: '',
     operatingTo: '',
+    insurance: false,
     insuranceProviders: [],
     paymentMethods: [],
     facilities: false,
     facilitiesDetails: [],
     appointment: '',
+    accessibility: false,
     accessibilityFeatures: [],
     languageServices: '',
     visitFrom: '',
     visitTo: '',
     visitGuide: '',
 })
+
+const hospitalStore = useHospitalStore()
+console.log(hospitalInfo.name)
 </script>
 
 <style scoped lang="scss">
