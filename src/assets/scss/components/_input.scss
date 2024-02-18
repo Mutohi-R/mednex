@@ -12,6 +12,10 @@
     
     &:disabled {
         background-color: var(--clr-neutral-100);
+
+        &:is(:focus, :hover) {
+            outline: 1px solid var(--clr-neutral-100);
+        }
     }
     
     &[data-type="invalid"] {

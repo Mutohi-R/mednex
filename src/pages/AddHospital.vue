@@ -8,27 +8,27 @@
                 <div class="group-1">
                     <div class="form__group">
                         <label for="name">Name</label>
-                        <input v-model="hospitalInfo.name" type="text" name="name" id="name" placeholder="Enter hospital name">
+                        <input class="input" v-model="hospitalInfo.name" type="text" name="name" id="name" placeholder="Enter hospital name">
                     </div>
                     <div class="form__group">
                         <label for="email">Email</label>
-                        <input v-model="hospitalInfo.email" type="email" name="email" id="email" placeholder="Enter hospital email">
+                        <input class="input" v-model="hospitalInfo.email" type="email" name="email" id="email" placeholder="Enter hospital email">
                     </div>
                 </div>
                 <div class="group-2">
                     <div class="form__group">
                         <label for="address">Address</label>
-                        <input v-model="hospitalInfo.address" type="text" name="address" id="address" placeholder="Enter hospital address">
+                        <input class="input" v-model="hospitalInfo.address" type="text" name="address" id="address" placeholder="Enter hospital address">
                     </div>
                 </div>
                 <div class="group-3">
                     <div class="form__group">
                         <label for="phone">Hospital Number</label>
-                        <input v-model="hospitalInfo.telephone" type="tel" name="phone" id="phone" pattern="(?:\+?234)?(?:\d{3}|\d{4})[ -]?\d{3}[ -]?\d{4}">
+                        <input class="input" v-model="hospitalInfo.telephone" type="tel" name="phone" id="phone" pattern="(?:\+?234)?(?:\d{3}|\d{4})[ -]?\d{3}[ -]?\d{4}">
                     </div>
                     <div class="form__group">
                         <label for="website">Website</label>
-                        <input v-model="hospitalInfo.website" name="website" id="website" placeholder="www.example.com">
+                        <input class="input" v-model="hospitalInfo.website" name="website" id="website" placeholder="www.example.com">
                     </div>
                 </div>
             </div>
@@ -37,15 +37,27 @@
                 <h2 class="h2 text-center">Medical Services</h2>
                 <div class="form__group">
                     <label for="department">Departments</label>
-                    <input v-model="hospitalInfo.departments" type="text" name="department" id="department">
+                    <input class="input" v-model="hospitalInfo.departments" type="text" name="department" id="department">
                 </div>
                 <div class="form__group">
-                    <label for="emergency">Emergency Care Availability</label>
-                    <input v-model="hospitalInfo.emergencyCareDetails" type="text" name="emergency" id="emergency">
+                    <div class="flex items-center gap-space-xs">
+                        <label for="emergency">Emergency Care Availability</label>
+                        <input v-model="hospitalInfo.emergencyCare" type="checkbox" name="emergency" id="emergency">
+                    </div>
+                    <div class="flex items-center gap-space-xs">
+                        <label for="emergencyDetails">Details:</label>
+                        <input :disabled="!hospitalInfo.emergencyCare" class="input" v-model="hospitalInfo.emergencyCareDetails" type="text" name="emergencyDetails" id="emergencyDetails">
+                    </div>
                 </div>
                 <div class="form__group">
-                    <label for="accommodation">Accommodation Availability</label>
-                    <input v-model="hospitalInfo.accommodationDetails" type="text" name="accommodation" id="accommodation">
+                    <div class="flex items-center gap-space-xs">
+                        <label for="accommodation">Accommodation Availability</label>
+                        <input v-model="hospitalInfo.accommodation" type="checkbox" name="accommodation" id="accommodation">
+                    </div>
+                    <div class="flex items-center gap-space-xs">
+                        <label for="accommodationDetails">Details:</label>
+                        <input :disabled="!hospitalInfo.accommodation" class="input" v-model="hospitalInfo.accommodationDetails" type="text" name="accommodationDetails" id="accommodationDetails">
+                    </div>
                 </div>
             </div>
 
@@ -54,11 +66,11 @@
                 <div class="form__group">
                     <div class="flex items-center gap-space-3xs">
                         <label for="from">From</label>
-                        <input v-model="hospitalInfo.operatingFrom" type="text" name="from" id="from">
+                        <VueDatePicker v-model="hospitalInfo.operatingFrom" :time-picker="true" ></VueDatePicker>
                     </div>
                     <div class="flex items-center gap-space-3xs">
                         <label for="to">To</label>
-                        <input v-model="hospitalInfo.operatingTo" type="text" name="to" id="to">
+                        <VueDatePicker v-model="hospitalInfo.operatingTo" :time-picker="true" ></VueDatePicker>
                     </div>
                 </div>
             </div>
@@ -66,60 +78,80 @@
             <div class="payment | flow">
                 <h2 class="h2 text-center">Insurance and Payment</h2>
                 <div class="form__group">
-                    <label for="insurance">Health Insurance Providers</label>
-                    <input v-model="hospitalInfo.insuranceProviders" type="text" name="insurance" id="insurance">
+                    <div class="flex items-center gap-space-xs">
+                        <label for="insurance">Insurance Availability</label>
+                        <input v-model="hospitalInfo.insurance" type="checkbox" name="insurance" id="insurance">
+                    </div>
+                    <div class="flex items-center gap-space-xs">
+                        <label for="insuranceDetails">Providers:</label>
+                        <input :disabled="!hospitalInfo.insurance" class="input" v-model="hospitalInfo.emergencyCareDetails" type="text" name="insuranceDetails" id="insuranceDetails">
+                    </div>
                 </div>
                 <div class="form__group">
                     <label for="payment">Payment Methods</label>
-                    <input v-model="hospitalInfo.paymentMethods" type="text" name="payment" id="payment">
+                    <input class="input" v-model="hospitalInfo.paymentMethods" type="text" name="payment" id="payment">
                 </div>
             </div>
 
             <div class="facilities | flow">
-                <h2 class="h2">Facilities and Amenities</h2>
+                <h2 class="h2 text-center">Facilities and Amenities</h2>
                 <div class="form__group">
-                    <label for="facilities">Facilities and Amenities</label>
-                    <input v-model="hospitalInfo.facilitiesDetails" type="text" name="facilities" id="facilities">
+                    <div class="flex items-center gap-space-xs">
+                        <label for="facilities">Facilities Availability</label>
+                        <input v-model="hospitalInfo.facilities" type="checkbox" name="facilities" id="facilities">
+                    </div>
+                    <div class="flex items-center gap-space-xs">
+                        <label for="facilitiesDetails">Details:</label>
+                        <input :disabled="!hospitalInfo.facilities" class="input" v-model="hospitalInfo.facilitiesDetails" type="text" name="facilitiesDetails" id="facilitiesDetails">
+                    </div>
                 </div>
             </div>
 
             <div class="appointment | flow">
-                <h2 class="h2">Appointment and Booking</h2>
+                <h2 class="h2 text-center">Appointment and Booking</h2>
                 <div class="form__group">
                     <label for="appointment">Appointment Booking</label>
-                    <input v-model="hospitalInfo.appointment" type="text" name="appointment" id="appointment">
+                    <input class="input" v-model="hospitalInfo.appointment" type="text" name="appointment" id="appointment">
                 </div>
             </div>
             
             <div class="accessibility | flow">
-                <h2 class="h2">Accessibility and Language Services</h2>
+                <h2 class="h2 text-center">Accessibility and Language Services</h2>
                 <div class="form__group">
-                    <label for="accessibility">Accessibility Features</label>
-                    <input v-model="hospitalInfo.accessibilityFeatures" type="text" name="accessibility" id="accessibility">
+                    <div class="flex items-center gap-space-xs">
+                        <label for="accessibility">Accessibility Availability</label>
+                        <input v-model="hospitalInfo.accessibility" type="checkbox" name="accessibility" id="accessibility">
+                    </div>
+                    <div class="flex items-center gap-space-xs">
+                        <label for="accessibilityDetails">Details:</label>
+                        <input :disabled="!hospitalInfo.accessibility" class="input" v-model="hospitalInfo.accessibilityFeatures" type="text" name="accessibilityDetails" id="accessibilityDetails">
+                    </div>
                 </div>
                 <div class="form__group">
                     <label for="language">Language Services</label>
-                    <input v-model="hospitalInfo.languageServices" type="text" name="language" id="language">
+                    <input class="input" v-model="hospitalInfo.languageServices" type="text" name="language" id="language">
                 </div>
             </div>
 
             <div class="visit | flow">
-                <h2 class="h2">Visiting Information</h2>
+                <h2 class="h2 text-center">Visiting Information</h2>
                 <div class="form__group group-1">
                     <div class="flex items-center gap-space-3xs">
                         <label for="from">From</label>
-                        <input v-model="hospitalInfo.visitFrom" type="text" name="from" id="from">
+                        <VueDatePicker v-model="hospitalInfo.visitFrom" :time-picker="true" ></VueDatePicker>
                     </div>
                     <div class="flex items-center gap-space-3xs">
                         <label for="to">To</label>
-                        <input v-model="hospitalInfo.visitTo" type="text" name="to" id="to">
+                        <VueDatePicker v-model="hospitalInfo.visitTo" :time-picker="true" ></VueDatePicker>
                     </div>
                 </div>
                 <div class="form__group">
                     <label for="guidelines">Visitor Guidelines</label>
-                    <input v-model="hospitalInfo.visitGuide" type="text" name="guidelines" id="guidelines">
+                    <input class="input" v-model="hospitalInfo.visitGuide" type="text" name="guidelines" id="guidelines">
                 </div>
             </div>
+            <h2 class="h2 text-center">Extra Information</h2>
+            <MdEditor v-model="hospitalInfo.extraInfo" language="en-US" />
             <button class="button" data-type="secondary" @click="hospitalStore.addHospital(hospitalInfo)">Submit Form</button>
         </form>
     </article>
@@ -129,6 +161,10 @@
 import { reactive } from 'vue';
 import useHospitalStore from '@/stores/HospitalStore';
 import type { HospitalForm } from '@/interfacesTypes/hospitalForm'
+import VueDatePicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css';
+import { MdEditor } from 'md-editor-v3'
+import 'md-editor-v3/lib/style.css';
 
 const hospitalInfo: HospitalForm = reactive({
     name: '',
@@ -155,10 +191,12 @@ const hospitalInfo: HospitalForm = reactive({
     visitFrom: '',
     visitTo: '',
     visitGuide: '',
+    extraInfo: '',
 })
 
 const hospitalStore = useHospitalStore()
 console.log(hospitalInfo.name)
+console.log(hospitalInfo.operatingFrom)
 </script>
 
 <style scoped lang="scss">
@@ -215,20 +253,17 @@ console.log(hospitalInfo.name)
         }
 
         input {
-            width: 100%;
             padding: .25rem;
-            border: 1px solid var(--clr-neutral-400);
-            border-radius: .25rem;
 
-            &:focus {
-                outline: 1px solid var(--clr-neutral-600);
+            &::placeholder {
+                font-weight: var(--fw-regular);
             }
 
-            &:disabled {
-                opacity: .5;
-                border: 1px solid var(--clr-neutral-400);
+            &[type="checkbox"] {
+                width: 1.2rem;
+                height: 1.2rem;
             }
         }
     }
 }
-</style>@/interfaces&types/hospitalForm
+</style>

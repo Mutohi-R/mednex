@@ -7,6 +7,7 @@ export type HospitalForm = {
     appointment: string,
     departments: string[],
     email: string,
+    extraInfo: string,
     emergencyCare: boolean,
     emergencyCareDetails: string,
     facilities: boolean,
