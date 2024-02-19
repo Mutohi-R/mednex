@@ -1,4 +1,5 @@
 export type HospitalForm = {
+    id?: string;
     accessibility: boolean,
     accessibilityFeatures: string[],
     accommodation: boolean,

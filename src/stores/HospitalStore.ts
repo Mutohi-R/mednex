@@ -21,7 +21,7 @@ const useHospitalStore = defineStore('hospital', {
         async init() {
             const snapshot = await getDocs(hospitalRef)
             snapshot.forEach((doc) => {
-                const hospitalData = <HospitalForm>doc.data()
+                const hospitalData = <HospitalForm>{...doc.data(), id: doc.id}
                 this.hospitals.push(hospitalData)
             })
             console.log(this.hospitals)
@@ -34,16 +34,3 @@ const useHospitalStore = defineStore('hospital', {
 })
 
 export default useHospitalStore
-
-                            // this.hospitals.push(doc.data())
-                // console.log(this.hospitals)
-                // console.log({...doc.data()})
-                // this.hospitals.push({...doc.data()})
-            // console.log(this.hospitals)
-            // getDocs(hospitalRef).then((snapshot) => {
-            //     let hospital: {}[] = []
-            //     snapshot.docs.forEach((doc) => {
-            //       hospital.push({...doc.data(), id: doc.id})
-            //     })
-            //     console.log(hospital[0])
-            //   })
