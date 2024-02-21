@@ -1,3 +1,9 @@
+export type Time = {
+    hours: number | string, 
+    minutes: number | string, 
+    seconds?: number | string
+}
+
 export type HospitalForm = {
     id?: string;
     accessibility: boolean,
@@ -16,13 +22,14 @@ export type HospitalForm = {
     insurance: boolean,
     insuranceProviders: string[],
     languageServices: string,
+    location: string,
     name: string,
-    operatingFrom: string,
-    operatingTo: string,
+    operatingFrom: Time,
+    operatingTo: Time,
     paymentMethods: string[],
     telephone: string,
-    visitFrom: string,
-    visitTo: string,
+    visitFrom: Time,
+    visitTo: Time,
     visitGuide: string,
     website: string,
 }

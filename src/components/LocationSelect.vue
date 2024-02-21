@@ -2,7 +2,8 @@
     <div class="dropdown__wrapper | relative" ref="dropdown">
         <div class="dropdown__selected-option | flex justify-between items-center" @click="isDropDownVisible = !isDropDownVisible">
             <p>{{ selectedLocation || 'Select a location' }}</p>
-            <i-mingcute-down-fill width="32" height="32"/>
+            <!-- <i-mingcute-down-fill width="32" height="32"/> -->
+            <FontAwesomeIcon :icon="faAngleDown" />
         </div>
         <Transition name="slide">
             <div
@@ -26,6 +27,8 @@
 import { ref, onMounted, onBeforeUnmount } from 'vue';
 import useHospitalStore from '@/stores/HospitalStore';
 import { storeToRefs } from 'pinia';
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 
 const props = defineProps(['options', 'modelValue'])
 const hospitalStore = useHospitalStore();
@@ -96,10 +99,11 @@ onBeforeUnmount(() => {
 
 .slide-enter-from,
 .slide-leave-to {
-    translate: 0 -100%;
+    translate: 0 -10%;
+    opacity: 0;
 }
 
 .slide-enter-active {
-    transition: 1s ease-in;
+    transition: .5s ease-in;
 }
 </style>

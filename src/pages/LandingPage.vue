@@ -20,7 +20,9 @@
         </div>
       </div>
     </section>
-    <section></section>
+    <section>
+      <hospital-list></hospital-list>
+    </section>
   </main>
 </template>
 
@@ -28,6 +30,8 @@
 import { ref } from "vue";
 import LocationSelect from "@/components/LocationSelect.vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+
+import HospitalList from "@/components/HospitalList.vue";
 
 const parentSelectedOption = ref<string | null>(null);
 </script>
