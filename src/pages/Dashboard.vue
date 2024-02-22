@@ -1,4 +1,7 @@
 <template>
+    <main class="dashboard">
+        
+    </main>
     <div>
         <button class="button" data-type="primary">
             <router-link to="/dashboard/add-hospital">
@@ -13,5 +16,7 @@
 </script>
 
 <style scoped lang="scss">
-
+.dashboard {
+    padding-block: 4rem;
+}
 </style>

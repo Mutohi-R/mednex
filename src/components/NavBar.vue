@@ -1,6 +1,6 @@
 <template>
-  <header class="primary__header | content-grid">
-    <div class="breakout | flex items-center gap-space-s justify-between">
+  <header class="primary__header ">
+    <div class="container | flex items-center gap-space-s justify-between">
       <div class="flex items-center gap-space-2xs">
         <i-ci-hamburger-lg 
           v-if="isAuthenticated" 
@@ -52,10 +52,17 @@ const emit = defineEmits(['openSignup', 'openLogin', 'hamburgerClick'])
 
 <style lang="scss" scoped>
 .primary__header {
-  position: relative;
+  position: fixed;
   z-index: 99;
-  padding: 0.75rem 0;
+  width: 100%;
+  padding: 0.75rem 1.5rem;
+  background: var(--clr-neutral-100);
   box-shadow: 0px 6px 12px 0px hsla(230, 7%, 78%, 0.3);
+
+  .container {
+    max-width: 1800px;
+    margin-inline: auto;
+  }
 }
 
 .hamburger {

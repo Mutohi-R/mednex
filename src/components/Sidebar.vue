@@ -62,6 +62,7 @@ const authStore = useAuthStore();
 <style scoped lang="scss">
 .sidebar {
   position: fixed;
+  z-index: 99;
   top: 4.5rem;
   left: 0;
   bottom: 0;
@@ -80,7 +81,7 @@ const authStore = useAuthStore();
     display: flex;
     align-items: center;
     gap: var(--space-s);
-    padding: 0.8rem 1.5rem;
+    padding: 0.8rem 3rem;
     cursor: pointer;
 
     &:hover {

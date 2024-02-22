@@ -6,6 +6,7 @@ export type Time = {
 
 export type HospitalForm = {
     id?: string;
+    isFavourite?: boolean,
     accessibility: boolean,
     accessibilityFeatures: string[],
     accommodation: boolean,

@@ -1,6 +1,6 @@
 <template>
     <div class="dropdown__wrapper | relative" ref="dropdown">
-        <div class="dropdown__selected-option | flex justify-between items-center" @click="isDropDownVisible = !isDropDownVisible">
+        <div class="dropdown__selected-option | flex justify-between items-center gap-space-xs" @click="isDropDownVisible = !isDropDownVisible">
             <p>{{ selectedLocation || 'Select a location' }}</p>
             <!-- <i-mingcute-down-fill width="32" height="32"/> -->
             <FontAwesomeIcon :icon="faAngleDown" />
@@ -70,6 +70,15 @@ onBeforeUnmount(() => {
 
     .dropdown__selected-option {
         width: 100%;
+        padding: 1rem;
+        background: var(--clr-neutral-100);
+        // background: color-mix(
+        //     in srgb,
+        //     var(--clr-primary-200) 60%,
+        //     var(--clr-neutral-100) 40%
+        // );
+        border-radius: .25rem;
+        box-shadow: 0px 6px 10px 4px hsla(230, 7%, 68%, 0.3);
     }
 
     .options__wrapper {

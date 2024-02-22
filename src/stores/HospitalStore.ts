@@ -7,12 +7,13 @@ const useHospitalStore = defineStore('hospital', {
     state: () => ({
         hospitals: <HospitalForm[]>[],
         locations: <string[]> [
-            'All', 'Abia', 'Adamawa', 'Akwa Ibom', 'Anambra', 'Bauchi', 'Bayelsa', 'Borno',
+            'All States', 'Abia', 'Adamawa', 'Akwa Ibom', 'Anambra', 'Bauchi', 'Bayelsa', 'Borno',
             'Cross River', 'Delta', 'Ebonyi', 'Edo', 'Ekiti', 'Enugu', 'Gombe', 'Imo',
             'Jigawa', 'Kaduna', 'Kano', 'Katsina', 'Kebbi', 'Kogi', 'Kwara', 'Lagos',
             'Nasarawa', 'Niger', 'Ogun', 'Ondo', 'Osun', 'Oyo', 'Plateau', 'Rivers',
             'Sokoto', 'Taraba', 'Yobe', 'Zamfara',
         ],
+        searchQuery: <string>''
     }),
     getters: {
         
@@ -21,7 +22,7 @@ const useHospitalStore = defineStore('hospital', {
         async init() {
             const snapshot = await getDocs(hospitalRef)
             snapshot.forEach((doc) => {
-                const hospitalData = <HospitalForm>{...doc.data(), id: doc.id}
+                const hospitalData = <HospitalForm>{...doc.data(), id: doc.id, isFavourite: false}
                 this.hospitals.push(hospitalData)
             })
             console.log(this.hospitals)

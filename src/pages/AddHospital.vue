@@ -5,7 +5,7 @@
                 <h1 class="ff-accent fs-700 fw-semibold text-clr-neutral-800">Hospital Entry Form</h1>
                 <p class="fs-300">Please fill in the form below with the necessary information</p>
             </div>
-            <form @submit.prevent="" class="hospital__form | grid gap-3">
+            <form @submit.prevent="" ref="form" class="hospital__form | grid gap-3">
                 <div class="general | flow">
                     <h3 class="">General Information</h3>
                     <div class="group">
@@ -27,7 +27,7 @@
                             <label for="location">Location</label>
                             <!-- <input v-model="hospitalInfo.location" type="text" name="location" id="location" placeholder="Enter hospital location"> -->
                             <select v-model="hospitalInfo.location" name="location" id="location">
-                                <option disabled value="">Please select one</option>
+                                <option disabled value="">Select hospital state</option>
                                 <option v-for="state in locations" :value="state">{{ state }}</option>
                             </select>
                         </div>
@@ -220,14 +220,14 @@
                       previewTheme="vuepress"
                     />
                 </div>
-                <button class="button" data-type="secondary" @click="submitHospitalEntry">Submit Form</button>
+                <button @click="submitHospitalEntry($event)" class="button" data-type="secondary">Submit Form</button>
             </form>
         </div>
     </article>
 </template>
 
 <script setup lang="ts">
-import { ref, reactive } from 'vue';
+import { ref, type Ref, reactive } from 'vue';
 import { storeToRefs } from 'pinia';
 import useHospitalStore from '@/stores/HospitalStore';
 import type { HospitalForm, Time } from '@/interfacesTypes/hospitalForm'
@@ -241,6 +241,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 const hospitalStore = useHospitalStore()
 const { locations } = storeToRefs(hospitalStore)
 
+const form: Ref<null | HTMLFormElement> = ref(null)
 const department = ref('')
 const provider = ref('')
 const payment = ref('')
@@ -336,17 +337,24 @@ const removeAccess = (index: number) => {
     hospitalInfo.accessibilityFeatures.splice(index, 1)
 }
 
-const submitHospitalEntry = () => {
-    // hospitalStore.addHospital(hospitalInfo)
-    console.log(
-        hospitalInfo.location
-    )
+const submitHospitalEntry = (e: MouseEvent) => {
+    e.preventDefault()
+    hospitalStore.addHospital(hospitalInfo)
+    if(form.value) {
+        form.value.reset()
+    }
+    hospitalInfo.departments = []
+    hospitalInfo.insuranceProviders = []
+    hospitalInfo.paymentMethods = []
+    hospitalInfo.facilitiesDetails = []
+    hospitalInfo.accessibilityFeatures = []
+    hospitalInfo.extraInfo = ''
 }
 </script>
 
 <style scoped lang="scss">
 .add-hospital {
-    padding-block: 2rem;
+    padding-block: 6rem;
     background: color-mix(in srgb, var(--clr-primary-200) 10%, var(--clr-neutral-100) 90%);
 
     >div {
