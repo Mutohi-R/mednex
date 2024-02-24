@@ -1,6 +1,7 @@
 <template>
     <section class="hospital__wrapper | content-grid">
         <ul class="hospital__list | partial | grid gap-3" role="list">
+            <li class="text-center" v-if="!renderedHospitals.length">No hospitals found</li>
             <li v-for="(hospital, index) in renderedHospitals" :key="index">
                 <div class="card">
                     <div class="flex items-center justify-center">
@@ -20,7 +21,7 @@
                     <div class="side | grid gap-4">
                         <div class="location | flex items-center gap-space-xs">
                             <i-ep-location class="icon" />
-                            <p>{{ hospital.location }}, Nigeria <span class="text-clr-neutral-400 ">(43,000 km)</span></p>
+                            <p>{{ hospital.location }}, Nigeria <span class="text-clr-neutral-400">(43,000 km)</span></p>
                         </div>
                         <div class="telephone | flex items-center gap-space-xs">
                             <i-lucide-phone-call class="icon" />
@@ -67,7 +68,7 @@ const { renderedHospitals } = storeToRefs(hospitalStore)
 
     .icon {
         color: var(--clr-neutral-600);
-        font-size: 1.5rem;
+        font-size: 1.4rem;
         min-width: 1.5rem;
         aspect-ratio: 1;
     }

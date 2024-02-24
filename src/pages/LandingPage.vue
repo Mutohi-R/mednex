@@ -13,13 +13,13 @@
       </div>
       <div class="filter | text-clr-neutral-400">
         <div class="search">
-          <input v-model="searchQuery" name="search" id="search" @input="getHospitalsBySearch(searchQuery)" type="text" placeholder="Have an hospital in mind?" />
           <FontAwesomeIcon class="icon" style="color: var(--clr-neutral-300);" :icon="faMagnifyingGlass" />
+          <input v-model="searchQuery" name="search" id="search" @input="getHospitalsBySearch(searchQuery)" type="text" placeholder="Have an hospital in mind?" />
         </div>
-        <div class="filter__choices">
+        <!-- <div class="filter__choices">
           <p>Filters</p>
           <FontAwesomeIcon :icon="faAngleDown" />
-        </div>
+        </div> -->
         <div class="location | flex items-center">
           <location-select v-model="parentSelectedOption" />
         </div>
@@ -31,6 +31,8 @@
 
 <script setup lang="ts">
 import { ref, type Ref } from "vue";
+import { storeToRefs } from "pinia";
+import { useAuthStore } from "@/stores/AuthStore";
 import useHospitalStore from "@/stores/HospitalStore";
 import LocationSelect from "@/components/LocationSelect.vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
@@ -39,12 +41,14 @@ import { faAngleDown, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icon
 import HospitalList from "@/components/HospitalList.vue";
 
 const hospitalStore = useHospitalStore();
+const authStore = useAuthStore();
+console.log(authStore.user)
 
 const parentSelectedOption: Ref<string | null> = ref(null);
 const searchQuery: Ref<string> = ref('');
 
 const getHospitalsBySearch = (searchQuery: string) => {
-  hospitalStore.getHospitalsBySearchQuery(searchQuery.trim());
+  hospitalStore.getHospitalsBySearchQuery(searchQuery.trim(), <string>parentSelectedOption.value?.trim());
 }
 </script>
 
@@ -64,7 +68,7 @@ const getHospitalsBySearch = (searchQuery: string) => {
   display: grid;
   align-items: center;
   place-self: center;
-  grid-template-columns: 3fr 1.5fr 1.5fr;
+  grid-template-columns: 3fr 1fr;
   column-gap: var(--space-2xs);
   width: 100%;
 
@@ -72,6 +76,7 @@ const getHospitalsBySearch = (searchQuery: string) => {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: var(--space-2xs);
     padding: 1rem;
     background: var(--clr-neutral-100);
     border-radius: .25rem;

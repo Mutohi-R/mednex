@@ -34,16 +34,14 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import { storeToRefs } from "pinia";
 import { useAuthStore } from "@/stores/AuthStore";
+import { isAuthenticated, user } from '@/utils/vueAuth'
 
 
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faBell, faEnvelope } from "@fortawesome/free-regular-svg-icons";
 import Logo from "./Logo.vue";
 
-const authStore = useAuthStore()
-const { isAuthenticated } = storeToRefs(authStore)
 const emit = defineEmits(['openSignup', 'openLogin', 'hamburgerClick'])
 
 

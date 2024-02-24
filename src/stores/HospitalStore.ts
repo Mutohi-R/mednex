@@ -18,7 +18,14 @@ const useHospitalStore = defineStore('hospital', {
         searchQuery: <string>''
     }),
     getters: {
-
+        getHospitals: (state) => {
+            return state.hospitals
+        },
+        getSavedHospitals: (state) => {
+            return state.renderedHospitals.filter((hospital) => {
+                return hospital.isFavourite
+            })
+        }
     }, 
     actions: {
         async init() {
@@ -45,10 +52,16 @@ const useHospitalStore = defineStore('hospital', {
             }
         },
 
-        getHospitalsBySearchQuery (query: string) {
-            this.renderedHospitals = this.hospitals.filter((hospital) => {
-                return hospital.name.trim().toLowerCase().includes(query.trim().toLowerCase())
-            })
+        getHospitalsBySearchQuery (query: string, location: string) {
+            if (location === 'All States' || location === undefined) {
+                this.renderedHospitals = this.hospitals.filter((hospital) => {
+                    return hospital.name.trim().toLowerCase().includes(query.trim().toLowerCase())
+                })
+            } else {
+                this.renderedHospitals = this.hospitals.filter((hospital) => {
+                    return hospital.name.trim().toLowerCase().includes(query.trim().toLowerCase()) && hospital.location.trim().toLowerCase() === location.trim().toLowerCase()
+                })
+            }
         },
 
         toggleFavourite(id: string) {

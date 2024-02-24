@@ -7,11 +7,15 @@ import {
     onAuthStateChanged,
 } from "firebase/auth";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { useAuth } from "@vueuse/firebase";
 import { useToast } from "vue-toastification";
+
+const { isAuthenticated, user } = useAuth(auth);
 
 export const useAuthStore = defineStore('auth', {
     state: () => ({
-        isAuthenticated: false,
+        isAuthenticated: isAuthenticated,
+        user: user,
         errors: {
             emailInUse: false,
             invalidCred: false,
@@ -22,22 +26,24 @@ export const useAuthStore = defineStore('auth', {
     },
     actions: {
         init(): void {
-            try {
-                onAuthStateChanged(auth, (user) => {
-                    if (user) {
-                        this.isAuthenticated = true;
-                        console.log('auth',this.isAuthenticated);
-                    } else {
-                        console.log('No user', user);
-                        this.isAuthenticated = false;
-                        console.log('auth',this.isAuthenticated);
-                    }
-                })
-            } catch (err) {
-                if (err instanceof Error) {
-                    console.error(err);
-                }
-            }
+            // try {
+            //     onAuthStateChanged(auth, (user) => {
+            //         if (user) {
+            //             // this.isAuthenticated = true;
+            //             console.log('auth',this.isAuthenticated);
+            //         } else {
+            //             console.log('No user', user);
+            //             // this.isAuthenticated = false;
+            //             console.log('auth',this.isAuthenticated);
+            //         }
+            //     })
+            // } catch (err) {
+            //     if (err instanceof Error) {
+            //         console.error(err);
+            //     }
+            // }
+            console.log('working')
+            console.log(this.isAuthenticated)
         },
 
         async signup(email: string, password: string): Promise<void> {
