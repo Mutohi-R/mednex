@@ -14,7 +14,7 @@
                   class="option"
                   v-for="(location, index) in locations"
                   :key="index"
-                  @click="toggleOptionSelect(location)"
+                  @click="handleOptionChange(location)"
                 >
                     <p>{{ location }}</p>
                 </div>
@@ -45,6 +45,13 @@ const toggleOptionSelect = (location: string): void => {
     selectedLocation.value = location
     emit('update:modelValue', location)
     isDropDownVisible.value = false
+}
+
+const handleOptionChange = (location: string) => {
+    toggleOptionSelect(location)
+    console.log('aaaaaa')
+    hospitalStore.getHospitalsByLocation(location)
+    console.log(hospitalStore.hospitals)
 }
 
 const closeDropDown = (e: MouseEvent) => {
@@ -79,13 +86,17 @@ onBeforeUnmount(() => {
         // );
         border-radius: .25rem;
         box-shadow: 0px 6px 10px 4px hsla(230, 7%, 68%, 0.3);
+
+        &:hover {
+            cursor: pointer;
+        }
     }
 
     .options__wrapper {
         position: absolute;
-        top: 3rem;
+        top: 4rem;
         width: 100%;
-        max-height: 20rem;
+        max-height: 15rem;
         background: var(--clr-neutral-100);
         border-radius: .5rem;
         overflow-y: scroll;
@@ -113,6 +124,6 @@ onBeforeUnmount(() => {
 }
 
 .slide-enter-active {
-    transition: .5s ease-in;
+    transition: .2s ease-in;
 }
 </style>

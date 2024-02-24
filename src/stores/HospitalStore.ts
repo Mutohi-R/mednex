@@ -6,6 +6,8 @@ import { hospitalRef } from "@/firebase/firebase";
 const useHospitalStore = defineStore('hospital', {
     state: () => ({
         hospitals: <HospitalForm[]>[],
+        renderedHospitals: <HospitalForm[]>[],
+        // we use getters to get hospitals and we render over that, to get the filtered we use another getter
         locations: <string[]> [
             'All States', 'Abia', 'Adamawa', 'Akwa Ibom', 'Anambra', 'Bauchi', 'Bayelsa', 'Borno',
             'Cross River', 'Delta', 'Ebonyi', 'Edo', 'Ekiti', 'Enugu', 'Gombe', 'Imo',
@@ -16,7 +18,7 @@ const useHospitalStore = defineStore('hospital', {
         searchQuery: <string>''
     }),
     getters: {
-        
+
     }, 
     actions: {
         async init() {
@@ -25,11 +27,36 @@ const useHospitalStore = defineStore('hospital', {
                 const hospitalData = <HospitalForm>{...doc.data(), id: doc.id, isFavourite: false}
                 this.hospitals.push(hospitalData)
             })
-            console.log(this.hospitals)
+            this.renderedHospitals = this.hospitals
+            console.log(this.renderedHospitals)
         },
 
         async addHospital(hospital: HospitalForm) {
             const snapshot = await addDoc(hospitalRef, hospital)
+        },
+
+        getHospitalsByLocation (location: string) {
+            if(location === 'All States') {
+                this.renderedHospitals = this.hospitals
+            } else {
+                this.renderedHospitals = this.hospitals.filter((hospital) => {
+                    return hospital.location.trim().toLowerCase() === location.trim().toLowerCase()
+                })
+            }
+        },
+
+        getHospitalsBySearchQuery (query: string) {
+            this.renderedHospitals = this.hospitals.filter((hospital) => {
+                return hospital.name.trim().toLowerCase().includes(query.trim().toLowerCase())
+            })
+        },
+
+        toggleFavourite(id: string) {
+            const index = this.hospitals.findIndex((hospital) => {
+                return hospital.id === id
+            })
+            this.hospitals[index].isFavourite = !this.hospitals[index].isFavourite
+            this.renderedHospitals[index].isFavourite = this.hospitals[index].isFavourite
         }
     }
 })
