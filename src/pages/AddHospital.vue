@@ -216,8 +216,8 @@
                     <h3 class="">Extra Information</h3>
                     <MdEditor
                       v-model="hospitalInfo.extraInfo"
-                      language="en-US"
-                      previewTheme="vuepress"
+                      :language="'en-US'"
+                      :previewTheme="'vuepress'"
                     />
                 </div>
                 <button @click="submitHospitalEntry($event)" class="button" data-type="secondary">Submit Form</button>

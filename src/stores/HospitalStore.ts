@@ -79,7 +79,7 @@ const useHospitalStore = defineStore('hospital', {
             })
             this.hospitals[index].isExpanded = !this.hospitals[index].isExpanded
             this.renderedHospitals[index].isExpanded = this.hospitals[index].isExpanded
-        }
+        },
     }
 })
 
