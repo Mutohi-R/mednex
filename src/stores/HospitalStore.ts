@@ -18,31 +18,32 @@ const useHospitalStore = defineStore('hospital', {
         searchQuery: <string>''
     }),
     getters: {
-        getHospitals: (state) => {
-            return state.hospitals
-        },
-        getSavedHospitals: (state) => {
+        savedHospitals: (state): HospitalForm[] => {
             return state.renderedHospitals.filter((hospital) => {
                 return hospital.isFavourite
             })
+        },
+        
+        hospitalsCount: (state): number => {
+            return state.hospitals.length
         }
     }, 
     actions: {
-        async init() {
+        async init(): Promise<void> {
             const snapshot = await getDocs(hospitalRef)
             snapshot.forEach((doc) => {
-                const hospitalData = <HospitalForm>{...doc.data(), id: doc.id, isFavourite: false}
+                const hospitalData = <HospitalForm>{...doc.data(), id: doc.id, isFavourite: false, isExpanded: false}
                 this.hospitals.push(hospitalData)
             })
             this.renderedHospitals = this.hospitals
             console.log(this.renderedHospitals)
         },
 
-        async addHospital(hospital: HospitalForm) {
+        async addHospital(hospital: HospitalForm): Promise<void> {
             const snapshot = await addDoc(hospitalRef, hospital)
         },
 
-        getHospitalsByLocation (location: string) {
+        getHospitalsByLocation (location: string): void {
             if(location === 'All States') {
                 this.renderedHospitals = this.hospitals
             } else {
@@ -52,7 +53,7 @@ const useHospitalStore = defineStore('hospital', {
             }
         },
 
-        getHospitalsBySearchQuery (query: string, location: string) {
+        getHospitalsBySearchQuery (query: string, location: string): void {
             if (location === 'All States' || location === undefined) {
                 this.renderedHospitals = this.hospitals.filter((hospital) => {
                     return hospital.name.trim().toLowerCase().includes(query.trim().toLowerCase())
@@ -64,12 +65,20 @@ const useHospitalStore = defineStore('hospital', {
             }
         },
 
-        toggleFavourite(id: string) {
+        toggleFavourite(id: string): void {
             const index = this.hospitals.findIndex((hospital) => {
                 return hospital.id === id
             })
             this.hospitals[index].isFavourite = !this.hospitals[index].isFavourite
             this.renderedHospitals[index].isFavourite = this.hospitals[index].isFavourite
+        },
+
+        toggleIsExpanded(id: string): void {
+            const index = this.hospitals.findIndex((hospital) => {
+                return hospital.id === id
+            })
+            this.hospitals[index].isExpanded = !this.hospitals[index].isExpanded
+            this.renderedHospitals[index].isExpanded = this.hospitals[index].isExpanded
         }
     }
 })

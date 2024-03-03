@@ -3,7 +3,7 @@
         <ul class="hospital__list | partial | grid gap-3" role="list">
             <li class="text-center" v-if="!renderedHospitals.length">No hospitals found</li>
             <li v-for="(hospital, index) in renderedHospitals" :key="index">
-                <div class="card">
+                <div class="card" @click="toggleIsExpanded(<string>hospital.id)">
                     <div class="flex items-center justify-center">
                         <FontAwesomeIcon class="logo" :icon="faImage" />
                     </div>
@@ -37,9 +37,9 @@
                         </div>
                     </div>
                 </div>
-                <!-- <div class="card__details">
+                <div v-if="hospital.isExpanded" class="card__details">
                     <p>{{ hospital.extraInfo }}</p>
-                </div> -->
+                </div>
             </li>
         </ul>
     </section>
@@ -54,6 +54,10 @@ import {  faCalendar, faClock, faImage } from '@fortawesome/free-regular-svg-ico
 
 const hospitalStore = useHospitalStore()
 const { renderedHospitals } = storeToRefs(hospitalStore)
+
+const toggleIsExpanded = (id: string) => {
+    hospitalStore.toggleIsExpanded(id)
+}
 
 </script>
 

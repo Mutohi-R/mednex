@@ -81,7 +81,7 @@ const authStore = useAuthStore();
     display: flex;
     align-items: center;
     gap: var(--space-s);
-    padding: 0.8rem 3rem;
+    padding: 0.8rem 2.5rem;
     cursor: pointer;
 
     &:hover {
