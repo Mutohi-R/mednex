@@ -1,6 +1,7 @@
 import "./assets/main.scss";
 import "./assets/tailwind.css";
 import "vue-toastification/dist/index.css";
+import JsonCSV from 'vue-json-csv'
 // import "primevue/resources/primevue.min.css"
 // import "primeicons/primeicons.css"
 // import 'primevue/resources/themes/saga-blue/theme.css';
@@ -34,6 +35,7 @@ const options: PluginOptions = {
 
 const pinia = createPinia();
 createApp(App)
+  .component('downloadCsv', JsonCSV)
   .use(pinia)
   .use(router)
   // .use(PrimeVue)

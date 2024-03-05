@@ -39,15 +39,14 @@
                         </div>
                     </div>
                 </div>
-                <TabsWrapper class="" :hospital="hospital" v-if="hospital.isExpanded">
-                    <Tab title="Overview"></Tab>
+                <TabsWrapper @close="toggleIsExpanded(<string>hospital.id)" class="" :renderedHospitals="renderedHospitals" :hospital="hospital" v-if="hospital.isExpanded">
+                    <Tab title="Overview">d</Tab>
                     <Tab title="Info">
                         <div v-if="hospital.isExpanded" class="card__details">
                             <MdPreview :model-value="hospital.extraInfo" :preview-theme="'vuepress'"/>
                         </div>
                     </Tab>
                     <Tab title="Reviews"></Tab>
-                    <Tab title="tab3"></Tab>
                 </TabsWrapper>
                 
             </li>
