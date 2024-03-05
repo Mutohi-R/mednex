@@ -2,10 +2,12 @@
     <div class="tabs">
         <div class="tabs__container">
           <div class="tabs__header">
-            <div @click="handleCSV" class="share | flex items-center gap-space-2xs">
-              <p class="fs-300 fw-semibold">Share</p>
-              <FontAwesomeIcon @click="" class="icon" :icon="faShare" />
-            </div>
+            <!-- <download-csv :data="renderedHospitals"> -->
+              <div @click="hospitalStore.exportHospitals(renderedHospitals)" class="share | flex items-center gap-space-2xs">
+                <p class="fs-300 fw-semibold">Share</p>
+                <FontAwesomeIcon @click="" class="icon" :icon="faShare" />
+              </div>
+            <!-- </download-csv> -->
             <ul>
                 <li
                   v-for="(title) in tabTitles"
@@ -25,17 +27,20 @@
 
 <script setup lang="ts">
 import { ref, provide, useSlots, type Slot, defineEmits } from 'vue';
-import { JSONToCSV } from 'vue-json-csv';
+import { type HospitalForm } from '@/interfacesTypes/hospitalForm';
+import useHospitalStore from '@/stores/HospitalStore';
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faShare, faXmark } from '@fortawesome/free-solid-svg-icons';
 
+const hospitalStore = useHospitalStore();
+
 const props = defineProps({
   hospital: {
-    type: Object,
+    type: Object as () => HospitalForm,
     required: true
   },
   renderedHospitals: {
-    type: Object,
+    type: Array as () => HospitalForm[],
     required: true
   }
 });
@@ -48,13 +53,6 @@ const tabTitles = ref(
   slots.default?.().map((tab) => tab.props?.title) ?? [] // Handle potential absence of slots
 );
 const selectedTitle = ref(tabTitles.value[0]);
-
-const handleCSV = () => {
-  const csvData = JSONToCSV(props.renderedHospitals, {fields: Object.keys(props.renderedHospitals[0])});
-
-  console.log(csvData)
-}
-
 
 provide('selectedTitle', selectedTitle);
 </script>

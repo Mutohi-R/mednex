@@ -2,6 +2,7 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
+import { getStorage, ref } from "firebase/storage";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -20,12 +21,5 @@ const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 const db = getFirestore(app);
 export const hospitalRef = collection(db, "hospital");
-export const testRef = collection(db, "test");
+export const storage = getStorage(app);
 
-// getDocs(hospitalRef).then((snapshot) => {
-//   let hospital: {}[] = []
-//   snapshot.docs.forEach((doc) => {
-//     hospital.push({...doc.data(), id: doc.id})
-//   })
-//   console.log(hospital[0])
-// })
