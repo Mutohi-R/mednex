@@ -15,6 +15,7 @@ const { isAuthenticated, user } = useAuth(auth);
 export const useAuthStore = defineStore('auth', {
     state: () => ({
         isAuthenticated: isAuthenticated,
+        isAdmin: false,
         user: user,
         errors: {
             emailInUse: false,
@@ -25,25 +26,29 @@ export const useAuthStore = defineStore('auth', {
         
     },
     actions: {
-        init(): void {
-            // try {
-            //     onAuthStateChanged(auth, (user) => {
-            //         if (user) {
-            //             // this.isAuthenticated = true;
-            //             console.log('auth',this.isAuthenticated);
-            //         } else {
-            //             console.log('No user', user);
-            //             // this.isAuthenticated = false;
-            //             console.log('auth',this.isAuthenticated);
-            //         }
-            //     })
-            // } catch (err) {
-            //     if (err instanceof Error) {
-            //         console.error(err);
-            //     }
-            // }
-            console.log('working')
-            console.log(this.isAuthenticated)
+        async init(): Promise<void> {
+            try {
+                onAuthStateChanged(auth, (user) => {
+                    if (user?.email === 'admin@gmail.com') {
+                        this.isAdmin = true;
+                        // console.log('admin',this.isAdmin);
+                        // this.isAuthenticated = true;
+                        // console.log('auth',this.isAuthenticated);
+                    } else {
+                        // console.log('No user', user);
+                        this.isAdmin = false;
+                        // console.log('admin',this.isAdmin);
+                        // this.isAuthenticated = false;
+                        // console.log('auth',this.isAuthenticated);
+                    }
+                })
+            } catch (err) {
+                if (err instanceof Error) {
+                    console.error(err);
+                }
+            }
+            // console.log('working')
+            // console.log(this.isAdmin)
         },
 
         async signup(email: string, password: string): Promise<void> {

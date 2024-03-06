@@ -23,6 +23,9 @@
         <div class="location | flex items-center">
           <location-select v-model="parentSelectedOption" />
         </div>
+        <div class="share" @click="hospitalStore.exportHospitals(renderedHospitals)">
+          <FontAwesomeIcon class="icon" :icon="faShare" />
+        </div>
       </div>
     </section>
     <hospital-list></hospital-list>
@@ -36,11 +39,12 @@ import { useAuthStore } from "@/stores/AuthStore";
 import useHospitalStore from "@/stores/HospitalStore";
 import LocationSelect from "@/components/LocationSelect.vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import { faAngleDown, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { faAngleDown, faMagnifyingGlass, faShare } from "@fortawesome/free-solid-svg-icons";
 
 import HospitalList from "@/components/HospitalList.vue";
 
 const hospitalStore = useHospitalStore();
+const { renderedHospitals } = storeToRefs(hospitalStore);
 const authStore = useAuthStore();
 console.log(authStore.user)
 
@@ -68,7 +72,7 @@ const getHospitalsBySearch = (searchQuery: string) => {
   display: grid;
   align-items: center;
   place-self: center;
-  grid-template-columns: 3fr 1fr;
+  grid-template-columns: 3fr 1fr min-content;
   column-gap: var(--space-2xs);
   width: 100%;
 
@@ -101,6 +105,21 @@ const getHospitalsBySearch = (searchQuery: string) => {
     background: var(--clr-neutral-100);
     border-radius: .25rem;
     box-shadow: 0px 6px 10px 4px hsla(230, 7%, 68%, 0.3);
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .share {
+    padding: 1rem;
+    background: var(--clr-neutral-100);
+    border-radius: .25rem;
+    box-shadow: 0px 6px 10px 4px hsla(230, 7%, 68%, 0.3);
+
+    .icon {
+      font-size: 1.3rem;
+    }
 
     &:hover {
       cursor: pointer;

@@ -49,6 +49,7 @@
   const sidebarOpen: Ref<boolean> = ref(false)
 
   onMounted(() => {
+    authStore.init()
     hospitalStore.init()
   }) 
 
