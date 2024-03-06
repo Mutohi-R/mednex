@@ -1,19 +1,34 @@
-/**
- * Import function triggers from their respective submodules:
- *
- * import {onCall} from "firebase-functions/v2/https";
- * import {onDocumentWritten} from "firebase-functions/v2/firestore";
- *
- * See a full list of supported triggers at https://firebase.google.com/docs/functions
- */
+import { onCall, CallableRequest } from 'firebase-functions/v2/https'
+import { initializeApp, auth } from 'firebase-admin'
 
-import {onRequest} from "firebase-functions/v2/https";
-import * as logger from "firebase-functions/logger";
+initializeApp()
 
-// Start writing functions
-// https://firebase.google.com/docs/functions/typescript
+interface AddAdminData {
+    email: string
+}
 
-// export const helloWorld = onRequest((request, response) => {
-//   logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
+interface CustomUserClaims {
+    admin: boolean
+}
+
+export const addadmin = onCall(async ( { data: { email } }: CallableRequest<AddAdminData>): Promise<{ message: string }> => {
+    try {
+       const user = await auth().getUserByEmail(email)
+
+       try {
+           await auth().setCustomUserClaims(user.uid, {
+               admin: true
+           } as CustomUserClaims)
+           console.log(`Admin claim set successfully for user with email: ${email}}`)
+       } catch (err) {
+           console.error(`Failed to set admin claim for user with email: ${email}`, err)
+           return { message: 'Failed to set admin claim' }
+       }
+
+    } catch (err) {
+        console.error(`Failed to get user with email: ${email}`, err)
+        return { message: `Failed to get user with email: ${email}` }
+    }
+
+    return { message: 'Success!' }
+})
