@@ -40,7 +40,7 @@
                     </div>
                 </div>
                 <TabsWrapper @close="toggleIsExpanded(<string>hospital.id)" class="" :renderedHospitals="renderedHospitals" :hospital="hospital" v-if="hospital.isExpanded">
-                    <Tab title="Overview">d</Tab>
+                    <Tab title="Overview"></Tab>
                     <Tab title="Info">
                         <div v-if="hospital.isExpanded" class="card__details">
                             <MdPreview :model-value="hospital.extraInfo" :preview-theme="'vuepress'"/>

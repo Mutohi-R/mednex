@@ -18,6 +18,7 @@
                     <p>{{ title }}</p>
                 </li>
             </ul>
+            <a :href="downloadURL">{{ downloadURL }}</a>
             <FontAwesomeIcon @click="$emit('close')" class="icon cursor-pointer" :icon="faXmark" />
           </div>
         </div>
@@ -27,12 +28,14 @@
 
 <script setup lang="ts">
 import { ref, provide, useSlots, type Slot, defineEmits } from 'vue';
+import { storeToRefs } from 'pinia';
 import { type HospitalForm } from '@/interfacesTypes/hospitalForm';
 import useHospitalStore from '@/stores/HospitalStore';
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faShare, faXmark } from '@fortawesome/free-solid-svg-icons';
 
 const hospitalStore = useHospitalStore();
+const { downloadURL } = storeToRefs(hospitalStore)
 
 const props = defineProps({
   hospital: {

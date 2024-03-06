@@ -1,6 +1,11 @@
 import { defineStore } from "pinia";
 import { getDocs, addDoc } from "firebase/firestore";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import {
+  ref,
+  uploadBytes,
+  getDownloadURL,
+  deleteObject,
+} from "firebase/storage";
 import { v4 as uuidv4 } from "uuid";
 import type { HospitalForm } from "@/interfacesTypes/hospitalForm";
 import { hospitalRef, storage } from "@/firebase/firebase";
@@ -9,6 +14,7 @@ const useHospitalStore = defineStore("hospital", {
   state: () => ({
     hospitals: <HospitalForm[]>[],
     renderedHospitals: <HospitalForm[]>[],
+    downloadURL: <string>"",
     // we use getters to get hospitals and we render over that, to get the filtered we use another getter
     locations: <string[]>[
       "All States",
@@ -141,11 +147,11 @@ const useHospitalStore = defineStore("hospital", {
       let csvContent = "Hospital Name, Address, Phone Number, Website, Email";
 
       hospitals.forEach((hospital) => {
-        const name = `"${hospital.name.replace(/"/g, '""')}"`
-        const address = `"${hospital.address.replace(/"/g, '""')}"`
-        const telephone = `"${hospital.telephone.replace(/"/g, '""')}"`
-        const website = `"${hospital.website.replace(/"/g, '""')}"`
-        const email = `"${hospital.email.replace(/"/g, '""')}"`
+        const name = `"${hospital.name.replace(/"/g, '""')}"`;
+        const address = `"${hospital.address.replace(/"/g, '""')}"`;
+        const telephone = `"${hospital.telephone.replace(/"/g, '""')}"`;
+        const website = `"${hospital.website.replace(/"/g, '""')}"`;
+        const email = `"${hospital.email.replace(/"/g, '""')}"`;
         csvContent += `\n${name}, ${address}, ${telephone}, ${website}, ${email}`;
       });
 
@@ -153,9 +159,21 @@ const useHospitalStore = defineStore("hospital", {
 
       const hospitalCSVRef = ref(storage, `hospitals-csv/${fileName}`);
 
-      const snapshot = await uploadBytes(hospitalCSVRef, blob);
-      const downloadURL = await getDownloadURL(snapshot.ref);
-      console.log(downloadURL);
+      try {
+        const snapshot = await uploadBytes(hospitalCSVRef, blob);
+        const downloadURL = await getDownloadURL(snapshot.ref);
+        this.downloadURL = downloadURL
+        console.log('file has been uploaded', downloadURL)
+        setTimeout(async () => {
+          try {
+            await deleteObject(hospitalCSVRef);
+          } catch (err) {
+            console.log(err);
+          }
+        }, 30000);
+      } catch (err) {
+        console.log(err);
+      }
     },
   },
 });
