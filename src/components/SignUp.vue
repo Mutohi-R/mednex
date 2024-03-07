@@ -50,7 +50,12 @@
             class="form__input"
           />
         </div>
-        <button class="button main__btn" data-type="primary" @click="register" :disabled="!formValid">
+        <button
+          class="button main__btn"
+          data-type="primary"
+          @click="register"
+          :disabled="!formValid"
+        >
           Continue
         </button>
         <p class="conditions">
@@ -95,7 +100,6 @@ import { useAuthStore } from "@/stores/AuthStore";
 const { errors } = storeToRefs(useAuthStore());
 
 const emit = defineEmits(["closeSignup", "openLogin"]);
-
 
 const authStore = useAuthStore();
 const invalidEmail: Ref<boolean | null> = ref(null);

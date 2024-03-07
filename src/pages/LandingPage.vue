@@ -5,7 +5,9 @@
       class="hero | content-grid | bg-clr-primary-500 text-clr-neutral-100"
     >
       <div style="--_flow-space: 1rem" class="flow breakout">
-        <h1 class="fs-900 ff-accent fw-bold text-center text-balance">Discover healthcare near you</h1>
+        <h1 class="fs-900 ff-accent fw-bold text-center text-balance">
+          Discover healthcare near you
+        </h1>
         <h2 class="fs-600 text-center">
           <span class="">Search</span>, <span class="">export</span>, and
           <span class="">share</span> hospitals in your region
@@ -13,8 +15,19 @@
       </div>
       <div class="filter | text-clr-neutral-400">
         <div class="search">
-          <FontAwesomeIcon class="icon" style="color: var(--clr-neutral-300);" :icon="faMagnifyingGlass" />
-          <input v-model="searchQuery" name="search" id="search" @input="getHospitalsBySearch(searchQuery)" type="text" placeholder="Have an hospital in mind?" />
+          <FontAwesomeIcon
+            class="icon"
+            style="color: var(--clr-neutral-300)"
+            :icon="faMagnifyingGlass"
+          />
+          <input
+            v-model="searchQuery"
+            name="search"
+            id="search"
+            @input="getHospitalsBySearch(searchQuery)"
+            type="text"
+            placeholder="Have an hospital in mind?"
+          />
         </div>
         <!-- <div class="filter__choices">
           <p>Filters</p>
@@ -23,7 +36,10 @@
         <div class="location | flex items-center">
           <location-select v-model="parentSelectedOption" />
         </div>
-        <div class="share" @click="hospitalStore.exportHospitals(renderedHospitals)">
+        <div
+          class="share"
+          @click="hospitalStore.exportHospitals(renderedHospitals)"
+        >
           <FontAwesomeIcon class="icon" :icon="faShare" />
         </div>
       </div>
@@ -39,21 +55,28 @@ import { useAuthStore } from "@/stores/AuthStore";
 import useHospitalStore from "@/stores/HospitalStore";
 import LocationSelect from "@/components/LocationSelect.vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import { faAngleDown, faMagnifyingGlass, faShare } from "@fortawesome/free-solid-svg-icons";
+import {
+  faAngleDown,
+  faMagnifyingGlass,
+  faShare,
+} from "@fortawesome/free-solid-svg-icons";
 
 import HospitalList from "@/components/HospitalList.vue";
 
 const hospitalStore = useHospitalStore();
 const { renderedHospitals } = storeToRefs(hospitalStore);
 const authStore = useAuthStore();
-console.log(authStore.user)
+console.log(authStore.user);
 
 const parentSelectedOption: Ref<string | null> = ref(null);
-const searchQuery: Ref<string> = ref('');
+const searchQuery: Ref<string> = ref("");
 
 const getHospitalsBySearch = (searchQuery: string) => {
-  hospitalStore.getHospitalsBySearchQuery(searchQuery.trim(), <string>parentSelectedOption.value?.trim());
-}
+  hospitalStore.getHospitalsBySearchQuery(
+    searchQuery.trim(),
+    <string>parentSelectedOption.value?.trim()
+  );
+};
 </script>
 
 <style scoped lang="scss">
@@ -83,10 +106,8 @@ const getHospitalsBySearch = (searchQuery: string) => {
     gap: var(--space-2xs);
     padding: 1rem;
     background: var(--clr-neutral-100);
-    border-radius: .25rem;
+    border-radius: 0.25rem;
     box-shadow: 0px 6px 10px 4px hsla(230, 7%, 68%, 0.3);
-
-
 
     input {
       width: 100%;
@@ -103,7 +124,7 @@ const getHospitalsBySearch = (searchQuery: string) => {
     justify-content: space-between;
     padding: 1rem;
     background: var(--clr-neutral-100);
-    border-radius: .25rem;
+    border-radius: 0.25rem;
     box-shadow: 0px 6px 10px 4px hsla(230, 7%, 68%, 0.3);
 
     &:hover {
@@ -114,7 +135,7 @@ const getHospitalsBySearch = (searchQuery: string) => {
   .share {
     padding: 1rem;
     background: var(--clr-neutral-100);
-    border-radius: .25rem;
+    border-radius: 0.25rem;
     box-shadow: 0px 6px 10px 4px hsla(230, 7%, 68%, 0.3);
 
     .icon {
@@ -126,11 +147,9 @@ const getHospitalsBySearch = (searchQuery: string) => {
     }
   }
 }
- h2 {
+h2 {
   span {
     color: var(--clr-neutral-600);
   }
 }
 </style>
-
-

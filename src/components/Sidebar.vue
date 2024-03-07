@@ -8,7 +8,6 @@
             <p>Home</p>
           </li>
         </router-link>
-        
 
         <router-link to="/dashboard">
           <li class="item">

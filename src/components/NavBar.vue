@@ -1,16 +1,20 @@
 <template>
-  <header class="primary__header ">
+  <header class="primary__header">
     <div class="container | flex items-center gap-space-s justify-between">
       <div class="flex items-center gap-space-2xs">
-        <i-ci-hamburger-lg 
-          v-if="isAuthenticated" 
+        <i-ci-hamburger-lg
+          v-if="isAuthenticated"
           class="hamburger"
           @click="$emit('hamburgerClick')"
         />
         <Logo />
       </div>
       <nav class="primary__nav | flex gap-space-xs">
-        <ul v-if="isAuthenticated" role="list" class="nav__list | flex items-center gap-space-xs">
+        <ul
+          v-if="isAuthenticated"
+          role="list"
+          class="nav__list | flex items-center gap-space-xs"
+        >
           <li class="list__icon">
             <FontAwesomeIcon class="bell" :icon="faEnvelope" />
           </li>
@@ -19,12 +23,28 @@
           </li>
           <li class="profile__icon"></li>
         </ul>
-        <ul v-if="!isAuthenticated" role="list" class="nav__action | flex items-center gap-space-xs">
+        <ul
+          v-if="!isAuthenticated"
+          role="list"
+          class="nav__action | flex items-center gap-space-xs"
+        >
           <li>
-            <button class="button" data-type="primary" @click="$emit('openSignup')">Sign Up</button>
+            <button
+              class="button"
+              data-type="primary"
+              @click="$emit('openSignup')"
+            >
+              Sign Up
+            </button>
           </li>
           <li>
-            <button class="button" data-type="secondary" @click="$emit('openLogin')">Login</button>
+            <button
+              class="button"
+              data-type="secondary"
+              @click="$emit('openLogin')"
+            >
+              Login
+            </button>
           </li>
         </ul>
       </nav>
@@ -35,17 +55,13 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useAuthStore } from "@/stores/AuthStore";
-import { isAuthenticated, user } from '@/utils/vueAuth'
-
+import { isAuthenticated, user } from "@/utils/vueAuth";
 
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faBell, faEnvelope } from "@fortawesome/free-regular-svg-icons";
 import Logo from "./Logo.vue";
 
-const emit = defineEmits(['openSignup', 'openLogin', 'hamburgerClick'])
-
-
-
+const emit = defineEmits(["openSignup", "openLogin", "hamburgerClick"]);
 </script>
 
 <style lang="scss" scoped>

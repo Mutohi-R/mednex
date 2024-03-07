@@ -162,8 +162,8 @@ const useHospitalStore = defineStore("hospital", {
       try {
         const snapshot = await uploadBytes(hospitalCSVRef, blob);
         const downloadURL = await getDownloadURL(snapshot.ref);
-        this.downloadURL = downloadURL
-        console.log('file has been uploaded', downloadURL)
+        this.downloadURL = downloadURL;
+        console.log("file has been uploaded", downloadURL);
         setTimeout(async () => {
           try {
             await deleteObject(hospitalCSVRef);

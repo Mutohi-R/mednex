@@ -1,54 +1,61 @@
 <template>
-    <div class="tabs">
-        <div class="tabs__container">
-          <div class="tabs__header">
-            <!-- <download-csv :data="renderedHospitals"> -->
-              <div @click="hospitalStore.exportHospitals(renderedHospitals)" class="share | flex items-center gap-space-2xs">
-                <p class="fs-300 fw-semibold">Share</p>
-                <FontAwesomeIcon @click="" class="icon" :icon="faShare" />
-              </div>
-            <!-- </download-csv> -->
-            <ul>
-                <li
-                  v-for="(title) in tabTitles"
-                  :key="title"
-                  @click="selectedTitle = title"
-                  :class="{ 'active': selectedTitle == title }"
-                >
-                    <p>{{ title }}</p>
-                </li>
-            </ul>
-            <a :href="downloadURL">{{ downloadURL }}</a>
-            <FontAwesomeIcon @click="$emit('close')" class="icon cursor-pointer" :icon="faXmark" />
-          </div>
+  <div class="tabs">
+    <div class="tabs__container">
+      <div class="tabs__header">
+        <!-- <download-csv :data="renderedHospitals"> -->
+        <div
+          @click="hospitalStore.exportHospitals(renderedHospitals)"
+          class="share | flex items-center gap-space-2xs"
+        >
+          <p class="fs-300 fw-semibold">Share</p>
+          <FontAwesomeIcon @click="" class="icon" :icon="faShare" />
         </div>
-        <slot></slot>
+        <!-- </download-csv> -->
+        <ul>
+          <li
+            v-for="title in tabTitles"
+            :key="title"
+            @click="selectedTitle = title"
+            :class="{ active: selectedTitle == title }"
+          >
+            <p>{{ title }}</p>
+          </li>
+        </ul>
+        <a :href="downloadURL">{{ downloadURL }}</a>
+        <FontAwesomeIcon
+          @click="$emit('close')"
+          class="icon cursor-pointer"
+          :icon="faXmark"
+        />
+      </div>
     </div>
+    <slot></slot>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { ref, provide, useSlots, type Slot, defineEmits } from 'vue';
-import { storeToRefs } from 'pinia';
-import { type HospitalForm } from '@/interfacesTypes/hospitalForm';
-import useHospitalStore from '@/stores/HospitalStore';
+import { ref, provide, useSlots, type Slot, defineEmits } from "vue";
+import { storeToRefs } from "pinia";
+import { type HospitalForm } from "@/interfacesTypes/hospitalForm";
+import useHospitalStore from "@/stores/HospitalStore";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import { faShare, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faShare, faXmark } from "@fortawesome/free-solid-svg-icons";
 
 const hospitalStore = useHospitalStore();
-const { downloadURL } = storeToRefs(hospitalStore)
+const { downloadURL } = storeToRefs(hospitalStore);
 
 const props = defineProps({
   hospital: {
     type: Object as () => HospitalForm,
-    required: true
+    required: true,
   },
   renderedHospitals: {
     type: Array as () => HospitalForm[],
-    required: true
-  }
+    required: true,
+  },
 });
 
-const emit = defineEmits(['close']);
+const emit = defineEmits(["close"]);
 
 const slots = useSlots(); // Access slots using useSlots composable
 
@@ -57,16 +64,15 @@ const tabTitles = ref(
 );
 const selectedTitle = ref(tabTitles.value[0]);
 
-provide('selectedTitle', selectedTitle);
+provide("selectedTitle", selectedTitle);
 </script>
 
 <style lang="scss" scoped>
-
 .tabs__container {
   position: relative;
 
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     bottom: 0;
     width: 100%;
@@ -82,11 +88,15 @@ provide('selectedTitle', selectedTitle);
   padding-inline: 1rem;
 
   .share {
-    padding: .5rem;
-    border-radius: .5rem;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
 
     &:hover {
-      background: color-mix(in srgb, var(--clr-neutral-200) 40%, var(--clr-neutral-100) 60%);
+      background: color-mix(
+        in srgb,
+        var(--clr-neutral-200) 40%,
+        var(--clr-neutral-100) 60%
+      );
       color: var(--clr-neutral-600);
       cursor: pointer;
     }
@@ -95,7 +105,7 @@ provide('selectedTitle', selectedTitle);
   .icon {
     font-size: 1.5rem;
   }
-  
+
   ul {
     display: flex;
     align-items: center;
@@ -108,20 +118,23 @@ provide('selectedTitle', selectedTitle);
       font-weight: var(--fw-semibold);
 
       p {
-        padding: 1rem .5rem;
+        padding: 1rem 0.5rem;
       }
 
       &:hover {
-        background-color: color-mix(in srgb, var(--clr-neutral-200) 40%, var(--clr-neutral-100) 60%);
+        background-color: color-mix(
+          in srgb,
+          var(--clr-neutral-200) 40%,
+          var(--clr-neutral-100) 60%
+        );
         color: var(--clr-neutral-800);
       }
-
 
       &.active {
         color: var(--clr-primary-600);
 
         &::before {
-          content: '';
+          content: "";
           position: absolute;
           bottom: 0;
           width: 100%;
@@ -131,7 +144,5 @@ provide('selectedTitle', selectedTitle);
       }
     }
   }
-
-  
 }
 </style>

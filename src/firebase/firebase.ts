@@ -22,4 +22,3 @@ export const auth = getAuth(app);
 const db = getFirestore(app);
 export const hospitalRef = collection(db, "hospital");
 export const storage = getStorage(app);
-

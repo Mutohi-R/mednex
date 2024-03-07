@@ -50,7 +50,12 @@
             class="form__input"
           />
         </div>
-        <button class="button main__btn" data-type="primary" @click="login" :disabled="!formValid">
+        <button
+          class="button main__btn"
+          data-type="primary"
+          @click="login"
+          :disabled="!formValid"
+        >
           Continue
         </button>
         <p class="conditions">
