@@ -38,12 +38,22 @@
         </div>
         <div
           class="share"
-          @click="hospitalStore.exportHospitals(renderedHospitals)"
+          @click="
+            // hospitalStore.exportHospitals(renderedHospitals);
+            shareModalIsOpen = true;
+          "
         >
           <FontAwesomeIcon class="icon" :icon="faShare" />
         </div>
       </div>
     </section>
+    <teleport to="#share-modal">
+      <Transition name="modal">
+        <div v-if="shareModalIsOpen" class="root | relative">
+          <share-modal ref="shareModal" @close="shareModalIsOpen = false"></share-modal>
+        </div>
+      </Transition>
+    </teleport>
     <hospital-list></hospital-list>
   </main>
 </template>
@@ -53,7 +63,9 @@ import { ref, type Ref } from "vue";
 import { storeToRefs } from "pinia";
 import { useAuthStore } from "@/stores/AuthStore";
 import useHospitalStore from "@/stores/HospitalStore";
+import { onClickOutside } from "@vueuse/core";
 import LocationSelect from "@/components/LocationSelect.vue";
+import ShareModal from "@/components/ShareModal.vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import {
   faAngleDown,
@@ -66,7 +78,9 @@ import HospitalList from "@/components/HospitalList.vue";
 const hospitalStore = useHospitalStore();
 const { renderedHospitals } = storeToRefs(hospitalStore);
 const authStore = useAuthStore();
-console.log(authStore.user);
+
+const shareModalIsOpen: Ref<boolean> = ref(false);
+const shareModal: Ref<HTMLDivElement | null> = ref(null)
 
 const parentSelectedOption: Ref<string | null> = ref(null);
 const searchQuery: Ref<string> = ref("");
@@ -77,6 +91,10 @@ const getHospitalsBySearch = (searchQuery: string) => {
     <string>parentSelectedOption.value?.trim()
   );
 };
+
+onClickOutside(shareModal, () => {
+  shareModalIsOpen.value = false
+})
 </script>
 
 <style scoped lang="scss">
@@ -151,5 +169,27 @@ h2 {
   span {
     color: var(--clr-neutral-600);
   }
+}
+
+.root {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-enter-active,
+.modal-leave-active {
+  transition: all 0.3s ease-out;
+}
+
+.modal-enter-from,
+.modal-leave-to {
+  opacity: 0;
+  transform: scale(1.1);
 }
 </style>

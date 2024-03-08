@@ -3,13 +3,13 @@
     <div class="tabs__container">
       <div class="tabs__header">
         <!-- <download-csv :data="renderedHospitals"> -->
-        <div
+        <!-- <div
           @click="hospitalStore.exportHospitals(renderedHospitals)"
           class="share | flex items-center gap-space-2xs"
         >
           <p class="fs-300 fw-semibold">Share</p>
           <FontAwesomeIcon @click="" class="icon" :icon="faShare" />
-        </div>
+        </div> -->
         <!-- </download-csv> -->
         <ul>
           <li
@@ -21,7 +21,6 @@
             <p>{{ title }}</p>
           </li>
         </ul>
-        <a :href="downloadURL">{{ downloadURL }}</a>
         <FontAwesomeIcon
           @click="$emit('close')"
           class="icon cursor-pointer"
