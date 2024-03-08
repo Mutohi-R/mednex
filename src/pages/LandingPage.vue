@@ -39,7 +39,7 @@
         <div
           class="share"
           @click="
-            // hospitalStore.exportHospitals(renderedHospitals);
+            hospitalStore.exportHospitals(renderedHospitals);
             shareModalIsOpen = true;
           "
         >
