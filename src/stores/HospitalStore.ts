@@ -167,10 +167,12 @@ const useHospitalStore = defineStore("hospital", {
         setTimeout(async () => {
           try {
             await deleteObject(hospitalCSVRef);
+
+            this.downloadURL = "";
           } catch (err) {
             console.log(err);
           }
-        }, 30000);
+        }, 10000);
       } catch (err) {
         console.log(err);
       }

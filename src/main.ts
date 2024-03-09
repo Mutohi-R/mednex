@@ -38,5 +38,5 @@ createApp(App)
   .use(router)
   // .use(PrimeVue)
   // .use(ToastService)
-  // .use(Toast, options)
+  .use(Toast, options)
   .mount("#app");

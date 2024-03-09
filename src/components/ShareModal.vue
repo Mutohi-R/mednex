@@ -1,10 +1,18 @@
 <template>
   <div class="share__modal | grid gap-3">
     <div>
-      <p v-if="timeLeft > 0" class="fs-300 fw-semibold">This link is only valid for {{ formatTime(hours) }}:{{ formatTime(minutes)}}:{{ formatTime(seconds) }}</p>
+      <p v-if="timeLeft > 0" class="fs-300 fw-semibold">
+        This link is only valid for {{ formatTime(hours) }}:{{
+          formatTime(minutes)
+        }}:{{ formatTime(seconds) }}
+      </p>
       <p v-else class="fs-300 fw-semibold">This link has expired</p>
     </div>
-    <div @click="downloadHospitalsCSV" class="link-group download | flex items-center gap-space-2xs">
+    <div
+      ref="downloadLink"
+      @click="downloadHospitalsCSV"
+      class="link-group download | flex items-center gap-space-2xs"
+    >
       <FontAwesomeIcon
         class="icon"
         :icon="faDownload"
@@ -12,17 +20,20 @@
       />
       <p class="fw-semibold">Download hospitals as CSV</p>
     </div>
-    <a :href="downloadURL" class="link-group download | flex items-center gap-space-2xs">
+    <!-- <a @click="downloadHospitalsCSV($event)" :href="downloadURL" class="link-group download | flex items-center gap-space-2xs">
       <FontAwesomeIcon
         class="icon"
         :icon="faDownload"
         style="font-size: 1.3rem"
       />
       <p class="fw-semibold">Download hospitals as CSV</p>
-    </a>
-    <div @click="copyLinkToClipboard" class="link-group copy | flex items-center gap-space-2xs">
-        <FontAwesomeIcon class="icon" :icon="faLink" style="font-size: 1.3rem" />
-        <p class="fw-semibold">Copy download link</p>
+    </a> -->
+    <div
+      @click="copyLinkToClipboard"
+      class="link-group copy | flex items-center gap-space-2xs"
+    >
+      <FontAwesomeIcon class="icon" :icon="faLink" style="font-size: 1.3rem" />
+      <p class="fw-semibold">Copy download link</p>
     </div>
     <button @click="$emit('close')" class="close">
       <FontAwesomeIcon class="icon" :icon="faClose" style="font-size: 1.5rem" />
@@ -31,64 +42,71 @@
 </template>
 
 <script setup lang="ts">
-import {  ref, type Ref, onMounted, computed, defineEmits } from "vue";
+import { ref, type Ref, onMounted, computed, defineEmits } from "vue";
 import { storeToRefs } from "pinia";
 import useHospitalStore from "@/stores/HospitalStore";
+import { useToast } from "vue-toastification";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faClose, faDownload, faLink } from "@fortawesome/free-solid-svg-icons";
 
 const emit = defineEmits(["close"]);
+const toast = useToast();
 
 const hospitalStore = useHospitalStore();
 const { downloadURL } = storeToRefs(hospitalStore);
-const timeLeft: Ref<number> = ref(60)
+const timeLeft: Ref<number> = ref(10);
+const downloadLink = ref<HTMLDivElement | null>(null);
 
-const downloadHospitalsCSV = () => {
+const downloadHospitalsCSV = async () => {
+
   if (downloadURL.value) {
-    const downloadLink: HTMLAnchorElement = document.createElement("a");
-    downloadLink.href = downloadURL.value;
-    document.body.appendChild(downloadLink);
-    downloadLink.click();
-    document.body.removeChild(downloadLink);
+    const link: HTMLAnchorElement = document.createElement("a");
+    link.href = downloadURL.value;
+    link.click();
   } else {
-    alert("Your download link has expired. Please try again.");
+    toast.error("Download link has expired. Please try again.");
   }
-  
-}
+
+};
 
 const copyLinkToClipboard = async () => {
+
+  if (downloadURL.value) {
     try {
-        await navigator.clipboard.writeText(downloadURL.value);
-        alert("Link copied to clipboard");
+      await navigator.clipboard.writeText(downloadURL.value);
+      toast.success("Link copied to clipboard");
     } catch (err) {
-        console.error("Error copying to clipboard: ", err);
-        alert('Failed to copy link to clipboard. Please try again.')
-    }
-}
+      console.error("Error copying to clipboard: ", err);
+    }  
+  } else {
+    toast.error("Download link has expired. Please try again.");
+  }
+
+};
 
 const hours = computed(() => {
-  return Math.floor(timeLeft.value / 3600)
-})
+  return Math.floor(timeLeft.value / 3600);
+});
 
 const minutes = computed(() => {
-  return Math.floor((timeLeft.value % 3600) / 60)
-})
+  return Math.floor((timeLeft.value % 3600) / 60);
+});
 
 const seconds = computed(() => {
-  return Math.floor(timeLeft.value % 60)
-})
+  return Math.floor(timeLeft.value % 60);
+});
 
 onMounted(() => {
   setInterval(() => {
     if (timeLeft.value > 0) {
-      timeLeft.value--
+      timeLeft.value--;
     }
-  }, 1000)
-})
+  }, 1000);
+});
 
 const formatTime = (time: number) => {
-  return time < 10 ? `0${time}` : time
-}
+  return time < 10 ? `0${time}` : time;
+};
 </script>
 
 <style scoped>
@@ -112,21 +130,37 @@ const formatTime = (time: number) => {
   }
 
   .download {
-    background-color: color-mix(in lab, var(--clr-accent-400) 30%, var(--clr-neutral-100) 70%);
+    background-color: color-mix(
+      in lab,
+      var(--clr-accent-400) 30%,
+      var(--clr-neutral-100) 70%
+    );
     font-size: var(--fs-300);
 
     &:hover {
-      background-color: color-mix(in lab, var(--clr-accent-400) 60%, var(--clr-neutral-100) 40%);
+      background-color: color-mix(
+        in lab,
+        var(--clr-accent-400) 60%,
+        var(--clr-neutral-100) 40%
+      );
       cursor: pointer;
     }
   }
 
   .copy {
-    background-color: color-mix(in lab, var(--clr-accent-200) 30%, var(--clr-neutral-100) 70%);
+    background-color: color-mix(
+      in lab,
+      var(--clr-accent-200) 30%,
+      var(--clr-neutral-100) 70%
+    );
     font-size: var(--fs-300);
 
     &:hover {
-      background-color: color-mix(in lab, var(--clr-accent-200) 90%, var(--clr-neutral-100) 10%);
+      background-color: color-mix(
+        in lab,
+        var(--clr-accent-200) 90%,
+        var(--clr-neutral-100) 10%
+      );
       cursor: pointer;
     }
   }
