@@ -1,12 +1,14 @@
 import { defineStore } from "pinia";
-import { auth } from "@/firebase/firebase";
+import { auth, userRef } from "@/firebase/firebase";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
 } from "firebase/auth";
+import { getDocs, addDoc, setDoc, doc, getDoc } from "firebase/firestore";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import type { UserData } from "@/interfacesTypes/user";
 import { useAuth } from "@vueuse/firebase";
 import { useToast } from "vue-toastification";
 
@@ -17,6 +19,7 @@ export const useAuthStore = defineStore("auth", {
     isAuthenticated: isAuthenticated,
     isAdmin: false,
     user: user,
+    userData: <UserData>{},
     errors: {
       emailInUse: false,
       invalidCred: false,
@@ -26,18 +29,27 @@ export const useAuthStore = defineStore("auth", {
   actions: {
     async init(): Promise<void> {
       try {
-        onAuthStateChanged(auth, (user) => {
+        onAuthStateChanged(auth, async (user) => {
           if (user?.email === "admin@gmail.com") {
             this.isAdmin = true;
-            // console.log('admin',this.isAdmin);
-            // this.isAuthenticated = true;
-            // console.log('auth',this.isAuthenticated);
           } else {
-            // console.log('No user', user);
             this.isAdmin = false;
-            // console.log('admin',this.isAdmin);
-            // this.isAuthenticated = false;
-            // console.log('auth',this.isAuthenticated);
+          }
+
+          if (user) {
+            const loggedInUserId = user.uid;
+            const userDocRef = doc(userRef, loggedInUserId);
+            const userDocSnapshot = await getDoc(userDocRef);
+
+            if (userDocSnapshot.exists()) {
+              const userData = userDocSnapshot.data();
+              this.userData = userData as UserData;
+              console.log(this.userData)
+            } else {
+              console.log("No document was found for the logged in user");
+            }
+          } else {
+            console.log("No logged-in user detected");
           }
         });
       } catch (err) {
@@ -45,17 +57,31 @@ export const useAuthStore = defineStore("auth", {
           console.error(err);
         }
       }
-      // console.log('working')
-      // console.log(this.isAdmin)
     },
 
-    async signup(email: string, password: string): Promise<void> {
+    async signup(name: string, email: string, password: string): Promise<void> {
+      const capitalizeEachWord = (str: string): string => {
+        return str
+          .split(" ")
+          .map(
+            (word) => word.trim().charAt(0).toUpperCase() + word.trim().slice(1)
+          )
+          .join(" ");
+      };
       try {
         const userCred = await createUserWithEmailAndPassword(
           auth,
           email,
           password
         );
+        const user = userCred.user;
+        const username = capitalizeEachWord(name);
+        // const snapshot = await addDoc(userRef, { username: username, email: user.email, uid: user.uid });
+        // console.log(snapshot);
+        await setDoc(doc(userRef, user.uid), {
+          username: username,
+          email: user.email,
+        });
         const toast = useToast();
         toast.success("Sign up successful");
       } catch (err) {

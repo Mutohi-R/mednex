@@ -10,6 +10,31 @@
       </div>
       <div class="form">
         <div class="form__group">
+          <label for="email">User Name</label>
+          <p
+            v-if="invalidUsername"
+            class="flex items-center gap-2 fs-200 text-clr-error-400"
+          >
+            Username must be greater than 4 and less than 14 characters
+          </p>
+          <!-- <p
+            v-if="errors.emailInUse"
+            class="flex items-center gap-2 fs-200 text-clr-error-400"
+          >
+            This email is associated with another account
+          </p> -->
+          <input
+            @input="validateInput"
+            v-model="registerData.username"
+            type="text"
+            required
+            name="username"
+            id="username"
+            placeholder=""
+            class="form__input"
+          />
+        </div>
+        <div class="form__group">
           <label for="email">Email Address</label>
           <p
             v-if="invalidEmail"
@@ -30,7 +55,6 @@
             required
             name="email"
             id="email"
-            placeholder="name@example.com"
             class="form__input"
           />
         </div>
@@ -102,17 +126,37 @@ const { errors } = storeToRefs(useAuthStore());
 const emit = defineEmits(["closeSignup", "openLogin"]);
 
 const authStore = useAuthStore();
+const invalidUsername: Ref<boolean | null> = ref(null);
 const invalidEmail: Ref<boolean | null> = ref(null);
 const invalidPassword: Ref<boolean | null> = ref(null);
 const formValid: Ref<boolean | null> = ref(null);
 
 const registerData = reactive<RegisterUser>({
+  username: "",
   email: "",
   password: "",
 });
 
 const validateInput = (e: Event): void => {
   const target = e.target as HTMLInputElement;
+
+  const validateUsername = (): void => {
+    if (
+      target.hasAttribute("name") &&
+      target.getAttribute("name") === "username"
+    ) {
+      if (target.value.length === 0) {
+        target.removeAttribute("data-type");
+        invalidUsername.value = null;
+      } else if (target.value.length <= 4 || target.value.length >= 14) {
+        target.setAttribute("data-type", "invalid");
+        invalidUsername.value = true;
+      } else {
+        target.setAttribute("data-type", "valid");
+        invalidUsername.value = false;
+      }
+    }
+  }
 
   const validateEmail = (): void => {
     if (
@@ -154,13 +198,16 @@ const validateInput = (e: Event): void => {
     }
   };
 
+  validateUsername();
   validateEmail();
   validatePassword();
 
   formValid.value =
     target.value.length !== 0 &&
+    !invalidUsername.value &&
     !invalidEmail.value &&
     !invalidPassword.value &&
+    registerData.username.length !== 0 &&
     registerData.email.length !== 0 &&
     registerData.password.length !== 0
       ? true
@@ -168,7 +215,7 @@ const validateInput = (e: Event): void => {
 };
 
 const register = async () => {
-  authStore.signup(registerData.email, registerData.password);
+  authStore.signup(registerData.username, registerData.email, registerData.password);
   emit("closeSignup");
 };
 const onSubmit = () => {};

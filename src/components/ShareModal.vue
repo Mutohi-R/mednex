@@ -64,7 +64,9 @@ const downloadHospitalsCSV = async () => {
     link.href = downloadURL.value;
     link.click();
   } else {
-    toast.error("Download link has expired. Please try again.");
+    toast.error("Download failed. Please try again.", {
+      timeout: 2000,
+    });
   }
 
 };
@@ -79,7 +81,7 @@ const copyLinkToClipboard = async () => {
       console.error("Error copying to clipboard: ", err);
     }  
   } else {
-    toast.error("Download link has expired. Please try again.");
+    toast.error("Error copying link. Please try again.");
   }
 
 };
@@ -140,8 +142,8 @@ const formatTime = (time: number) => {
     &:hover {
       background-color: color-mix(
         in lab,
-        var(--clr-accent-400) 60%,
-        var(--clr-neutral-100) 40%
+        var(--clr-accent-400) 70%,
+        var(--clr-neutral-100) 30%
       );
       cursor: pointer;
     }
@@ -158,8 +160,9 @@ const formatTime = (time: number) => {
     &:hover {
       background-color: color-mix(
         in lab,
-        var(--clr-accent-200) 90%,
-        var(--clr-neutral-100) 10%
+        var(--clr-accent-200) 80%,
+        var(--clr-accent-400) 20%
+        /* var(--clr-neutral-100) 10% */
       );
       cursor: pointer;
     }

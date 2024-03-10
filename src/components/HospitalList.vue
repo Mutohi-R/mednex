@@ -88,7 +88,14 @@
           :hospital="hospital"
           v-if="hospital.isExpanded"
         >
-          <Tab title="Overview"></Tab>
+          <Tab title="Overview">
+            <div v-if="hospital.isExpanded" class="card__details">
+              <MdPreview
+                :model-value="hospital.extraInfo"
+                :preview-theme="'vuepress'"
+              />
+            </div>
+          </Tab>
           <Tab title="Info">
             <div v-if="hospital.isExpanded" class="card__details">
               <MdPreview
@@ -97,7 +104,14 @@
               />
             </div>
           </Tab>
-          <Tab title="Reviews"></Tab>
+          <Tab title="Reviews">
+            <div v-if="hospital.isExpanded" class="card__details">
+              <MdPreview
+                :model-value="hospital.extraInfo"
+                :preview-theme="'vuepress'"
+              />
+            </div>
+          </Tab>
         </TabsWrapper>
       </li>
     </ul>

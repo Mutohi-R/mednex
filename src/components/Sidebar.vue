@@ -31,7 +31,7 @@
       <ul role="list" class="nav__list nav__bottom">
         <li class="item">
           <FontAwesomeIcon class="icon" :icon="faUser" />
-          <p>Profile</p>
+          <p>{{ userData.username }}</p>
         </li>
         <li class="item" @click="authStore.logout">
           <FontAwesomeIcon class="icon" :icon="faArrowRightFromBracket" />
@@ -43,6 +43,7 @@
 </template>
 
 <script setup lang="ts">
+import { storeToRefs } from "pinia";
 import { useAuthStore } from "@/stores/AuthStore";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import {
@@ -56,6 +57,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 const authStore = useAuthStore();
+const { userData } = storeToRefs(authStore);
 </script>
 
 <style scoped lang="scss">
