@@ -26,6 +26,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
+import { useRouter } from "vue-router";
 import type { Ref } from "vue";
 import { storeToRefs } from "pinia";
 import { useAuthStore } from "./stores/AuthStore";
@@ -38,6 +39,7 @@ import SignUp from "@/components/SignUp.vue";
 
 const authStore = useAuthStore();
 const { isAuthenticated } = storeToRefs(authStore);
+const router = useRouter();
 
 const hospitalStore = useHospitalStore();
 
@@ -49,6 +51,10 @@ onMounted(() => {
   authStore.init();
   hospitalStore.init();
 });
+
+router.afterEach(() => {
+  sidebarOpen.value = false;
+})
 
 const openSignup = (): void => {
   login.value?.close();

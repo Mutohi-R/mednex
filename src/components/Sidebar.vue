@@ -29,10 +29,12 @@
         </li>
       </ul>
       <ul role="list" class="nav__list nav__bottom">
-        <li class="item">
-          <FontAwesomeIcon class="icon" :icon="faUser" />
-          <p>{{ userData.username }}</p>
-        </li>
+        <router-link to="/user">
+          <li class="item">
+            <FontAwesomeIcon class="icon" :icon="faUser" />
+            <p>{{ userData.username }}</p>
+          </li>
+        </router-link>
         <li class="item" @click="authStore.logout">
           <FontAwesomeIcon class="icon" :icon="faArrowRightFromBracket" />
           <p>Log Out</p>

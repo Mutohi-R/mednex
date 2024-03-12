@@ -17,6 +17,11 @@ const routes = [
         path: '/dashboard/add-hospital',
         name: 'add-hospital',
         component: () => import('@/pages/AddHospital.vue'),
+    },
+    {
+        path: '/user',
+        name: 'user-profile',
+        component: () => import('@/pages/UserProfile.vue'),
     }
 ]
 
