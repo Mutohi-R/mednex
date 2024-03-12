@@ -59,15 +59,16 @@ export const useAuthStore = defineStore("auth", {
       }
     },
 
-    async signup(name: string, email: string, password: string): Promise<void> {
-      const capitalizeEachWord = (str: string): string => {
-        return str
+    capitalizeEachWord(str: string): string {
+      return str
           .split(" ")
           .map(
             (word) => word.trim().charAt(0).toUpperCase() + word.trim().slice(1)
           )
           .join(" ");
-      };
+    },
+
+    async signup(name: string, email: string, password: string): Promise<void> {
       try {
         const userCred = await createUserWithEmailAndPassword(
           auth,
@@ -75,7 +76,7 @@ export const useAuthStore = defineStore("auth", {
           password
         );
         const user = userCred.user;
-        const username = capitalizeEachWord(name);
+        const username = this.capitalizeEachWord(name);
         // const snapshot = await addDoc(userRef, { username: username, email: user.email, uid: user.uid });
         // console.log(snapshot);
         await setDoc(doc(userRef, user.uid), {
