@@ -17,33 +17,42 @@
                         <div class="group">
                             <div class="label">User Name</div>
                             <div class="flex justify-between items-center gap-space-xs">
-                                <p>{{ userData.username }}</p>
-                                <button class="button" data-type="tertiary">Edit</button>
+                                <p v-if="!isUserNameEditing && userData.username">{{ userData.username }}</p>
+                                <p v-if="!userData.username && !isUserNameEditing">N/A</p>
+                                <input v-if="isUserNameEditing" v-model="userData.username" type="text" autofocus>
+                                <button v-if="!isUserNameEditing" @click="handleUserNameEdit" class="button" data-type="tertiary">Edit</button>
+                                <button v-if="isUserNameEditing" @click="handleEditSave" class="button" data-type="tertiary">Save</button>
                             </div>
                         </div>
                         <div class="group">
                             <div class="label">Email</div>
                             <div class="flex justify-between items-center gap-space-xs">
-                                <p>{{ userData.email }}</p>
-                                <button class="button" data-type="tertiary">Edit</button>
+                                <p v-if="!isEmailEditing">{{ userData.email }}</p>
+                                <input v-if="isEmailEditing" v-model="userData.email" type="text">
+                                <button v-if="!isEmailEditing" @click="handleEmailEdit" class="button" data-type="tertiary">Edit</button>
+                                <button v-if="isEmailEditing" @click="handleEditSave" class="button" data-type="tertiary">Save</button>
                             </div>
                         </div>
                         <div class="group">
                             <div class="label">Phone Number</div>
                             <div class="flex justify-between items-center gap-space-xs">
-                                <p v-if="userData.phone">+1 (555) 555-5555</p>
-                                <p v-else>N/A</p>
-                                <button class="button" data-type="tertiary">Edit</button>
+                                <p v-if="userData.phone && !isPhoneEditing">{{ userData.phone }}</p>
+                                <p v-if="!userData.phone && !isPhoneEditing">N/A</p>
+                                <input v-if="isPhoneEditing" v-model="userData.phone" type="text">
+                                <button v-if="!isPhoneEditing" @click="handlePhoneEdit" class="button" data-type="tertiary">Edit</button>
+                                <button v-if="isPhoneEditing" @click="handleEditSave" class="button" data-type="tertiary">Save</button>
                             </div>
                         </div>
                     </div>
                     <div class="about | group">
                         <div class="flex justify-between items-center gap-space-xs">
                             <div class="label">About</div>
-                            <button class="button" data-type="tertiary">Edit</button>
+                            <button v-if="!isAboutEditing" @click="handleAboutEdit" class="button" data-type="tertiary">Edit</button>
+                            <button v-if="isAboutEditing" @click="handleEditSave" class="button" data-type="tertiary">Save</button>
                         </div>
-                        <div v-if="userData.about" class="about-text"></div>
-                        <div v-else class="about-text">N/A</div>
+                        <div v-if="userData.about && !isAboutEditing" class="about-text">{{ userData.about }}</div>
+                        <div v-if="!userData.about && !isAboutEditing" class="about-text">N/A</div>
+                        <textarea v-if="isAboutEditing" v-model="userData.about" name="about" id="about" cols="" rows=""></textarea>
                     </div>
                 </div>
             </div>
@@ -92,14 +101,50 @@
 </template>
 
 <script setup lang="ts">
-import { ref, type Ref } from 'vue';
+import { ref, type Ref, reactive } from 'vue';
+import type { UserData } from '@/interfacesTypes/user';
 import { storeToRefs } from 'pinia';
 import { useAuthStore } from '@/stores/AuthStore';
 
 const authStore = useAuthStore();
 const { userData } = storeToRefs(authStore);
 
-const isEditing: Ref<boolean> = ref(false);
+const isUserNameEditing: Ref<boolean> = ref(false);
+const isEmailEditing: Ref<boolean> = ref(false);
+const isPhoneEditing: Ref<boolean> = ref(false);
+const isAboutEditing: Ref<boolean> = ref(false);
+
+const userInfo: Ref<UserData> = ref({
+    username: userData.value.username,
+    email: userData.value.email,
+    phone: userData.value.phone,
+    about: userData.value.about,
+})
+
+const handleUserNameEdit = () => {
+    isUserNameEditing.value = true;
+}
+
+const handleEmailEdit = () => {
+    isEmailEditing.value = true;
+}
+
+const handlePhoneEdit = () => {
+    isPhoneEditing.value = true;
+}
+
+const handleAboutEdit = () => {
+    isAboutEditing.value = true;
+}
+
+const handleEditSave = () => {
+    isUserNameEditing.value = false;
+    isEmailEditing.value = false;
+    isPhoneEditing.value = false;
+    isAboutEditing.value = false;
+
+    console.log(userInfo.value)
+}
 </script>
 
 <style lang="scss" scoped>

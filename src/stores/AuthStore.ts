@@ -6,7 +6,7 @@ import {
   signOut,
   onAuthStateChanged,
 } from "firebase/auth";
-import { getDocs, addDoc, setDoc, doc, getDoc } from "firebase/firestore";
+import { getDocs, addDoc, setDoc, doc, getDoc, updateDoc } from "firebase/firestore";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import type { UserData } from "@/interfacesTypes/user";
 import { useAuth } from "@vueuse/firebase";
@@ -134,5 +134,9 @@ export const useAuthStore = defineStore("auth", {
         }
       }
     },
+
+    async updateUserData(name: string, email: string, phone: string, about: string, profilePicture: string): Promise<void> {
+      
+    }
   },
 });
