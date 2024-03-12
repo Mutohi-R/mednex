@@ -82,6 +82,9 @@ export const useAuthStore = defineStore("auth", {
         await setDoc(doc(userRef, user.uid), {
           username: username,
           email: user.email,
+          phone: "",
+          about: "",
+          profilePicture: "",
         });
         const toast = useToast();
         toast.success("Sign up successful");
