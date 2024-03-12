@@ -2,7 +2,7 @@
     <main class="profile-container">
         <section class="content-grid">
             <div class="hero | breakout">
-
+                <p class="fs-400 fw-semibold text-clr-neutral-100 uppercase">My Profile</p>
             </div>
             <div v-if="!isEditing" class="cards">
                 <div class="card-1">
@@ -107,6 +107,7 @@ const isEditing: Ref<boolean> = ref(false);
     padding-block: 6rem;
 
     .hero {
+        padding: .5rem;
         width: 100%;
         height: 10rem;
         background-color: var(--clr-primary-500);
@@ -128,6 +129,7 @@ const isEditing: Ref<boolean> = ref(false);
             display: grid;
             gap: 1rem;
             padding: 1rem;
+            width: max(400px, 30%);
             background-color: var(--clr-neutral-100);
             border-radius: 0.25rem;
             box-shadow: 0px 4px 6px 0px var(--clr-neutral-200);

@@ -32,7 +32,8 @@
         <router-link to="/user">
           <li class="item">
             <FontAwesomeIcon class="icon" :icon="faUser" />
-            <p>{{ userData.username }}</p>
+            <p v-if="userData">{{ userData.username }}</p>
+            <p v-else>User</p>
           </li>
         </router-link>
         <li class="item" @click="authStore.logout">

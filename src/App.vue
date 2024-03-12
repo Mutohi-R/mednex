@@ -19,7 +19,7 @@
     <login @close-login="buttonCloseLogin" @open-signup="openSignup"></login>
   </dialog>
   <Transition name="slide">
-    <sidebar v-if="sidebarOpen && isAuthenticated"></sidebar>
+    <sidebar ref="sidebar" v-if="sidebarOpen && isAuthenticated"></sidebar>
   </Transition>
   <router-view></router-view>
 </template>
@@ -30,6 +30,7 @@ import { useRouter } from "vue-router";
 import type { Ref } from "vue";
 import { storeToRefs } from "pinia";
 import { useAuthStore } from "./stores/AuthStore";
+import { onClickOutside } from "@vueuse/core";
 import useHospitalStore from "./stores/HospitalStore";
 
 import NavBar from "@/components/NavBar.vue";
@@ -46,14 +47,23 @@ const hospitalStore = useHospitalStore();
 const login: Ref<HTMLDialogElement | null> = ref(null);
 const signup: Ref<HTMLDialogElement | null> = ref(null);
 const sidebarOpen: Ref<boolean> = ref(false);
+const sidebar: Ref<HTMLDivElement | null> = ref(null);
 
 onMounted(() => {
   authStore.init();
   hospitalStore.init();
 });
 
-router.afterEach(() => {
+onClickOutside(sidebar, () => {
   sidebarOpen.value = false;
+});
+
+router.afterEach(() => {
+  setTimeout(() => {
+    sidebarOpen.value = false;
+  }, 300);
+
+  // sidebarOpen.value = false;
 })
 
 const openSignup = (): void => {
@@ -99,6 +109,6 @@ const toggleSidebar = (): void => {
 
 .slide-enter-active,
 .slide-leave-active {
-  transition: all 0.3s ease-out;
+  transition: all 0.5s ease-out;
 }
 </style>
