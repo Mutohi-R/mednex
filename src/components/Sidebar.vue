@@ -15,14 +15,21 @@
             <p>Dashboard</p>
           </li>
         </router-link>
-        <li class="item">
+        
+        <router-link to="/hospitals">
+          <li class="item">
+            <FontAwesomeIcon class="icon" :icon="faHospital" />
+            <p>Hospitals</p>
+          </li>
+        </router-link>
+        <!-- <li class="item">
           <FontAwesomeIcon class="icon" :icon="faHeart" />
           <p>Saved</p>
-        </li>
-        <li class="item">
+        </li> -->
+        <!-- <li class="item">
           <FontAwesomeIcon class="icon" :icon="faComments" />
           <p>Reviews</p>
-        </li>
+        </li> -->
         <li class="item">
           <FontAwesomeIcon class="icon" :icon="faQuestion" />
           <p>Help</p>
@@ -57,6 +64,7 @@ import {
   faGear,
   faUser,
   faArrowRightFromBracket,
+  faHospital,
 } from "@fortawesome/free-solid-svg-icons";
 
 const authStore = useAuthStore();
@@ -65,13 +73,12 @@ const { userData } = storeToRefs(authStore);
 
 <style scoped lang="scss">
 .sidebar {
-  position: fixed;
-  z-index: 99;
+  position: absolute;
   top: 4.5rem;
-  left: 0;
-  bottom: 0;
+  right: 0;
   padding-block-start: 1rem;
   background: var(--clr-neutral-100);
+  border-radius: 0 0 0.5rem 0.5rem;
   box-shadow: 0px 6px 12px 0px hsla(230, 7%, 78%, 0.3);
 }
 

@@ -2,11 +2,6 @@
   <header class="primary__header | content-grid">
     <div class="container | breakout | flex items-center gap-space-s justify-between">
       <div class="flex items-center gap-space-2xs">
-        <i-ci-hamburger-lg
-          v-if="isAuthenticated"
-          class="hamburger"
-          @click="$emit('hamburgerClick')"
-        />
         <Logo />
       </div>
       <nav class="primary__nav | flex justify-between items-center gap-space-xs" :class="{ 'grow': !isAuthenticated }">
@@ -53,6 +48,15 @@
             </button>
           </li>
         </ul>
+        <ul>
+          <li>
+              <i-ci-hamburger-lg
+                v-if="isAuthenticated"
+                class="hamburger"
+                @click="$emit('hamburgerClick')"
+              />
+          </li>
+        </ul>
       </nav>
     </div>
   </header>
@@ -86,8 +90,9 @@ const emit = defineEmits(["openSignup", "openLogin", "hamburgerClick"]);
 }
 
 .hamburger {
-  width: 2.5rem;
-  height: 2.5rem;
+  // width: 2.2rem;
+  // height: 2.2rem;
+  scale: 1.5;
   color: var(--clr-primary-600);
 
   &:hover {

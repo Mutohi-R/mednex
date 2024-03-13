@@ -18,9 +18,11 @@
   <dialog ref="login" id="login" class="register" @click="closeLogin($event)">
     <login @close-login="buttonCloseLogin" @open-signup="openSignup"></login>
   </dialog>
-  <Transition name="slide">
-    <sidebar ref="sidebar" v-if="sidebarOpen && isAuthenticated"></sidebar>
-  </Transition>
+  <div class="content-grid | relative">
+    <Transition name="slide" class="sidebar | breakout">
+      <sidebar ref="sidebar" v-if="sidebarOpen && isAuthenticated"></sidebar>
+    </Transition>
+  </div>
   <router-view></router-view>
 </template>
 
@@ -104,7 +106,7 @@ const toggleSidebar = (): void => {
 <style scoped>
 .slide-enter-from,
 .slide-leave-to {
-  transform: translateX(-100%);
+  transform: translateY(-100%);
 }
 
 .slide-enter-active,
