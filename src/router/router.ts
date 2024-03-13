@@ -7,7 +7,12 @@ const routes = [
         path: '/',
         name: 'landing-page',
         component: LandingPage
-    }, 
+    },
+    {
+        path: '/hospitals',
+        name: 'hospitals',
+        component: () => import('@/pages/Hospitals.vue'),
+    },
     {
         path: '/dashboard',
         name: 'dashboard',

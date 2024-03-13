@@ -8,10 +8,10 @@
 <style lang="scss">
 .logo {
   img {
-    transform: scale(1.5);
+    transform: scale(1.3);
   }
   p {
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-family: "Oleo Script Swash Caps", system-ui;
     color: var(--clr-primary-600);
   }

@@ -65,6 +65,7 @@
         </p>
         <p class="or">OR</p>
         <button @click="authStore.loginWithGoogle" class="button main__btn" data-type="secondary">
+          <FontAwesomeIcon class="icon" :icon="faGoogle" />
           Continue with Google
         </button>
         <div class="form__footer">
@@ -95,6 +96,8 @@ import type { Ref } from "vue";
 import { storeToRefs } from "pinia";
 import type { RegisterUser } from "@/interfacesTypes/register";
 import { useAuthStore } from "@/stores/AuthStore";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import { faGoogle } from "@fortawesome/free-brands-svg-icons/faGoogle";
 
 const authStore = useAuthStore();
 const { errors } = storeToRefs(useAuthStore());

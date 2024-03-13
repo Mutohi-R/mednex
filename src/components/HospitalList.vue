@@ -9,7 +9,7 @@
         v-for="(hospital, index) in renderedHospitals"
         :key="index"
       >
-        <div>
+        <div class="card__wrapper">
           <div class="card">
             <div class="flex items-center justify-center">
               <FontAwesomeIcon class="logo" :icon="faImage" />
@@ -96,20 +96,9 @@
               />
             </div>
           </Tab>
-          <Tab title="Info">
-            <div v-if="hospital.isExpanded" class="card__details">
-              <MdPreview
-                :model-value="hospital.extraInfo"
-                :preview-theme="'vuepress'"
-              />
-            </div>
-          </Tab>
           <Tab title="Reviews">
             <div v-if="hospital.isExpanded" class="card__details">
-              <MdPreview
-                :model-value="hospital.extraInfo"
-                :preview-theme="'vuepress'"
-              />
+              <p class="text-center">Comments and ratings coming soon</p>
             </div>
           </Tab>
         </TabsWrapper>
@@ -174,7 +163,7 @@ const startDownload = (csv: string) => {
 };
 </script>
 
-<style lang="scss" scoped>
+<style  scoped>
 .hospital__wrapper {
   padding-block: 3rem;
   background: color-mix(
@@ -222,7 +211,7 @@ const startDownload = (csv: string) => {
       .departments {
         display: flex;
         flex-wrap: wrap;
-        gap: var(--space-2xs);
+        column-gap: var(--space-2xs);
         .department {
           display: flex;
           align-self: center;
@@ -246,6 +235,16 @@ const startDownload = (csv: string) => {
       );
       border-radius: 1rem;
     }
+  }
+}
+
+@media only screen and (max-width: 870px) {
+  .card {
+    grid-template-columns: 1fr !important;
+  }
+
+  div:has(>.logo) {
+    display: none;
   }
 }
 </style>

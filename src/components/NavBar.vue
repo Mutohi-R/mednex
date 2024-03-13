@@ -1,6 +1,6 @@
 <template>
-  <header class="primary__header">
-    <div class="container | flex items-center gap-space-s justify-between">
+  <header class="primary__header | content-grid">
+    <div class="container | breakout | flex items-center gap-space-s justify-between">
       <div class="flex items-center gap-space-2xs">
         <i-ci-hamburger-lg
           v-if="isAuthenticated"
@@ -9,8 +9,8 @@
         />
         <Logo />
       </div>
-      <nav class="primary__nav | flex gap-space-xs">
-        <ul
+      <nav class="primary__nav | flex justify-between items-center gap-space-xs" :class="{ 'grow': !isAuthenticated }">
+        <!-- <ul
           v-if="isAuthenticated"
           role="list"
           class="nav__list | flex items-center gap-space-xs"
@@ -22,6 +22,12 @@
             <FontAwesomeIcon class="bell" :icon="faBell" />
           </li>
           <li class="profile__icon"></li>
+        </ul> -->
+        <ul v-if="!isAuthenticated" role="list" class="nav__links | flex gap-8 mx-auto text-clr-primary-600">
+          <li><router-link to="/">Home</router-link></li>
+          <li><router-link to="/hospitals">Hospitals</router-link></li>
+          <li><router-link to="">Pricing</router-link></li>
+          <li><router-link to="">Reviews</router-link></li>
         </ul>
         <ul
           v-if="!isAuthenticated"

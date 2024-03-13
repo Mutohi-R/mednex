@@ -54,9 +54,9 @@ onMounted(() => {
   hospitalStore.init();
 });
 
-onClickOutside(sidebar, () => {
-  sidebarOpen.value = false;
-});
+// onClickOutside(sidebar, () => {
+//   sidebarOpen.value = false;
+// });
 
 router.afterEach(() => {
   setTimeout(() => {
