@@ -64,7 +64,7 @@
           </button>
         </p>
         <p class="or">OR</p>
-        <button class="button main__btn" data-type="secondary">
+        <button @click="authStore.loginWithGoogle" class="button main__btn" data-type="secondary">
           Continue with Google
         </button>
         <div class="form__footer">

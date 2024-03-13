@@ -89,7 +89,7 @@
           <button class="button" data-type="tertiary">Privacy Policy</button>.
         </p>
         <p class="or">OR</p>
-        <button class="button main__btn" data-type="secondary">
+        <button @click="authStore.loginWithGoogle" class="button main__btn" data-type="secondary">
           Continue with Google
         </button>
         <div class="form__footer">
@@ -207,7 +207,7 @@ const validateInput = (e: Event): void => {
     !invalidUsername.value &&
     !invalidEmail.value &&
     !invalidPassword.value &&
-    registerData.username.length !== 0 &&
+    registerData.username?.length !== 0 &&
     registerData.email.length !== 0 &&
     registerData.password.length !== 0
       ? true
@@ -215,7 +215,7 @@ const validateInput = (e: Event): void => {
 };
 
 const register = async () => {
-  authStore.signup(registerData.username, registerData.email, registerData.password);
+  authStore.signup(registerData.username as string, registerData.email, registerData.password);
   emit("closeSignup");
 };
 const onSubmit = () => {};

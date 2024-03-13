@@ -19,6 +19,7 @@ export const useAuthStore = defineStore("auth", {
     isAuthenticated: isAuthenticated,
     isAdmin: false,
     user: user,
+    userUid: "",
     userData: <UserData>{},
     errors: {
       emailInUse: false,
@@ -38,13 +39,14 @@ export const useAuthStore = defineStore("auth", {
 
           if (user) {
             const loggedInUserId = user.uid;
+            this.userUid = loggedInUserId;
             const userDocRef = doc(userRef, loggedInUserId);
             const userDocSnapshot = await getDoc(userDocRef);
 
             if (userDocSnapshot.exists()) {
               const userData = userDocSnapshot.data();
               this.userData = userData as UserData;
-              console.log(this.userData)
+              // console.log(this.userData)
             } else {
               console.log("No document was found for the logged in user");
             }
@@ -84,7 +86,7 @@ export const useAuthStore = defineStore("auth", {
           email: user.email,
           phone: "",
           about: "",
-          profilePicture: "",
+          profilePicture: user.photoURL,
         });
         const toast = useToast();
         toast.success("Sign up successful");
@@ -135,8 +137,36 @@ export const useAuthStore = defineStore("auth", {
       }
     },
 
-    async updateUserData(name: string, email: string, phone: string, about: string, profilePicture: string): Promise<void> {
-      
+    async updateUserData(userInfo: UserData): Promise<void> {
+      try {
+        const filteredUserInfo: { [key: string]: any } = {};
+        for (const [key, value] of Object.entries(userInfo)) {
+          if (value !== '') {
+            filteredUserInfo[key] = value;
+          }
+        }
+        const userDocRef = doc(userRef, this.userUid);
+        await updateDoc(userDocRef, filteredUserInfo);
+        console.log('done updating');
+      } catch (err) {
+        if (err instanceof Error) {
+          console.error(err);
+        }
+      }
     }
   },
 });
+
+
+        // const dataToUpdate = Object.fromEntries(
+        //   Object.entries(userInfo).filter(([_, value]) => value !== undefined && value !== null)
+        // );
+        // console.log(dataToUpdate);
+        // const dataToUpdate = Object.entries(userInfo).filter(([key, value]) => value !== undefined && value !== null).reduce((acc, [key, value]) => {
+        //   acc[key as keyof UserData] = value;
+        //   return acc;
+        // }, {} as UserData);
+        // console.log(dataToUpdate);
+        // const snapshot = await updateDoc(userDocRef, dataToUpdate);
+        // const toast = useToast();
+        // toast.success("Profile updated");

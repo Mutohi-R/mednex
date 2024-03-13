@@ -32,7 +32,7 @@
         <router-link to="/user">
           <li class="item">
             <FontAwesomeIcon class="icon" :icon="faUser" />
-            <p v-if="userData">{{ userData.username }}</p>
+            <p v-if="userData.username">{{ userData.username }}</p>
             <p v-else>User</p>
           </li>
         </router-link>

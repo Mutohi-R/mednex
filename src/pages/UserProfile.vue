@@ -4,7 +4,7 @@
             <div class="hero | breakout">
                 <p class="fs-400 fw-semibold text-clr-neutral-100 uppercase">My Profile</p>
             </div>
-            <div v-if="!isEditing" class="cards">
+            <div class="cards">
                 <div class="card-1">
                     <div class="flex justify-between items-center gap-space-xs">
                         <div class="img">
@@ -115,6 +115,7 @@ const isPhoneEditing: Ref<boolean> = ref(false);
 const isAboutEditing: Ref<boolean> = ref(false);
 
 const userInfo: Ref<UserData> = ref({
+    profilePicture: userData.value.profilePicture,
     username: userData.value.username,
     email: userData.value.email,
     phone: userData.value.phone,
@@ -143,7 +144,8 @@ const handleEditSave = () => {
     isPhoneEditing.value = false;
     isAboutEditing.value = false;
 
-    console.log(userInfo.value)
+    authStore.updateUserData(userData.value);
+    // console.log(userData.value);
 }
 </script>
 
