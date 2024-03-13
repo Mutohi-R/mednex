@@ -74,7 +74,8 @@ const { userData } = storeToRefs(authStore);
 <style scoped lang="scss">
 .sidebar {
   position: absolute;
-  top: 4.5rem;
+  z-index: -1;
+  top: 3.5rem;
   right: 0;
   padding-block-start: 1rem;
   background: var(--clr-neutral-100);

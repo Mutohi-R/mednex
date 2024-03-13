@@ -2,7 +2,6 @@
   <nav-bar
     @open-signup="openSignup"
     @open-login="openLogin"
-    @hamburger-click="toggleSidebar"
   ></nav-bar>
   <dialog
     ref="signup"
@@ -18,11 +17,11 @@
   <dialog ref="login" id="login" class="register" @click="closeLogin($event)">
     <login @close-login="buttonCloseLogin" @open-signup="openSignup"></login>
   </dialog>
-  <div class="content-grid | relative">
+  <!-- <div class="content-grid | relative">
     <Transition name="slide" class="sidebar | breakout">
       <sidebar ref="sidebar" v-if="sidebarOpen && isAuthenticated"></sidebar>
     </Transition>
-  </div>
+  </div> -->
   <router-view></router-view>
 </template>
 

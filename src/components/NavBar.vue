@@ -1,6 +1,6 @@
 <template>
-  <header class="primary__header | content-grid">
-    <div class="container | breakout | flex items-center gap-space-s justify-between">
+  <header class="primary__header | content-grid | relative">
+    <div class="container | breakout | relative flex items-center gap-space-s justify-between">
       <div class="flex items-center gap-space-2xs">
         <Logo />
       </div>
@@ -53,25 +53,47 @@
               <i-ci-hamburger-lg
                 v-if="isAuthenticated"
                 class="hamburger"
-                @click="$emit('hamburgerClick')"
+                @click="toggleSidebar"
               />
           </li>
         </ul>
       </nav>
+      <Transition name="slide">
+        <sidebar v-if="sidebarOpen && isAuthenticated"></sidebar>
+      </Transition>
     </div>
+    
   </header>
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
 import { useAuthStore } from "@/stores/AuthStore";
+import { storeToRefs } from "pinia";
+import { useRouter } from "vue-router";
 import { isAuthenticated, user } from "@/utils/vueAuth";
 
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faBell, faEnvelope } from "@fortawesome/free-regular-svg-icons";
 import Logo from "./Logo.vue";
 
+const authStore = useAuthStore();
+const router = useRouter();
+
 const emit = defineEmits(["openSignup", "openLogin", "hamburgerClick"]);
+const sidebarOpen: Ref<boolean> = ref(false);
+
+router.afterEach(() => {
+  setTimeout(() => {
+    sidebarOpen.value = false;
+  }, 300);
+
+  // sidebarOpen.value = false;
+})
+
+const toggleSidebar = (): void => {
+  sidebarOpen.value = !sidebarOpen.value;
+};
 </script>
 
 <style lang="scss" scoped>
@@ -86,6 +108,7 @@ const emit = defineEmits(["openSignup", "openLogin", "hamburgerClick"]);
   .container {
     max-width: 1800px;
     margin-inline: auto;
+    background: var(--clr-neutral-100);
   }
 }
 
@@ -112,5 +135,15 @@ const emit = defineEmits(["openSignup", "openLogin", "hamburgerClick"]);
     border: 2px solid var(--clr-primary-600);
     border-radius: 50%;
   }
+}
+
+.slide-enter-from,
+.slide-leave-to {
+  transform: translateY(-100%);
+}
+
+.slide-enter-active,
+.slide-leave-active {
+  transition: all 0.5s ease-out;
 }
 </style>
