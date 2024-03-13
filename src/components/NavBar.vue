@@ -67,7 +67,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, type Ref } from "vue";
 import { useAuthStore } from "@/stores/AuthStore";
 import { storeToRefs } from "pinia";
 import { useRouter } from "vue-router";
@@ -101,7 +101,7 @@ const toggleSidebar = (): void => {
   position: fixed;
   z-index: 99;
   width: 100%;
-  padding: 0.75rem 1.5rem;
+  padding: 0.75rem 0rem;
   background: var(--clr-neutral-100);
   box-shadow: 0px 6px 12px 0px hsla(230, 7%, 78%, 0.3);
 

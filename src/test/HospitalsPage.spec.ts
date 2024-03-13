@@ -5,7 +5,7 @@ import LandingPage from "@/pages/LandingPage.vue";
 import AddHospital from "@/pages/AddHospital.vue";
 import { createPinia, setActivePinia } from "pinia";
 
-describe("LandingPage test suite", () => {
+describe("Hospitals page test suite", () => {
 
     beforeEach(() => {
         setActivePinia(createPinia())

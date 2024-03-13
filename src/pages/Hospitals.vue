@@ -105,6 +105,12 @@ onClickOutside(shareModal, () => {
     var(--clr-primary-400) 50%,
     var(--clr-secondary-100) 50%
   ); */
+
+  @media only screen and (max-width: 400px) {
+    h1, h2 {
+      text-align: start;
+    }
+  }
 }
 
 .filter {

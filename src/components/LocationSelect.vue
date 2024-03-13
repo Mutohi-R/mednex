@@ -4,7 +4,7 @@
       class="dropdown__selected-option | flex justify-between items-center gap-space-xs"
       @click="isDropDownVisible = !isDropDownVisible"
     >
-      <p>{{ selectedLocation || "Select a location" }}</p>
+      <p>{{ selectedLocation || "Location" }}</p>
       <!-- <i-mingcute-down-fill width="32" height="32"/> -->
       <FontAwesomeIcon :icon="faAngleDown" />
     </div>

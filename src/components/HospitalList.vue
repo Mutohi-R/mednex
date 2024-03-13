@@ -211,7 +211,8 @@ const startDownload = (csv: string) => {
       .departments {
         display: flex;
         flex-wrap: wrap;
-        column-gap: var(--space-2xs);
+        gap: var(--space-2xs);
+
         .department {
           display: flex;
           align-self: center;
