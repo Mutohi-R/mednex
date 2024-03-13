@@ -246,5 +246,10 @@ const startDownload = (csv: string) => {
   div:has(>.logo) {
     display: none;
   }
+
+  .mid {
+    display: grid;
+    gap: var(--space-s);
+  }
 }
 </style>
