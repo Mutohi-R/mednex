@@ -1,18 +1,19 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 
 import LandingPage from "@/pages/LandingPage.vue";
+import Hospitals from "@/pages/Hospitals.vue";
 
 const routes = [
     {
         path: '/',
         name: 'landing-page',
-        component: LandingPage
+        component: Hospitals,
     },
-    {
-        path: '/hospitals',
-        name: 'hospitals',
-        component: () => import('@/pages/Hospitals.vue'),
-    },
+    // {
+    //     path: '/hospitals',
+    //     name: 'hospitals',
+    //     component: () => import('@/pages/Hospitals.vue'),
+    // },
     {
         path: '/dashboard',
         name: 'dashboard',
