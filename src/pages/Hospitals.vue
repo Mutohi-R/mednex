@@ -38,10 +38,7 @@
         </div>
         <div
           class="share"
-          @click="
-            hospitalStore.exportHospitals(renderedHospitals);
-            shareModalIsOpen = true;
-          "
+          @click="exportHospitals"
         >
           <FontAwesomeIcon class="icon" :icon="faShare" />
         </div>
@@ -63,7 +60,9 @@ import { ref, type Ref } from "vue";
 import { storeToRefs } from "pinia";
 import { useAuthStore } from "@/stores/AuthStore";
 import useHospitalStore from "@/stores/HospitalStore";
+import { useToast } from "vue-toastification";
 import { onClickOutside } from "@vueuse/core";
+import { isAuthenticated } from "@/utils/vueAuth";
 import LocationSelect from "@/components/LocationSelect.vue";
 import ShareModal from "@/components/ShareModal.vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
@@ -78,6 +77,8 @@ import HospitalList from "@/components/HospitalList.vue";
 const hospitalStore = useHospitalStore();
 const { renderedHospitals } = storeToRefs(hospitalStore);
 const authStore = useAuthStore();
+// const { isAuthenticated } = storeToRefs(authStore);
+const toast = useToast();
 
 const shareModalIsOpen: Ref<boolean> = ref(false);
 const shareModal: Ref<HTMLDivElement | null> = ref(null)
@@ -95,6 +96,17 @@ const getHospitalsBySearch = (searchQuery: string) => {
 onClickOutside(shareModal, () => {
   shareModalIsOpen.value = false
 })
+
+const exportHospitals = (): void => {
+  if (isAuthenticated.value) {
+    hospitalStore.exportHospitals(renderedHospitals.value);
+    shareModalIsOpen.value = true;
+  } else {
+    toast.info("You need to be logged in to export data", {
+      timeout: 3000,
+    });
+  }
+}
 </script>
 
 <style scoped lang="scss">
