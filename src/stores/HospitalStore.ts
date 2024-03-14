@@ -172,7 +172,7 @@ const useHospitalStore = defineStore("hospital", {
           } catch (err) {
             console.log(err);
           }
-        }, 10000);
+        }, 1800000);
       } catch (err) {
         console.log(err);
       }

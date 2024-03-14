@@ -54,7 +54,7 @@ const toast = useToast();
 
 const hospitalStore = useHospitalStore();
 const { downloadURL } = storeToRefs(hospitalStore);
-const timeLeft: Ref<number> = ref(10);
+const timeLeft: Ref<number> = ref(1800);
 const downloadLink = ref<HTMLDivElement | null>(null);
 
 const downloadHospitalsCSV = async () => {
