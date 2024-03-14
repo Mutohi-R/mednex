@@ -14,7 +14,7 @@
       <nav v-if="!isAuthenticated" ref="primaryNav" class="primary__nav | flex justify-between items-center gap-space-xs" :class="{ 'grow': !isAuthenticated }">
         <ul v-if="!isAuthenticated" role="list" class="nav__links | text-center flex gap-8 mx-auto text-clr-primary-600">
           <li><router-link to="/">Home</router-link></li>
-          <!-- <li><router-link to="/hospitals">Hospitals</router-link></li> -->
+          <li><router-link to="/hospitals">Hospitals</router-link></li>
           <li><router-link to="">Pricing</router-link></li>
           <li><router-link to="">Reviews</router-link></li>
         </ul>
@@ -82,7 +82,6 @@ router.afterEach(() => {
 
   primaryNav.value?.removeAttribute('data-visible')
 
-  // sidebarOpen.value = false;
 })
 
 const toggleSidebar = (): void => {
