@@ -166,7 +166,7 @@ import { faFile, faIdBadge } from '@fortawesome/free-regular-svg-icons';
             input {
                 padding: .5rem;
                 border-radius: 0.5rem;
-                background: color-mix(in lab, var(--clr-primary-200) 30%, var(--clr-neutral-100) 70%);
+                background: var(--clr-neutral-100);
                 box-shadow: 0px 6px 12px 0px hsla(230, 7%, 78%, 0.3);
             }
 
