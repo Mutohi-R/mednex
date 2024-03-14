@@ -23,6 +23,7 @@
     </Transition>
   </div> -->
   <router-view></router-view>
+  <Footer></Footer>
 </template>
 
 <script setup lang="ts">
@@ -35,9 +36,10 @@ import { onClickOutside } from "@vueuse/core";
 import useHospitalStore from "./stores/HospitalStore";
 
 import NavBar from "@/components/NavBar.vue";
-import Sidebar from "./components/Sidebar.vue";
 import Login from "@/components/Login.vue";
 import SignUp from "@/components/SignUp.vue";
+import Footer from "@/components/Footer.vue";
+import Random from "./components/Random.vue";
 
 const authStore = useAuthStore();
 const { isAuthenticated } = storeToRefs(authStore);

@@ -7,6 +7,7 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    Footer: typeof import('./src/components/Footer.vue')['default']
     HospitalCard: typeof import('./src/components/HospitalCard.vue')['default']
     HospitalList: typeof import('./src/components/HospitalList.vue')['default']
     ICiHamburgerL: typeof import('~icons/ci/hamburger-l')['default']
@@ -25,7 +26,9 @@ declare module 'vue' {
     LocationSelect: typeof import('./src/components/LocationSelect.vue')['default']
     Login: typeof import('./src/components/Login.vue')['default']
     Logo: typeof import('./src/components/Logo.vue')['default']
+    LogoWhite: typeof import('./src/components/LogoWhite.vue')['default']
     NavBar: typeof import('./src/components/NavBar.vue')['default']
+    Random: typeof import('./src/components/Random.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     ShareModal: typeof import('./src/components/ShareModal.vue')['default']
