@@ -122,6 +122,12 @@ const toggleNav = (): void => {
     }
   }
 
+  .nav__links li {
+    &:hover {
+      color: var(--clr-primary-900);
+    }
+  }
+
   @media only screen and (max-width: 830px) {
     .primary__nav {
       display: none;
@@ -139,7 +145,7 @@ const toggleNav = (): void => {
     }
 
     .primary__nav[data-visible] {
-      background-color: hsl(190, 76%, 82%, .3);
+      background-color: hsl(190, 76%, 82%, .6);
       padding-block: 4rem;
       display: grid;
       justify-content: center;
