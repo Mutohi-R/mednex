@@ -80,6 +80,8 @@ router.afterEach(() => {
     sidebarOpen.value = false;
   }, 300);
 
+  primaryNav.value?.removeAttribute('data-visible')
+
   // sidebarOpen.value = false;
 })
 
