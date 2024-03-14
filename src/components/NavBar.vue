@@ -42,16 +42,12 @@
             </button>
           </li>
         </ul>
-        <ul>
-          <li>
-              <i-ci-hamburger-lg
-                v-if="isAuthenticated"
-                class="sidebar-hamburger"
-                @click="toggleSidebar"
-              />
-          </li>
-        </ul>
       </nav>
+      <i-ci-hamburger-lg
+        v-if="isAuthenticated"
+        class="sidebar-hamburger"
+        @click="toggleSidebar"
+      />
       <Transition name="slide">
         <sidebar v-if="sidebarOpen && isAuthenticated"></sidebar>
       </Transition>

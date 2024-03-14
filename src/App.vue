@@ -39,7 +39,6 @@ import NavBar from "@/components/NavBar.vue";
 import Login from "@/components/Login.vue";
 import SignUp from "@/components/SignUp.vue";
 import Footer from "@/components/Footer.vue";
-import Random from "./components/Random.vue";
 
 const authStore = useAuthStore();
 const { isAuthenticated } = storeToRefs(authStore);
