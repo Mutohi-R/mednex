@@ -4,21 +4,15 @@
       <div class="flex items-center gap-space-2xs">
         <Logo />
       </div>
-      <nav class="primary__nav | flex justify-between items-center gap-space-xs" :class="{ 'grow': !isAuthenticated }">
-        <!-- <ul
-          v-if="isAuthenticated"
-          role="list"
-          class="nav__list | flex items-center gap-space-xs"
-        >
-          <li class="list__icon">
-            <FontAwesomeIcon class="bell" :icon="faEnvelope" />
-          </li>
-          <li class="list__icon">
-            <FontAwesomeIcon class="bell" :icon="faBell" />
-          </li>
-          <li class="profile__icon"></li>
-        </ul> -->
-        <ul v-if="!isAuthenticated" role="list" class="nav__links | flex gap-8 mx-auto text-clr-primary-600">
+      <i-ci-hamburger-lg
+        v-if="!isAuthenticated"
+        :class="['nav-hamburger', 
+        // { 'open': isOpen }
+        ]"
+        @click="toggleNav"
+      />
+      <nav ref="primaryNav" class="primary__nav | flex justify-between items-center gap-space-xs" :class="{ 'grow': !isAuthenticated }">
+        <ul v-if="!isAuthenticated" role="list" class="nav__links | text-center flex gap-8 mx-auto text-clr-primary-600">
           <li><router-link to="/">Home</router-link></li>
           <li><router-link to="/hospitals">Hospitals</router-link></li>
           <li><router-link to="">Pricing</router-link></li>
@@ -52,7 +46,7 @@
           <li>
               <i-ci-hamburger-lg
                 v-if="isAuthenticated"
-                class="hamburger"
+                class="sidebar-hamburger"
                 @click="toggleSidebar"
               />
           </li>
@@ -82,6 +76,8 @@ const router = useRouter();
 
 const emit = defineEmits(["openSignup", "openLogin", "hamburgerClick"]);
 const sidebarOpen: Ref<boolean> = ref(false);
+const isMenuOpen: Ref<boolean> = ref(false);
+const primaryNav: Ref<HTMLDivElement | null> = ref(null);
 
 router.afterEach(() => {
   setTimeout(() => {
@@ -94,6 +90,11 @@ router.afterEach(() => {
 const toggleSidebar = (): void => {
   sidebarOpen.value = !sidebarOpen.value;
 };
+
+const toggleNav = (): void => {
+  isMenuOpen.value = !isMenuOpen.value;
+  primaryNav.value?.toggleAttribute('data-visible')
+}
 </script>
 
 <style lang="scss" scoped>
@@ -110,9 +111,69 @@ const toggleSidebar = (): void => {
     margin-inline: auto;
     background: var(--clr-neutral-100);
   }
+
+  .nav-hamburger {
+    display: none;
+    scale: 1.5;
+    color: var(--clr-primary-600);
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  @media only screen and (max-width: 830px) {
+    .primary__nav {
+      display: none;
+    }
+
+    .nav-hamburger {
+      position: absolute;
+      inset: auto 1rem auto auto;
+      z-index: 10;
+      display: block;
+    }
+
+    .nav__action * {
+      width: 100%;
+    }
+
+    .primary__nav[data-visible] {
+      background-color: hsl(190, 76%, 82%, .3);
+      padding-block: 4rem;
+      display: grid;
+      justify-content: center;
+      align-content: start;
+      gap: 3rem;
+      position: fixed;
+      inset: 0 0 0 30%;
+      animation: slideIn .2s ease-in ;      
+    }
+
+    
+    @keyframes slideIn {
+        0% {
+            transform: translateX(100%);
+        }
+
+        100% {
+            transform: translateX(0);
+        }
+    }
+
+    @supports (backdrop-filter: blur(.4em)) {
+        .primary__nav[data-visible] {
+            backdrop-filter: blur(.3em);
+        }
+    }
+
+    ul[ role='list'] {
+        display: grid;
+    }
+  }
 }
 
-.hamburger {
+.sidebar-hamburger {
   // width: 2.2rem;
   // height: 2.2rem;
   scale: 1.5;
@@ -139,11 +200,14 @@ const toggleSidebar = (): void => {
 
 .slide-enter-from,
 .slide-leave-to {
-  transform: translateY(-100%);
+  // transform: translateY(-100%);
+  transform: scaleY(0);
+  transform-origin: top center;
+  opacity: 0;
 }
 
 .slide-enter-active,
 .slide-leave-active {
-  transition: all 0.5s ease-out;
+  transition: all 0.5s ease-in;
 }
 </style>

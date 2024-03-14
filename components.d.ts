@@ -9,6 +9,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     HospitalCard: typeof import('./src/components/HospitalCard.vue')['default']
     HospitalList: typeof import('./src/components/HospitalList.vue')['default']
+    ICiHamburgerL: typeof import('~icons/ci/hamburger-l')['default']
     ICiHamburgerLg: typeof import('~icons/ci/hamburger-lg')['default']
     ICiHamburgerMd: typeof import('~icons/ci/hamburger-md')['default']
     IClarityNotificationLine: typeof import('~icons/clarity/notification-line')['default']
