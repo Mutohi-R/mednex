@@ -9,7 +9,7 @@
           </li>
         </router-link>
 
-        <router-link to="/dashboard">
+        <router-link to="/dashboard" v-if="isAdmin">
           <li class="item">
             <i-material-symbols-dashboard class="icon" />
             <p>Dashboard</p>
@@ -68,7 +68,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 const authStore = useAuthStore();
-const { userData } = storeToRefs(authStore);
+const { userData, isAdmin } = storeToRefs(authStore);
 </script>
 
 <style scoped lang="scss">

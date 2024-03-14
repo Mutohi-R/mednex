@@ -143,7 +143,7 @@ const toggleNav = (): void => {
     }
 
     .primary__nav[data-visible] {
-      background-color: hsl(190, 76%, 82%, .6);
+      background-color: hsl(0, 0%, 0%, .6);
       padding-block: 4rem;
       display: grid;
       justify-content: center;
@@ -167,7 +167,7 @@ const toggleNav = (): void => {
 
     @supports (backdrop-filter: blur(.4em)) {
         .primary__nav[data-visible] {
-            backdrop-filter: blur(.3em);
+            backdrop-filter: blur(.4em);
         }
     }
 
