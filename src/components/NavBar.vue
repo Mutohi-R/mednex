@@ -11,7 +11,7 @@
         ]"
         @click="toggleNav"
       />
-      <nav ref="primaryNav" class="primary__nav | flex justify-between items-center gap-space-xs" :class="{ 'grow': !isAuthenticated }">
+      <nav v-if="!isAuthenticated" ref="primaryNav" class="primary__nav | flex justify-between items-center gap-space-xs" :class="{ 'grow': !isAuthenticated }">
         <ul v-if="!isAuthenticated" role="list" class="nav__links | text-center flex gap-8 mx-auto text-clr-primary-600">
           <li><router-link to="/">Home</router-link></li>
           <li><router-link to="/hospitals">Hospitals</router-link></li>
@@ -143,7 +143,7 @@ const toggleNav = (): void => {
     }
 
     .primary__nav[data-visible] {
-      background-color: hsl(0, 0%, 0%, .6);
+      background-color: hsl(0, 0%, 0%, .7);
       padding-block: 4rem;
       display: grid;
       justify-content: center;
