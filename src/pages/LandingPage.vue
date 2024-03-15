@@ -55,7 +55,7 @@
                         <h3 class="fs-600 fw-semibold text-clr-primary-00 text-balance">Markdown Support</h3>
                         <FontAwesomeIcon class="icon" :icon="faBrush" />
                     </div>
-                    <p>Effortlessly search for top-rated hospitals in your area. Mednex allows you to search by location or browse a comprehensive list.</p>
+                    <p>Admins can create and format rich content using Markdown, making it simple to add images, links, and styling.</p>
                 </div>
             </div>
         </div>
