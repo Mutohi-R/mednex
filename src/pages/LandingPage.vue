@@ -10,7 +10,7 @@
             appointments - all in one place. Don't wait, get the care you
             deserve, conveniently located near you.
           </p>
-          <button class="button" data-type="primary">Search Hospitals Now</button>
+          <button class="button" data-type="primary"><router-link to="/hospitals">Search Hospitals Now</router-link></button>
         </div>
         <div></div>
       </div>
@@ -66,20 +66,6 @@
             <div class="grid gap-3">
                 <h2 class="fs-600 ff-accent fw-semibold text-clr-primary-800 text-balance">Stay Informed: Subscribe to Healthcare News</h2>
                 <p>Sign up for our newsletter and receive valuable updates on new hospitals added to Mednex, insights on healthcare trends, and tips for finding the right provider.</p>
-                <ul role="list" class="grid gap-2 fs-300">
-                    <li class="flex items-center gap-space-2xs">
-                        <FontAwesomeIcon class="icon" :icon="faCircle"/>
-                        <p>Updates on new hospitals added to the platform.</p>
-                    </li>
-                    <li class="flex items-center gap-space-2xs">
-                        <FontAwesomeIcon class="icon" :icon="faCircle"/>
-                        <p>Insights and trends in the healthcare industry</p>
-                    </li>
-                    <li class="flex items-center gap-space-2xs">
-                        <FontAwesomeIcon class="icon" :icon="faCircle"/>
-                        <p>Tips and resources for finding the right healthcare provider.</p>
-                    </li>
-                </ul>
             </div>
             <div>
                 <form class="grid gap-4">
