@@ -43,7 +43,7 @@
         </div>
       </section>
 
-      <section class="secondary-footer | full-width | bg-clr-secondary-500 ">
+      <section class="secondary-footer | full-width | bg-clr-secondary-400 ">
         <div>
           <p class="text-clr-primary-600">&copy; 2024 MedNex. All rights reserved</p>
           <div class="social-icons">
