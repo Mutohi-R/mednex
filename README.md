@@ -1,40 +1,48 @@
-# mednex
+# Mednex
 
-This template should help get you started developing with Vue 3 in Vite.
+Mednex is a comprehensive healthcare platform designed to facilitate easy access to healthcare services in Nigeria. Whether you're seeking medical assistance, looking for information about healthcare providers, or staying updated with the latest healthcare news, Mednex has you covered.
 
-## Recommended IDE Setup
+## Features
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+- **Hospital Search:** Users can search for hospitals within their region by location or specialty.
+- **Hospital Export:** Export the list of hospitals to a CSV file for easy sharing and management.
+- **Link-Sharing:** Share hospital lists via email or generate shareable links for collaboration.
+- **User Authentication:** Secure user authentication for admin access and management of hospital data.
+- **Markdown Support:** Write hospital entries with markdown formatting for easy content creation and editing.
 
-## Type Support for `.vue` Imports in TS
+## Technologies Used
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+Mednex leverages the following technologies and more:
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+- **Vue.js**: A progressive JavaScript framework for building user interfaces.
+- **Firebase**: A comprehensive platform for building web and mobile applications, providing services such as authentication, Firestore for database storage, and Storage for file storage.
+- **SCSS (Sass)**: A CSS preprocessor that enhances the styling capabilities of CSS, making it more efficient and maintainable.
+- **Vitest**: A testing utility for Vue.js applications.
+- **Vue Utils**: Utility functions and helpers for Vue.js development.
+- **Vue Testing Library**: A testing library for Vue.js applications.
 
-1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+## Installation
 
-## Customize configuration
+To install and run Mednex locally, follow these steps:
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+1. Clone the repository: `git clone https://github.com/Mutohir/mednex.git`
+2. Navigate to the project directory: `cd mednex`
+3. Install dependencies: `npm install`
+4. Start the development server: `npm run dev`
 
-## Project Setup
+## Running Tests
 
-```sh
-npm install
-```
+To run tests, do the following:
 
-### Compile and Hot-Reload for Development
+1. Ensure that all dependencies are installed by running `npm install` in the project directory.
+2. Execute the test suite by running the following command: `npm run test` or to use the vitest UI `npm run test:ui`
 
-```sh
-npm run dev
-```
+## Contributing
 
-### Type-Check, Compile and Minify for Production
+Contributions are welcomed to help improve and enhance Mednex. If you'd like to contribute, please follow these guidelines:
 
-```sh
-npm run build
-```
+1. Fork the repository
+2. Create your feature branch: `git checkout -b feature/my-feature`
+3. Commit your changes: `git commit -am 'Add my feature'`
+4. Push to the branch: `git push origin feature/my-feature`
+5. Submit a pull request
