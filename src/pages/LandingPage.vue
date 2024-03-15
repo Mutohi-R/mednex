@@ -12,7 +12,9 @@
           </p>
           <button class="button" data-type="primary"><router-link to="/hospitals">Search Hospitals Now</router-link></button>
         </div>
-        <div></div>
+        <div>
+            <img src="../assets/images/hero-image.jpg" alt="">
+        </div>
       </div>
     </section>
 
@@ -96,10 +98,20 @@ import { faFile, faIdBadge } from '@fortawesome/free-regular-svg-icons';
         h1 {
             line-height: 1.4;
         }
+
+        >div {
+            gap: var(--space-xl);
+
+            img {
+                height: 100%;
+                object-fit: cover;
+                border-radius: 1rem;
+            }
+        }
     }
 
     .features {
-        padding-block: 3rem;
+        padding-block: 3rem;;
 
         .card-container {
 
