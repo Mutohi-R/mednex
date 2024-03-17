@@ -4,15 +4,11 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, type Ref } from "vue";
 import useHospitalStore from "@/stores/HospitalStore";
 import { storeToRefs } from "pinia";
 import HospitalCards from "./HospitalCards.vue";
 import HospitalCardsLoading from "./HospitalCardsLoading.vue";
 
-onMounted(async () => {
-  await hospitalStore.init();
-});
 
 const hospitalStore = useHospitalStore();
 const { isHospitalsLoading } = storeToRefs(hospitalStore);
