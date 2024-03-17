@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { getDocs, addDoc } from "firebase/firestore";
+import { getDocs, addDoc, doc, updateDoc, runTransaction } from "firebase/firestore";
 import {
   ref,
   uploadBytes,
@@ -8,7 +8,9 @@ import {
 } from "firebase/storage";
 import { v4 as uuidv4 } from "uuid";
 import type { HospitalForm } from "@/interfacesTypes/hospitalForm";
-import { hospitalRef, storage } from "@/firebase/firebase";
+import { hospitalRef, storage, db } from "@/firebase/firebase";
+import { comment } from "postcss";
+import firebase from "firebase/compat/app";
 
 const useHospitalStore = defineStore("hospital", {
   state: () => ({
@@ -185,6 +187,43 @@ const useHospitalStore = defineStore("hospital", {
         console.log(err);
       }
     },
+
+    async addCommentToHospital(hospitalId: string, userId: string, userName: string, userProfilePicture: string, commentText: string) {
+      try {
+        const user = firebase.auth().currentUser;
+
+        if (!user) {
+          throw new Error ('You must be logged in to add comments')
+        }
+
+        const comment = {
+          userId: userId,
+          userName: userName,
+          userProfilePicture: userProfilePicture,
+          comment: commentText,
+          timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        }
+
+        const hospitalDocRef = doc(hospitalRef, hospitalId)
+  
+        await runTransaction(db, async(transaction) => {
+          const hospitalDocSnapshot = await transaction.get(hospitalDocRef);
+          if (!hospitalDocSnapshot.exists()) {
+            throw new Error ('Hospital Document does not exist')
+          }
+          const hospitalData = hospitalDocSnapshot.data();
+          const existingComments = hospitalData.comments || []
+  
+  
+          transaction.update(hospitalDocRef, {
+            comments: [...existingComments, comment]
+          })
+          console.log('comment added successfully')
+        })
+      } catch (err)  {
+        console.log(err);
+      }
+    }
   },
 });
 

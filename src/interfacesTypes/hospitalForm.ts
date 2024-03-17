@@ -1,3 +1,5 @@
+import { type Comment } from "./comment";
+
 export type Time = {
   hours: number | string;
   minutes: number | string;
@@ -8,6 +10,7 @@ export type HospitalForm = {
   id?: string;
   isFavourite?: boolean;
   isExpanded?: boolean;
+  comments?: Comment[];
   accessibility: boolean;
   accessibilityFeatures: string[];
   accommodation: boolean;
