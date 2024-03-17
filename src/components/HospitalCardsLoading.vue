@@ -9,7 +9,6 @@
 </template>
 
 <script setup lang="ts">
-import HospitalCardSkeleton from './HospitalCardSkeleton.vue';
 </script>
 
 <style scoped lang="scss">
