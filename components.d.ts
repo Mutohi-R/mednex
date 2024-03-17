@@ -9,6 +9,10 @@ declare module 'vue' {
   export interface GlobalComponents {
     Footer: typeof import('./src/components/Footer.vue')['default']
     HospitalCard: typeof import('./src/components/HospitalCard.vue')['default']
+    HospitalCards: typeof import('./src/components/HospitalCards.vue')['default']
+    HospitalCardsFallback: typeof import('./src/components/HospitalCardsFallback.vue')['default']
+    HospitalCardSkeleton: typeof import('./src/components/HospitalCardSkeleton.vue')['default']
+    HospitalCardsLoading: typeof import('./src/components/HospitalCardsLoading.vue')['default']
     HospitalList: typeof import('./src/components/HospitalList.vue')['default']
     ICiHamburgerL: typeof import('~icons/ci/hamburger-l')['default']
     ICiHamburgerLg: typeof import('~icons/ci/hamburger-lg')['default']
@@ -37,5 +41,6 @@ declare module 'vue' {
     SignUp: typeof import('./src/components/SignUp.vue')['default']
     Tab: typeof import('./src/components/Tab.vue')['default']
     TabsWrapper: typeof import('./src/components/TabsWrapper.vue')['default']
+    Test: typeof import('./src/components/test.vue')['default']
   }
 }

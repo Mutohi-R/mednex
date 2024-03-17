@@ -53,7 +53,7 @@ const sidebar: Ref<HTMLDivElement | null> = ref(null);
 
 onMounted(() => {
   authStore.init();
-  hospitalStore.init();
+  // hospitalStore.init();
 });
 
 // onClickOutside(sidebar, () => {

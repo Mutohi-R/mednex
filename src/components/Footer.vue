@@ -37,7 +37,7 @@
             <h3>Subscribe</h3>
             <form>
               <input class="" type="email" placeholder="Email Address" />
-              <button class="" data-type="">Subscribe</button>
+              <button>Subscribe</button>
             </form>
           </div>
         </div>
@@ -121,7 +121,7 @@ import LogoWhite from "@/components/LogoWhite.vue";
       
       button {
         padding: 0.5rem;
-        background: var(--clr-accent-300);
+        background: color-mix(in lab, var(--clr-accent-300) 60%, var(--clr-accent-200) 40%);
         border-radius: 0.25rem;
       }
     }

@@ -15,6 +15,7 @@ const useHospitalStore = defineStore("hospital", {
     hospitals: <HospitalForm[]>[],
     renderedHospitals: <HospitalForm[]>[],
     downloadURL: <string>"",
+    isHospitalsLoading: <boolean>true,
     // we use getters to get hospitals and we render over that, to get the filtered we use another getter
     locations: <string[]>[
       "All States",
@@ -70,18 +71,25 @@ const useHospitalStore = defineStore("hospital", {
   },
   actions: {
     async init(): Promise<void> {
-      const snapshot = await getDocs(hospitalRef);
-      snapshot.forEach((doc) => {
-        const hospitalData = <HospitalForm>{
-          ...doc.data(),
-          id: doc.id,
-          isFavourite: false,
-          isExpanded: false,
-        };
-        this.hospitals.push(hospitalData);
-      });
-      this.renderedHospitals = this.hospitals;
-      console.log(this.renderedHospitals);
+      try {
+        console.log(this.isHospitalsLoading)
+        const snapshot = await getDocs(hospitalRef);
+        snapshot.forEach((doc) => {
+          const hospitalData = <HospitalForm>{
+            ...doc.data(),
+            id: doc.id,
+            isFavourite: false,
+            isExpanded: false,
+          };
+          this.hospitals.push(hospitalData);
+        });
+        
+        this.isHospitalsLoading = false;
+        this.renderedHospitals = this.hospitals;
+        console.log(this.isHospitalsLoading);
+      } catch (err) {
+        console.log(err);
+      }
     },
 
     async addHospital(hospital: HospitalForm): Promise<void> {
