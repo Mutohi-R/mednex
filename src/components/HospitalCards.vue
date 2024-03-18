@@ -98,7 +98,7 @@
           </Tab>
           <Tab title="Reviews">
             <div v-if="hospital.isExpanded" class="card__details">
-              <p class="text-center">Comments and ratings coming soon</p>
+              <hospital-comments :id="hospital.id" :comments="hospital.comments"></hospital-comments>
             </div>
           </Tab>
         </TabsWrapper>
@@ -110,6 +110,7 @@
 <script setup lang="ts">
 import { storeToRefs } from "pinia";
 import useHospitalStore from "@/stores/HospitalStore";
+import HospitalComments from "./HospitalComments.vue";
 import TabsWrapper from "./TabsWrapper.vue";
 import Tab from "./Tab.vue";
 import { type HospitalForm } from "@/interfacesTypes/hospitalForm";

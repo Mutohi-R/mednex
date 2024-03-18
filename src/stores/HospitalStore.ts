@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { getDocs, addDoc, doc, updateDoc, runTransaction } from "firebase/firestore";
+import { getDocs, addDoc, doc, updateDoc, getDoc, serverTimestamp } from "firebase/firestore";
 import {
   ref,
   uploadBytes,
@@ -7,9 +7,9 @@ import {
   deleteObject,
 } from "firebase/storage";
 import { v4 as uuidv4 } from "uuid";
+import { useDateFormat, useNow } from "@vueuse/core";
 import type { HospitalForm } from "@/interfacesTypes/hospitalForm";
-import { hospitalRef, storage, db } from "@/firebase/firebase";
-import { comment } from "postcss";
+import { hospitalRef, storage, auth } from "@/firebase/firebase";
 import firebase from "firebase/compat/app";
 
 const useHospitalStore = defineStore("hospital", {
@@ -190,36 +190,34 @@ const useHospitalStore = defineStore("hospital", {
 
     async addCommentToHospital(hospitalId: string, userId: string, userName: string, userProfilePicture: string, commentText: string) {
       try {
-        const user = firebase.auth().currentUser;
 
-        if (!user) {
-          throw new Error ('You must be logged in to add comments')
-        }
+        const commentId = `comment-${uuidv4()}`
+        const timeCreated = useDateFormat(useNow(), 'MMM-DD-YY HH:mm')
 
         const comment = {
+          id: commentId,
           userId: userId,
           userName: userName,
           userProfilePicture: userProfilePicture,
           comment: commentText,
-          timestamp: firebase.firestore.FieldValue.serverTimestamp()
+          createdAt: timeCreated.value
         }
 
         const hospitalDocRef = doc(hospitalRef, hospitalId)
-  
-        await runTransaction(db, async(transaction) => {
-          const hospitalDocSnapshot = await transaction.get(hospitalDocRef);
-          if (!hospitalDocSnapshot.exists()) {
-            throw new Error ('Hospital Document does not exist')
-          }
-          const hospitalData = hospitalDocSnapshot.data();
-          const existingComments = hospitalData.comments || []
-  
-  
-          transaction.update(hospitalDocRef, {
-            comments: [...existingComments, comment]
-          })
-          console.log('comment added successfully')
+        const hospitalDocSnapshot = await getDoc(hospitalDocRef)
+
+        if (!hospitalDocSnapshot.exists()) {
+          throw new Error ('Hospital document was not found')
+        }
+
+        const hospitalData = hospitalDocSnapshot.data()
+        const existingComments = hospitalData.comments
+
+        await updateDoc(hospitalDocRef, {
+          comments: [...existingComments, comment]
         })
+
+        console.log('Comment added successfully')
       } catch (err)  {
         console.log(err);
       }

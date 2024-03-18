@@ -82,6 +82,7 @@ export const useAuthStore = defineStore("auth", {
         // const snapshot = await addDoc(userRef, { username: username, email: user.email, uid: user.uid });
         // console.log(snapshot);
         await setDoc(doc(userRef, user.uid), {
+          id: user.uid,
           username: username,
           email: user.email,
           phone: "",

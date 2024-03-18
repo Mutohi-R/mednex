@@ -1,9 +1,8 @@
-import type { Timestamp } from "firebase/firestore";
-
 export interface Comment {
     id: string,
     userId: string,
     userName: string,
+    userProfilePicture: string,
     comment: string,
-    timeStamp: Timestamp
+    createdAt: string
 }
