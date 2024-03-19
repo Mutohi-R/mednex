@@ -1,11 +1,8 @@
 import { createRouter, createWebHashHistory } from "vue-router";
-import { useAuthStore } from "@/stores/AuthStore";
-import { storeToRefs } from "pinia";
+import { isAuthenticated, user } from "@/utils/vueAuth";
 
 import LandingPage from "@/pages/LandingPage.vue";
 
-const authStore = useAuthStore();
-const { isAdmin, isAuthenticated } = storeToRefs(authStore)
 
 const routes = [
     {
@@ -42,12 +39,12 @@ const router = createRouter({
 
 router.beforeEach((to, from) => {
     // checks if user is an admin trying to access the dashboard
-    if (!isAdmin.value && to.name == 'dashboard') {
+    if (user.value?.email !== 'admin@gmail.com' && to.name == 'dashboard') {
         return { name: 'landing-page'}
     }
     // checks if user is authenticated
     if (!isAuthenticated.value && to.name == 'user-profile') {
-        return { name: 'user-profile' }
+        return { name: 'landing-page' }
     }
 })
 
