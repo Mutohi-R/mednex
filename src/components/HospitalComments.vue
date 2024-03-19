@@ -84,6 +84,9 @@ const addNewComment = async (): Promise<void> => {
     })
   } else {
     const comment = commentText.value.trim();
+    if (comment.length == 0) {
+      return;
+    }
     await hospitalStore.addCommentToHospital(
       props.id,
       userData.value.id,
