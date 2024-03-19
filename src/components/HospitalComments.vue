@@ -32,7 +32,7 @@
       </li>
     </ul>
     <div v-else><p class="fs-300">No comments</p></div>
-    <form class="comment-form | grid gap-4">
+    <form @submit.prevent="addNewComment" class="comment-form | grid gap-4">
       <textarea
         v-model="commentText"
         placeholder="Make a comment"
