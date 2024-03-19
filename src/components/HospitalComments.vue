@@ -7,13 +7,13 @@
         :key="index"
       >
         <div class="flex items-center gap-space-2xs">
-          <div class="text-end">
+          <div class="user-detail | text-end">
             <p class="name | fs-300 fw-semibold text-clr-neutral-700">
               {{ comment.userName }}
             </p>
             <p class="commented-at | fs-200">{{ comment.createdAt }}</p>
           </div>
-          <div class="user-details | flex justify-center items-center">
+          <div class="user-profile-picture | flex justify-center items-center">
             <img
               v-if="comment.userProfilePicture"
               :src="comment.userProfilePicture"
@@ -145,7 +145,11 @@ const addNewComment = async (): Promise<void> => {
     }
   }
 
-  .user-details {
+  .user-detail {
+    min-width: max-content;
+  }
+
+  .user-profile-picture {
     width: 2.5rem;
     aspect-ratio: 1;
     background: var(--clr-neutral-200);
