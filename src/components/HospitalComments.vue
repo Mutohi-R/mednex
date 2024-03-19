@@ -48,7 +48,7 @@
             alt=""
           />
           <div v-else>
-            <p class="fw-semibold fs-500 text-clr-neutral-700">
+            <p v-if="userData.username" class="fw-semibold fs-500 text-clr-neutral-700">
               {{ userData.username.charAt(0) }}
             </p>
           </div>
@@ -67,24 +67,31 @@ import useHospitalStore from "@/stores/HospitalStore";
 import type { UserData } from "@/interfacesTypes/user";
 import { storeToRefs } from "pinia";
 import { useAuthStore } from "@/stores/AuthStore";
+import { useToast } from "vue-toastification";
 
 const authStore = useAuthStore();
-const { userData } = storeToRefs(authStore);
+const { userData, isAuthenticated } = storeToRefs(authStore);
 
 const hospitalStore = useHospitalStore();
 const props = defineProps(["comments", "id"]);
 const commentText: Ref<string> = ref("");
+const toast = useToast();
 
 const addNewComment = (): void => {
-  const comment = commentText.value.trim();
-  hospitalStore.addCommentToHospital(
-    props.id,
-    userData.value.id,
-    userData.value.username,
-    userData.value.profilePicture,
-    comment
-  );
-  // console.log(props.id, userData.value.id, userData.value.username, userData.value.profilePicture, commentText.value)
+  if (!isAuthenticated.value) {
+    toast.info("Log-in to make a comment", {
+      timeout: 3000
+    })
+  } else {
+    const comment = commentText.value.trim();
+    hospitalStore.addCommentToHospital(
+      props.id,
+      userData.value.id,
+      userData.value.username,
+      userData.value.profilePicture,
+      comment
+    );
+  }
 };
 </script>
 

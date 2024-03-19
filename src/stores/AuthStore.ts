@@ -10,6 +10,7 @@ import { getDocs, addDoc, setDoc, doc, getDoc, updateDoc } from "firebase/firest
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import type { UserData } from "@/interfacesTypes/user";
 import { useAuth } from "@vueuse/firebase";
+import router from "@/router/router";
 import { useToast } from "vue-toastification";
 
 const { isAuthenticated, user } = useAuth(auth);
@@ -130,6 +131,7 @@ export const useAuthStore = defineStore("auth", {
         const userCred = await signOut(auth);
         // this.isAuthenticated = false;
         const toast = useToast();
+        router.push({ name: 'landing-page'})
         toast.success("Logged out");
       } catch (err) {
         if (err instanceof Error) {
