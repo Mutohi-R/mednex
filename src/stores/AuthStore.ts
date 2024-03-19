@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import { auth, userRef } from "@/firebase/firebase";
+import { type ErrorFn } from "firebase/auth";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -71,7 +72,7 @@ export const useAuthStore = defineStore("auth", {
           .join(" ");
     },
 
-    async signup(name: string, email: string, password: string): Promise<void> {
+    async signup(name: string, email: string, password: string): Promise<boolean> {
       try {
         const userCred = await createUserWithEmailAndPassword(
           auth,
@@ -92,14 +93,17 @@ export const useAuthStore = defineStore("auth", {
         });
         const toast = useToast();
         toast.success("Sign up successful");
+        return true;
       } catch (err) {
-        if (err instanceof Error) {
-          console.error(err);
+        console.error(err);
+        if (err.code === "auth/email-already-in-use") {
+          this.errors.emailInUse = true;
         }
+        return false;
       }
     },
 
-    async login(email: string, password: string): Promise<void> {
+    async login(email: string, password: string): Promise<boolean> {
       try {
         const userCred = await signInWithEmailAndPassword(
           auth,
@@ -108,10 +112,13 @@ export const useAuthStore = defineStore("auth", {
         );
         const toast = useToast();
         toast.success("Logged in");
+        return true;
       } catch (err) {
-        if (err instanceof Error) {
-          console.error(err);
+        console.error(err);
+        if (err.code === "auth/invalid-credential") {
+          this.errors.invalidCred = true;
         }
+        return false;
       }
     },
 
@@ -120,9 +127,7 @@ export const useAuthStore = defineStore("auth", {
         const provider = new GoogleAuthProvider();
         await signInWithPopup(auth, provider);
       } catch (err) {
-        if (err instanceof Error) {
-          console.error(err);
-        }
+        console.error(err);
       }
     },
 

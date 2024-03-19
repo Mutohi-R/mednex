@@ -124,7 +124,7 @@ import { useAuthStore } from "@/stores/AuthStore";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons/faGoogle";
 
-const { errors } = storeToRefs(useAuthStore());
+const { errors, isAuthenticated } = storeToRefs(useAuthStore());
 
 const emit = defineEmits(["closeSignup", "openLogin"]);
 
@@ -218,8 +218,13 @@ const validateInput = (e: Event): void => {
 };
 
 const register = async () => {
-  authStore.signup(registerData.username as string, registerData.email, registerData.password);
-  emit("closeSignup");
+  const status = await authStore.signup(registerData.username as string, registerData.email, registerData.password);
+  if (status) {
+    emit("closeSignup");
+    registerData.username = ''
+    registerData.email = ''
+    registerData.password = ''
+  }
 };
 const onSubmit = () => {};
 </script>

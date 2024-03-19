@@ -18,10 +18,10 @@
             Invalid email address
           </p>
           <p
-            v-if="errors.emailInUse"
+            v-if="errors.invalidCred"
             class="flex items-center gap-2 fs-200 text-clr-error-400"
           >
-            This email is associated with another account
+            Email and Password do not match
           </p>
           <input
             @input="validateInput"
@@ -100,7 +100,7 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons/faGoogle";
 
 const authStore = useAuthStore();
-const { errors } = storeToRefs(useAuthStore());
+const { errors, isAuthenticated } = storeToRefs(useAuthStore());
 
 const invalidEmail: Ref<boolean | null> = ref(null);
 const invalidPassword: Ref<boolean | null> = ref(null);
@@ -170,8 +170,13 @@ const validateInput = (e: Event): void => {
 };
 
 const login = async () => {
-  authStore.login(loginData.email, loginData.password);
-  emit("closeLogin");
+  const status = await authStore.login(loginData.email, loginData.password);
+  console.log(status)
+  if (status) {
+    emit("closeLogin");
+    loginData.email = '';
+    loginData.password = '';
+  }
 };
 
 const onSubmit = () => {};
