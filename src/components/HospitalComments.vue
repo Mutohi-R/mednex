@@ -41,7 +41,7 @@
         rows="3"
       ></textarea>
       <div class="flex justify-between">
-        <div class="user-details | flex justify-center items-center">
+        <div class="user-profile-picture | flex justify-center items-center">
           <img
             v-if="userData.profilePicture"
             :src="userData.profilePicture"
