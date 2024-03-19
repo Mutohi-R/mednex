@@ -77,14 +77,14 @@ const props = defineProps(["comments", "id"]);
 const commentText: Ref<string> = ref("");
 const toast = useToast();
 
-const addNewComment = (): void => {
+const addNewComment = async (): Promise<void> => {
   if (!isAuthenticated.value) {
     toast.info("Log-in to make a comment", {
       timeout: 3000
     })
   } else {
     const comment = commentText.value.trim();
-    hospitalStore.addCommentToHospital(
+    await hospitalStore.addCommentToHospital(
       props.id,
       userData.value.id,
       userData.value.username,

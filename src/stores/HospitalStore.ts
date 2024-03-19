@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { getDocs, addDoc, doc, updateDoc, getDoc, serverTimestamp } from "firebase/firestore";
+import { getDocs, addDoc, doc, updateDoc, getDoc, onSnapshot } from "firebase/firestore";
 import {
   ref,
   uploadBytes,
@@ -74,17 +74,17 @@ const useHospitalStore = defineStore("hospital", {
   actions: {
     async init(): Promise<void> {
       try {
-        console.log(this.isHospitalsLoading)
-        const snapshot = await getDocs(hospitalRef);
-        snapshot.forEach((doc) => {
-          const hospitalData = <HospitalForm>{
-            ...doc.data(),
-            id: doc.id,
-            isFavourite: false,
-            isExpanded: false,
-          };
-          this.hospitals.push(hospitalData);
-        });
+        onSnapshot(hospitalRef, (snapshot) => {
+          snapshot.forEach((doc) => {
+            const hospitalData = <HospitalForm>{
+              ...doc.data(),
+              id: doc.id,
+              isFavourite: false,
+              isExpanded: false,
+            };
+            this.hospitals.push(hospitalData);
+          });
+        })
         
         this.isHospitalsLoading = false;
         this.renderedHospitals = this.hospitals;
