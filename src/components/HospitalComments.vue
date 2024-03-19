@@ -91,6 +91,7 @@ const addNewComment = (): void => {
       userData.value.profilePicture,
       comment
     );
+    commentText.value = ''
   }
 };
 </script>
