@@ -2,6 +2,11 @@
 
 Mednex is a comprehensive healthcare platform designed to facilitate easy access to healthcare services in Nigeria. Whether you're seeking medical assistance, looking for information about healthcare providers, or staying updated with the latest healthcare news, Mednex has you covered.
 
+## User Authentication
+To login as admin and access admin features such as: adding new hospitals, use the following credentials:
+- **Email:** admin@gmail.com
+- **Password:** admin1234
+
 ## Features
 
 - **Hospital Search:** Users can search for hospitals within their region by location or specialty.
