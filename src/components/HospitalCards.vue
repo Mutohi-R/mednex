@@ -18,7 +18,7 @@
               <div class="heading | flex items-center justify-between">
                 <h3
                   @click="toggleIsExpanded(<string>hospital.id)"
-                  class="h3 fw-semibold text-clr-secondary-700 cursor-pointer underline"
+                  class="h3 flex-grow fw-semibold text-clr-secondary-700 cursor-pointer underline"
                 >
                   {{ hospital.name }}
                 </h3>
